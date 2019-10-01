@@ -22,8 +22,8 @@ local triangleV = {135, 90, -135, 90, 0, -90}
 local trapezoidV = {-60, -90, 60, -90, 120, 60, -120, 60}
 local pentagonV = {-120, -30, 0, -90, 120, -30, 60, 60, -60, 60}
 local hexagonV = {-180, 0, -80, -80, 80, -80, 180, 0, 80, 80, -80, 80}
-local octagonV = {-120, 0, -120, -60}
-local quadrilateralV = {135, 90, -135, 90, 0, -90}
+local octagonV = {-120, 0, -120, -60, -60, -120, 60, -120, 120, -60, 120, 0, 60, 60, -60, 60}
+local quadrilateralV = {-120, -60, -120, -180, 120, -60, 60, 60}
 
 -- draw the triangle's location on the screens size. 
 myTriangle = display.newPolygon(175, 200, triangleV)
@@ -34,9 +34,9 @@ myPentagon = display.newPolygon(830, 200, pentagonV)
 -- draw the triangle's location on the screens size. 
 myHexagon = display.newPolygon(200, 525, hexagonV)
 -- draw the triangle's location on the screens size. 
-myOctagon = display.newPolygon(525, 525, octagonV)
+myOctagon = display.newPolygon(560, 525, octagonV)
 -- draw the triangle's location on the screens size. 
-myQuadrilateral = display.newPolygon(750, 525, quadrilateralV)
+myQuadrilateral = display.newPolygon(850, 525, quadrilateralV)
 
 -- set the backround colour of my screen. 
 -- Remember that colours are between 0 and 1
@@ -45,23 +45,13 @@ display.setDefault("background", 204/255, 255/255, 229/255)
 -- to remove status bar
 display.setStatusBar(display.HiddenStatusBar)
 
-
--- draw the circle. 
-myCircle = display.newCircle(650, 0, radiusOfCircle)
-
--- anchor the rectangle in the top left corner of the screen 
--- set the circle in the top right corner and set its (x,y) position
-myRectangle.anchorX = 0
-myRectangle.anchorY = 0
-myRectangle.x = 20
-myRectangle.y = 20
-myCircle.anchorX = 0
-myCircle.anchorY = 0
-myCircle.x = 630
-myCircle.y = 20
-
--- set the width of the border for rectangle
-myRectangle.strokeWidth = 20
+-- set the width of the border for the shapes
+myTriangle.strokeWidth = 20
+myTrapezoid.strokeWidth = 20
+myPentagon.strokeWidth = 20
+myHexagon.strokeWidth = 20
+myOctagon.strokeWidth = 20
+myQuadrilateral.strokeWidth = 20
 
 -- set the colour of the rectangle
 myRectangle:setFillColor(204/255, 255/255, 255/255)
