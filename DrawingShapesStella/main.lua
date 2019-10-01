@@ -7,7 +7,10 @@
 local textSize = 50
 local myTriangle
 local trianlgeText
-local AreaOfTriangle
+local areaText
+local areaOfTriangle
+local baseOfTriangle
+local heightOfTriangle
 local myTrapezoid
 local trapezoidText
 local myPentagon
@@ -53,18 +56,25 @@ myHexagon.strokeWidth = 20
 myOctagon.strokeWidth = 20
 myQuadrilateral.strokeWidth = 20
 
--- set the colour of the rectangle
-myRectangle:setFillColor(204/255, 255/255, 255/255)
+-- set the colour of the shapes
+myTriangle:setFillColor(204/255, 255/255, 255/255)
+myTrapezoid:setFillColor(204/255, 255/255, 204/255)
+myPentagon:setFillColor(255/255, 229/255, 204/255)
+myHexagon:setFillColor(255/255, 204/255, 204/255)
+myOctagon:setFillColor(255/255, 255/255, 204/255)
+myQuadrilateral:setFillColor(255/255, 204/255, 255/255)
 
--- set the color of the border of the rectangle
-myRectangle:setStrokeColor(204/255, 204/255, 255/255)
+-- set the color of the border of the shapes
+myTriangle:setStrokeColor(204/255, 204/255, 255/255)
+myTrapezoid:setStrokeColor(204/255, 204/255, 255/255)
+myPentagon:setStrokeColor(204/255, 204/255, 255/255)
+myHexagon:setStrokeColor(204/255, 204/255, 255/255)
+myOctagon:setStrokeColor(204/255, 204/255, 255/255)
+myQuadrilateral:setStrokeColor(204/255, 204/255, 255/255)
 
--- set the color of the border of the circle 
-myCircle:setStrokeColor(229/255, 204/255, 255/255)
 
 -- calculate the area of the triangle
 areaOfTriangle = baseOfTriangle * heightOfTriangle / 2
-
 
 -- write the area of the triangle on the screen. Take into consideration the size of
 -- the font when positioning it on the screen.
