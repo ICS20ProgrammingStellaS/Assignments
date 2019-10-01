@@ -26,7 +26,7 @@ local trapezoidV = {-60, -90, 60, -90, 120, 60, -120, 60}
 local pentagonV = {-120, -30, 0, -90, 120, -30, 60, 60, -60, 60}
 local hexagonV = {-180, 0, -80, -80, 80, -80, 180, 0, 80, 80, -80, 80}
 local octagonV = {-120, 0, -120, -60, -60, -120, 60, -120, 120, -60, 120, 0, 60, 60, -60, 60}
-local quadrilateralV = {-120, -60, -120, -180, 120, -60, 60, 60}
+local quadrilateralV = {-120, -60, -120, -120, 60, -60, 60, 60}
 
 -- draw the triangle's location on the screens size. 
 myTriangle = display.newPolygon(175, 200, triangleV)
@@ -72,30 +72,18 @@ myHexagon:setStrokeColor(204/255, 204/255, 255/255)
 myOctagon:setStrokeColor(204/255, 204/255, 255/255)
 myQuadrilateral:setStrokeColor(204/255, 204/255, 255/255)
 
-
--- calculate the area of the triangle
-areaOfTriangle = baseOfTriangle * heightOfTriangle / 2
-
--- write the area of the triangle on the screen. Take into consideration the size of
--- the font when positioning it on the screen.
-areaText = display.newText("The area of this triangle with a base of \n"..
-	widthOfRectangle .. " and a height of " .. heightOfTriangle .. " is " ..
-	areaOtriangle .. " pixels². ", 0, 0, Arial, textSize)
-
-
--- set the colour of the newText of the rectangle
-areaText:setTextColor(255/255, 178/255, 102/255)
-
--- set the colour of the newText of the circle
-areaTextCircle:setTextColor(255/255, 153/255, 153/255)
-
-
-
-
-
-
-
-
-
+-- creat text object, set its position and add color of text
+local textObject = display.newText ("Triangle", 175, 350, nil, 50)
+textObject:setTextColor (0,0,0)
+local textObject = display.newText ("Trapezoid", 530, 350, nil, 50)
+textObject:setTextColor (0,0,0)
+local textObject = display.newText ("Pentagon", 835, 350, nil, 50)
+textObject:setTextColor (0,0,0)
+local textObject = display.newText ("Hexagon", 200, 650, nil, 50)
+textObject:setTextColor (0,0,0)
+local textObject = display.newText ("Octagon", 565, 650, nil, 50)
+textObject:setTextColor (0,0,0)
+local textObject = display.newText ("Quadrilateral", 875, 650, nil, 50)
+textObject:setTextColor (0,0,0)
 
 
