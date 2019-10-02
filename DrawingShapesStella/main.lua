@@ -7,10 +7,10 @@
 local textSize = 50
 local myTriangle
 local trianlgeText
-local areaText
-local areaOfTriangle
-local baseOfTriangle
-local heightOfTriangle
+local areaTextObject
+local areaOfTriangle = baseOfTriangle*heightOfTriangle/2
+local baseOfTriangle = 8
+local heightOfTriangle = 6
 local myTrapezoid
 local trapezoidText
 local myPentagon
@@ -86,4 +86,11 @@ textObject:setTextColor (0,0,0)
 local textObject = display.newText ("Quadrilateral", 875, 650, nil, 50)
 textObject:setTextColor (0,0,0)
 
+local areaTextObject = display.newText ("The area of the triangle is ... ", 175, 350, nil, 50)
+textObject:setTextColor (0,0,0)
 
+-- write the area of the circle on the screen. Take into consideration the size of
+-- the font when positioning it on the screen.
+areaTextCircle = display.newText("The area of this circle with a radius of \n"..
+	radiusOfCircle .. " is " ..
+	areaOfCircle .. " pixels². ", 0, 50, Arial, textSize)
