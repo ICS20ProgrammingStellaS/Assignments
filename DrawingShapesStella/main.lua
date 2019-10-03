@@ -55,10 +55,17 @@ myQuadrilateral.strokeWidth = 20
 
 -- set the colour of each shape.
 myTriangle:setFillColor(204/255, 255/255, 255/255)
-myTrapezoid:setFillColor(204/255, 255/255, 204/255)
+-- set this shape to gradient.
+local gradient = {
+	type = "gradient",
+	color1 = {0, 204/255, 0}, color2 = {153/255, 255/255, 153/255}, direction = "down"
+}
+-- set the rest of the shapes to normal colours.
+myTrapezoid:setFillColor(gradient)
 myPentagon:setFillColor(255/255, 229/255, 204/255)
 myHexagon:setFillColor(255/255, 204/255, 204/255)
-myOctagon:setFillColor(255/255, 255/255, 204/255)
+-- fills the octagon with a picture
+myOctagon.fill = {type="image", filename="Images/yellow-sun.png"}
 myQuadrilateral:setFillColor(255/255, 204/255, 255/255)
 
 -- set the color of the border of each shape.
@@ -79,9 +86,9 @@ textObject:setTextColor (255/255, 178/255, 102/255)
 local textObject = display.newText ("Hexagon", 200, 650, nil, 50)
 textObject:setTextColor (255/255, 102/255, 102/255)
 local textObject = display.newText ("Octagon", 565, 650, nil, 50)
-textObject:setTextColor (255/255, 255/255, 102/255)
+textObject:setTextColor (204/255, 204/255, 0)
 local textObject = display.newText ("Quadrilateral", 875, 650, nil, 50)
-textObject:setTextColor (0,0,0)
+textObject:setTextColor (255/255, 102/255, 178/255)
 
 -- calculate the area of the rectangle
 areaOfTriangle = baseOfTriangle * heightOfTriangle/2
