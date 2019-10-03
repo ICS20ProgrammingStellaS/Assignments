@@ -26,7 +26,7 @@ local quadrilateralText
 local triangleV = {135, 90, -135, 90, 0, -90}
 local trapezoidV = {-60, -90, 60, -90, 120, 60, -120, 60}
 local pentagonV = {-120, -30, 0, -90, 120, -30, 60, 60, -60, 60}
-local hexagonV = {-180, 0, -80, -80, 80, -80, 180, 0, 80, 80, -80, 80}
+local hexagonV = {-120, 0, -80, -80, 80, -80, 120, 0, 80, 80, -80, 80}
 local octagonV = {-120, 0, -120, -60, -60, -120, 60, -120, 120, -60, 120, 0, 60, 60, -60, 60}
 local quadrilateralV = {-120, -60, -120, -120, 60, -60, 60, 60}
 
@@ -71,15 +71,15 @@ myQuadrilateral:setStrokeColor(204/255, 204/255, 255/255)
 
 -- creat text object, set its position and add the color of the text.
 local textObject = display.newText ("Triangle", 175, 350, nil, 50)
-textObject:setTextColor (0,0,0)
+textObject:setTextColor (51/255, 153/255, 255/255)
 local textObject = display.newText ("Trapezoid", 530, 350, nil, 50)
-textObject:setTextColor (0,0,0)
+textObject:setTextColor (0,204/255, 102/255)
 local textObject = display.newText ("Pentagon", 835, 350, nil, 50)
-textObject:setTextColor (0,0,0)
+textObject:setTextColor (255/255, 178/255, 102/255)
 local textObject = display.newText ("Hexagon", 200, 650, nil, 50)
-textObject:setTextColor (0,0,0)
+textObject:setTextColor (255/255, 102/255, 102/255)
 local textObject = display.newText ("Octagon", 565, 650, nil, 50)
-textObject:setTextColor (0,0,0)
+textObject:setTextColor (255/255, 255/255, 102/255)
 local textObject = display.newText ("Quadrilateral", 875, 650, nil, 50)
 textObject:setTextColor (0,0,0)
 
