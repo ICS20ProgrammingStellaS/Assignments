@@ -76,7 +76,7 @@ myHexagon:setStrokeColor(204/255, 204/255, 255/255)
 myOctagon:setStrokeColor(204/255, 204/255, 255/255)
 myQuadrilateral:setStrokeColor(204/255, 204/255, 255/255)
 
--- creat text object, set its position and add the color of the text.
+-- create text object, set its position and add the color of the text.
 local textObject = display.newText ("Triangle", 175, 350, nil, 50)
 textObject:setTextColor (51/255, 153/255, 255/255)
 local textObject = display.newText ("Trapezoid", 530, 350, nil, 50)
