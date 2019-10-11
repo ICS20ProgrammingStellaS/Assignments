@@ -28,7 +28,7 @@ local snowPlow = display.newImageRect("Images/snowPlow.png", 350, 250)
 -- set the images to be transparent
 blueCar.alpha = 1
 redCar.alpha = 1
-snowPlow.alpha = 1
+snowPlow.alpha = 0
 
 -- set the initials x and y position of each image
 blueCar.x = 750
@@ -63,7 +63,7 @@ local function MoveRedCar(event)
 	 end
 end
 
--- car will be called over and over agian
+-- Redcar will be called over and over agian
 Runtime:addEventListener("enterFrame", MoveRedCar) 
 
 ---------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ local function MoveBlueCar(event)
 	blueCar.yScale = blueCar.yScale - 0.001
 end
 
--- car will be called over and over agian
+-- Bluecar will be called over and over agian
 Runtime:addEventListener("enterFrame", MoveBlueCar) 
 
 ---------------------------------------------------------------------------------------
@@ -95,26 +95,25 @@ local function MoveSnowPlow(event)
 	-- add the scroll speed to the x-value of the snowPlow
 	snowPlow.x = snowPlow.x + scrollSpeed3
 	-- change the transparency of the snowPlow every time it moves so that it fades out
-	snowPlow.alpha = snowPlow.alpha + 0.07
+	snowPlow.alpha = snowPlow.alpha + 0.01
 
-if(snowPlow.x < 0) then 
+	-- make snowPlow bounce off wall once 
+	if(snowPlow.x < 0) then 
 		snowPlow.x = snowPlow.x + 3 scrollSpeed3 = -scrollSpeed3 
 	end--Left
-
-	if((snowPlow.x + snowPlow.width) > display.contentWidth) then 
-		snowPlow.x = snowPlow.x - 3 scrollSpeed3 = -scrollSpeed3
 
 	if(snowPlow.y < 0) then 
 		scrollSpeed3 = scrollSpeed3
 	end--Up
 end
 
--- car will be called over and over agian
+-- snowPlow will be called over and over agian
 Runtime:addEventListener("enterFrame", MoveSnowPlow) 
 
 ---------------------------------------------------------------------------------------
 -- LOCAL TEXT object
 ---------------------------------------------------------------------------------------
+-- display text, telling vehicules to be careful when driving
 local textObject = display.newText (" BE CAREFUL, THE ROAD IS SLIPPERY! ", 520, 100, nil, 50)
 local gradientTextObject = { 
 	type = "gradient",
