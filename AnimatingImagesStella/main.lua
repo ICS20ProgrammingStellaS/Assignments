@@ -35,7 +35,11 @@ blueCar.x = 750
 blueCar.y = 475
 
 redCar.x = 200
-redCar.y = 600
+redCar.y = 675
+
+
+redCar.rotation = -45
+local reverse = 1
 
 snowPlow.x = 600
 snowPlow.y = 275
@@ -62,9 +66,22 @@ local function MoveRedCar(event)
 		redCar.x = redCar.x + 3 scrollSpeed1 = -scrollSpeed1
 	 end
 end
-
+ 
 -- Redcar will be called over and over agian
 Runtime:addEventListener("enterFrame", MoveRedCar) 
+
+-- make redCar spin continuesly 
+local function spinRedCar()
+    if ( reverse == 0 ) then
+        reverse = 1
+        transition.to( redCar, { rotation=-360, time=500, transition=easing.inOutCubic } )
+    else
+        reverse = 0
+        transition.to( redCar, { rotation=360, time=500, transition=easing.inOutCubic } )
+    end
+end
+  
+timer.performWithDelay( 600, spinRedCar, 0 )  
 
 ---------------------------------------------------------------------------------------
 -- Function: MoveCar2
