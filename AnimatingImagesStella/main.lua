@@ -11,6 +11,7 @@ scrollSpeed1 = 7
 scrollSpeed2 = -1
 scrollSpeed3 = -4
 
+-- make text gradient
 local gradientTextObject
 
 local blueCar
@@ -36,7 +37,6 @@ blueCar.y = 475
 
 redCar.x = 200
 redCar.y = 675
-
 
 redCar.rotation = -45
 local reverse = 1
