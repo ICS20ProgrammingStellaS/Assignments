@@ -6,6 +6,14 @@
 -- hide the staus bar
 display.setStatusBar(display.HiddenStatusBar)
 
+-- add backgroun music
+local backgroundSound = audio.loadSound("Sounds/windhowl.mp3")
+local backgroundSoundChannel
+
+audio.play(backgroundSound, {loops = -1})
+backgroundSoundChannel = audio.play(backgroundSound)
+
+---------------------------------------------------------------------------------
 -- global variables
 scrollSpeed1 = 7 
 scrollSpeed2 = -1
