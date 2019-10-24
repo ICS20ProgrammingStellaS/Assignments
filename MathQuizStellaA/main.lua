@@ -51,12 +51,10 @@ local secondsLeft = 10
 local clockText
 local countDownTimer 
 
-local lives = 4
+local lives = 3
 local heart1
 local heart2
 local heart3
-local heart4
-
 ---------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ---------------------------------------------------------------------------------------------
@@ -76,7 +74,7 @@ local function AskQuestion()
 
 	-- generate 2 random numbers for division
 	randomNumber5 = math.random(1, 100)
-	randomNumber6 = math.random(1, 100)
+	randomNumber6 = math.random(1, 10)
 
 	-- if the random operator is 1, then do addition
 	if (randomOperator == 1) then
@@ -137,27 +135,33 @@ local function UpdateTime()
 		-- reset the number of seconds left
 		secondsLeft = totalSeconds
 		lives = lives - 1
+		AskQuestion()
 
 		-- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, SHOW A YOU LOSE IMAGE 
 		-- AND CANCLE THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE
 
 		if (lives == 3) then
-			heart1.isVisible = false
+    		clockText.isVisible = false
 		elseif (lives == 2) then
 			heart2.isVisible = false
 		elseif (lives == 1) then
 			heart3.isVisible = false
 		elseif (lives == 0) then
-			heart4.isVisible = false
-	
-
+			clockText.isVisible = false
+			incorrectPointsText.isVisible = false
+    		correctPointsText.isVisible = false
+    		correctObject.isVisible = false
+    		incorrectObject.isVisible = false
+    		questionObject.isVisible = false
+    		numericField.isVisible = false
+    		display.newImageRect("Images/lostGameBkg.png", 2048, 1536)
 
 		end
 
 		-- *** CALL THE FUNCTION TO ASK A NEW QUESTION
 
 	end
-end
+end 
 
 -- function the calls the timer 
 local function StartTimer()
@@ -209,9 +213,7 @@ local function NumericFieldListener( event )
 			timer.performWithDelay(2000, HideIncorrect)
 			-- give a point if the user gets the incorrect answer
 			incorrectPoints = incorrectPoints - 1
-
-			-- update it in the display object
-			incorrectPointsText.text = "Lives = " .. incorrectPoints
+			lives = lives - 1
 			
 			secondsLeft = 10
 
@@ -225,8 +227,14 @@ local function NumericFieldListener( event )
 			heart2.isVisible = false 
 			elseif (lives == 3) then
 			heart3.isVisible = false
-			elseif (lives == 4) then 
-			heart4.isVisible = false 
+			clockText.isVisible = false
+			incorrectPointsText.isVisible = false
+    		correctPointsText.isVisible = false
+    		correctObject.isVisible = false
+    		incorrectObject.isVisible = false
+    		questionObject.isVisible = false
+    		numericField.isVisible = false
+    		display.newImageRect("Images/lostGameBkg.png", 2048, 1536)
 			end
 		end
 
@@ -250,7 +258,6 @@ local function NumericFieldListener( event )
     		heart1.isVisible = false
     		heart2.isVisible = false
     		heart3.isVisible = false
-    		heart4.isVisible = false 
     		clockText.isVisible = false
 
     	elseif (correctPoints == 5) then
@@ -268,7 +275,6 @@ local function NumericFieldListener( event )
     		heart1.isVisible = false
     		heart2.isVisible = false
     		heart3.isVisible = false
-    		heart4.isVisible = false 
     		clockText.isVisible = false
 		end
 	end
@@ -281,21 +287,17 @@ end
 clockText = display.newText("", 100, 100, nil, 50)
 
 -- create the lives to display on the screen 
-heart1 = display.newImageRect("Images.xcassets/heart.png", 100, 100)
+heart1 = display.newImageRect("Images/heart.png", 100, 100)
 heart1.x = display.contentWidth * 7 / 8
 heart1.y = display.contentHeight * 1 / 7 
 
-heart2 = display.newImageRect("Images.xcassets/heart.png", 100, 100)
+heart2 = display.newImageRect("Images/heart.png", 100, 100)
 heart2.x = display.contentWidth * 6 / 8
 heart2.y = display.contentHeight* 1 / 7 
 
-heart3 = display.newImageRect("Images.xcassets/heart.png", 100, 100)
+heart3 = display.newImageRect("Images/heart.png", 100, 100)
 heart3.x = display.contentWidth * 5 / 8
 heart3.y = display.contentHeight * 1 / 7
-
-heart4 = display.newImageRect("Images.xcassets/heart.png", 100, 100)
-heart4.x = display.contentWidth * 4 / 8
-heart4.y = display.contentHeight * 1 / 7
 
 -- displays a question and sets the colour
 questionObject = display.newText( "", display.contentWidth/3, display.contentHeight/2, nil, 50)
