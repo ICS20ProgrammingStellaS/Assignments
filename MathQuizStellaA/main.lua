@@ -42,6 +42,11 @@ local question1
 local randomOperator
 local tempRandomNumber
 
+-- variables for images
+local scrollSpeed1 = 2
+local GIFimage = display.newImageRect("Images/GIFimage", 350, 250)
+GIFimage.isVisible = false
+
 -- variables for sounds
 local correctSound = audio.loadSound("Sounds/correctSound.mp3")
 local correctSoundChannel
@@ -63,9 +68,41 @@ local heart1
 local heart2
 local heart3 
 
+-------------------------------------------------------------------------------------------
+
+-- set the initials x and y position of each image
+GIFimage.x = 300
+GIFimage.y = 475
+
 ---------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+-- Function: MoveSnowPlow
+-- Input: this function accepts an event listner 
+-- Output: none
+-- Description: This function adds the scroll speed to the x-value of the snowPlow. 
+
+local function MoveGIFImage(event)
+	--snowPlow.x = 250
+	--snowPlow.y = 350
+	GIFimage.x = GIFimage.x + scrollSpeed1
+	--snowPlow.y = snowPlow.y - scrollSpeed3
+	-- add the scroll speed to the x-value of the snowPlow
+	GIFimage.x = GIFimage.x + scrollSpeed1
+	-- change the transparency of the snowPlow every time it moves so that it fades out
+	GIFimage.alpha = GIFimage.alpha + 0.01
+
+	-- make snowPlow bounce off wall once 
+	--if(snowPlow.x < 0) then 
+		--snowPlow.x = snowPlow.x + 3 scrollSpeed3 = -scrollSpeed3 
+	--end--Left
+
+	--if(snowPlow.y < 0) then 
+		--scrollSpeed3 = scrollSpeed3
+	--end--Up
+end
+
 
 local function AskQuestion()
 	-- generate a random number between 1 and 2
@@ -199,6 +236,7 @@ local function UpdateTime()
     		incorrectObject.isVisible = false
     		questionObject.isVisible = false
     		numericField.isVisible = false
+
     	end
 
     	
@@ -294,9 +332,14 @@ local function NumericFieldListener( event )
 				display.lostGame = display.newText("Sorry, you lost!", 500, 200, nil, 75)
     			display.lostGame:setTextColor(255/255, 102/255, 102/255)
 				lostGameSoundChannel = audio.play(lostGameSound)
-				GIFimage = display.newImage("Images/GIFimage", display.contentWidth/2, display.contentHeight/3*2)
-    			GIFimage.width = 250
-    			GIFimage.height = 250
+				--GIFimage = display.newImage("Images/GIFimage", display.contentWidth/2, display.contentHeight/3*2)
+    			--GIFimage.width = 250
+    			--GIFimage.height = 250
+
+    			-- snowPlow will be called over and over agian
+    			GIFimage.isVisible = true
+				Runtime:addEventListener("enterFrame", MoveGIFImage) 
+
 			
 			end
 		end
