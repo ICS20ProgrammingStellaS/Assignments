@@ -42,6 +42,9 @@ local question1
 local randomOperator
 local tempRandomNumber
 
+-- variables for images
+local snowPlow = display.newImageRect("Images/GIFimage", 350, 250)
+
 -- variables for sounds
 local correctSound = audio.loadSound("Sounds/correctSound.mp3")
 local correctSoundChannel
@@ -66,6 +69,32 @@ local heart3
 ---------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+-- Function: MoveSnowPlow
+-- Input: this function accepts an event listner 
+-- Output: none
+-- Description: This function adds the scroll speed to the x-value of the snowPlow. 
+local function MoveSnowPlow(event)
+	snowPlow.x = snowPlow.x + scrollSpeed3
+	snowPlow.y = snowPlow.y - scrollSpeed3
+	-- add the scroll speed to the x-value of the snowPlow
+	snowPlow.x = snowPlow.x + scrollSpeed3
+	-- change the transparency of the snowPlow every time it moves so that it fades out
+	snowPlow.alpha = snowPlow.alpha + 0.01
+
+	-- make snowPlow bounce off wall once 
+	if(snowPlow.x < 0) then 
+		snowPlow.x = snowPlow.x + 3 scrollSpeed3 = -scrollSpeed3 
+	end--Left
+
+	if(snowPlow.y < 0) then 
+		scrollSpeed3 = scrollSpeed3
+	end--Up
+end
+
+-- snowPlow will be called over and over agian
+Runtime:addEventListener("enterFrame", MoveSnowPlow) 
+
 
 local function AskQuestion()
 	-- generate a random number between 1 and 2
