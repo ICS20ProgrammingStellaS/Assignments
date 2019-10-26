@@ -11,7 +11,7 @@
 display.setStatusBar(display.HiddenStatusBar)
 
 -- sets the background colour
-display.setDefault("background", 255/255, 204/255, 153/255)
+display.setDefault("background", 0, 225/255, 128/255)
 
 ---------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -44,8 +44,7 @@ local tempRandomNumber
 
 -- variables for images
 local scrollSpeed1 = 2
-local GIFimage = display.newImageRect("Images/GIFimage", 350, 250)
-GIFimage.isVisible = false
+local imageGIF = display.newImageRect("Images/GIFimage", 350, 250)
 
 -- variables for sounds
 local correctSound = audio.loadSound("Sounds/correctSound.mp3")
@@ -68,39 +67,30 @@ local heart1
 local heart2
 local heart3 
 
--------------------------------------------------------------------------------------------
-
--- set the initials x and y position of each image
-GIFimage.x = 300
-GIFimage.y = 475
-
 ---------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ---------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
--- Function: MoveSnowPlow
+
+-- make image invisible at beginning
+imageGIF.isVisible = false 
+
+-- set the initials x and y position of each image
+imageGIF.x = 300
+imageGIF.y = 475
+
+-- Function: MoveGIFImage
 -- Input: this function accepts an event listner 
 -- Output: none
--- Description: This function adds the scroll speed to the x-value of the snowPlow. 
+-- Description: This function adds the scroll speed to the x-value of the imageGIF. 
 
-local function MoveGIFImage(event)
-	--snowPlow.x = 250
-	--snowPlow.y = 350
-	GIFimage.x = GIFimage.x + scrollSpeed1
-	--snowPlow.y = snowPlow.y - scrollSpeed3
-	-- add the scroll speed to the x-value of the snowPlow
-	GIFimage.x = GIFimage.x + scrollSpeed1
+local function MoveImageGIF(event)
+	imageGIF.x = imageGIF.x + scrollSpeed1
+
+	-- add the scroll speed to the x-value of the imageGIF
+	imageGIF.x = imageGIF.x + scrollSpeed1
 	-- change the transparency of the snowPlow every time it moves so that it fades out
-	GIFimage.alpha = GIFimage.alpha + 0.01
+	imageGIF.alpha = imageGIF.alpha + 0.01
 
-	-- make snowPlow bounce off wall once 
-	--if(snowPlow.x < 0) then 
-		--snowPlow.x = snowPlow.x + 3 scrollSpeed3 = -scrollSpeed3 
-	--end--Left
-
-	--if(snowPlow.y < 0) then 
-		--scrollSpeed3 = scrollSpeed3
-	--end--Up
 end
 
 
@@ -337,8 +327,8 @@ local function NumericFieldListener( event )
     			--GIFimage.height = 250
 
     			-- snowPlow will be called over and over agian
-    			GIFimage.isVisible = true
-				Runtime:addEventListener("enterFrame", MoveGIFImage) 
+    			imageGIF.isVisible = true
+				Runtime:addEventListener("enterFrame", MoveImageGIF) 
 
 			
 			end
@@ -359,8 +349,12 @@ local function NumericFieldListener( event )
 
 			-- add text that say end game
 			display.wonGame = display.newText("Yay, you won!", display.contentWidth/2, display.contentHeight*2/3, nil, 75)
-    		display.wonGame:setTextColor(255/255, 102/255, 102/255)	   
-			
+    		display.wonGame:setTextColor(255/255, 102/255, 102/255)	 
+    		-- display imageGIF
+    		wonGameGIF = display.newImage("Images/wonGameGIF", display.contentWidth/2, display.contentHeight/3)
+    		wonGameGIF.width = 250
+    		wonGameGIF.height = 250  
+			-- make everything invisible
     		incorrectPointsText.isVisible = false
     		correctPointsText.isVisible = false
     		correctObject.isVisible = false
@@ -371,9 +365,6 @@ local function NumericFieldListener( event )
     		heart2.isVisible = false
     		heart3.isVisible = false
     		clockText.isVisible = false
-    		wonGameGIF = display.newImage("Images/wonGameGIF", display.contentWidth/2, display.contentHeight/3)
-    		wonGameGIF.width = 250
-    		wonGameGIF.height = 250
 		end
 	end
 end
@@ -427,7 +418,7 @@ numericField:addEventListener( "userInput", NumericFieldListener)
 
 -- display the amount of points as a text object
 correctPointsText = display.newText("Points = " .. correctPoints, 200, 200, nil, 50)
-correctPointsText:setTextColor(178/255, 102/255, 255/255)
+correctPointsText:setTextColor(0, 76/255, 153/255)
 
 -- display the amount of points as a text object
 incorrectPointsText = display.newText(" ", 800, 200, nil, 50)
