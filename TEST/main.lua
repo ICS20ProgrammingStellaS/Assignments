@@ -11,7 +11,7 @@
 display.setStatusBar(display.HiddenStatusBar)
 
 -- sets the background colour
-display.setDefault("background", 255/255, 204/255, 153/255)
+display.setDefault("background", 108/255, 204/255, 153/255)
 
 ---------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -42,10 +42,6 @@ local question1
 local randomOperator
 local tempRandomNumber
 
--- variables for images
-local scrollSpeed1 = 2
-local GIFimage = display.newImageRect("Images/GIFimage", 350, 250)
-GIFimage.isVisible = false
 
 -- variables for sounds
 local correctSound = audio.loadSound("Sounds/correctSound.mp3")
@@ -68,41 +64,9 @@ local heart1
 local heart2
 local heart3 
 
--------------------------------------------------------------------------------------------
-
--- set the initials x and y position of each image
-GIFimage.x = 300
-GIFimage.y = 475
-
 ---------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ---------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
--- Function: MoveSnowPlow
--- Input: this function accepts an event listner 
--- Output: none
--- Description: This function adds the scroll speed to the x-value of the snowPlow. 
-
-local function MoveGIFImage(event)
-	--snowPlow.x = 250
-	--snowPlow.y = 350
-	GIFimage.x = GIFimage.x + scrollSpeed1
-	--snowPlow.y = snowPlow.y - scrollSpeed3
-	-- add the scroll speed to the x-value of the snowPlow
-	GIFimage.x = GIFimage.x + scrollSpeed1
-	-- change the transparency of the snowPlow every time it moves so that it fades out
-	GIFimage.alpha = GIFimage.alpha + 0.01
-
-	-- make snowPlow bounce off wall once 
-	--if(snowPlow.x < 0) then 
-		--snowPlow.x = snowPlow.x + 3 scrollSpeed3 = -scrollSpeed3 
-	--end--Left
-
-	--if(snowPlow.y < 0) then 
-		--scrollSpeed3 = scrollSpeed3
-	--end--Up
-end
-
 
 local function AskQuestion()
 	-- generate a random number between 1 and 2
@@ -118,8 +82,8 @@ local function AskQuestion()
 	randomNumber4 = math.random(1, 10)
 
 	-- generate 2 random numbers for division
-	randomNumber5 = math.random(1, 100)
-	randomNumber6 = math.random(1, 100)
+	randomNumber5 = math.random(1, 10)
+	randomNumber6 = math.random(1, 10)
 
 	-- if the random operator is 1, then do addition
 	if (randomOperator == 1) then
@@ -180,15 +144,6 @@ local function AskQuestion()
 
 		--  I COULDN'T FIND A MATHEMATICAL WAY TO  
 		-- DIVIDE THE NUMBERS WITHOUT A REMAIDER AND UNDER 100.
-
-	-- if random operator is 5, do exponants
-	elseif (randomOperator == 5) then
-
-		-- calculate the correct answer
-		correctAnswer = randomNumber3 ^ randomNumber4
-
-		-- create question in text object
-		questionObject.text = randomNumber3 .. " ^ " .. randomNumber4 .. " = "
 	end
 end
 
@@ -331,14 +286,6 @@ local function NumericFieldListener( event )
     			numericField.isVisible = false
 				display.lostGame = display.newText("Sorry, you lost!", 500, 200, nil, 75)
     			display.lostGame:setTextColor(255/255, 102/255, 102/255)
-				lostGameSoundChannel = audio.play(lostGameSound)
-				--GIFimage = display.newImage("Images/GIFimage", display.contentWidth/2, display.contentHeight/3*2)
-    			--GIFimage.width = 250
-    			--GIFimage.height = 250
-
-    			-- snowPlow will be called over and over agian
-    			GIFimage.isVisible = true
-				Runtime:addEventListener("enterFrame", MoveGIFImage) 
 
 			
 			end
@@ -371,9 +318,6 @@ local function NumericFieldListener( event )
     		heart2.isVisible = false
     		heart3.isVisible = false
     		clockText.isVisible = false
-    		wonGameGIF = display.newImage("Images/wonGameGIF", display.contentWidth/2, display.contentHeight/3)
-    		wonGameGIF.width = 250
-    		wonGameGIF.height = 250
 		end
 	end
 end
