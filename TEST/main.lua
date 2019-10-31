@@ -1,4 +1,4 @@
--- Title: MathQuiz
+-- Title: Test
 -- Name: Stella Armstrong
 -- Course: ICS20
 -- This program selects a random operator (*, +, -, /) 
@@ -11,7 +11,7 @@
 display.setStatusBar(display.HiddenStatusBar)
 
 -- sets the background colour
-display.setDefault("background", 108/255, 204/255, 153/255)
+display.setDefault("background",108/255, 255/255, 153/255)
 
 ---------------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -34,14 +34,9 @@ local correctPoints = 0
 local correctPointsText
 
 
-local lostGame
-local wonGame 
-local wonGameGIF
-
 local question1
 local randomOperator
 local tempRandomNumber
-
 
 -- variables for sounds
 local correctSound = audio.loadSound("Sounds/correctSound.mp3")
@@ -64,14 +59,18 @@ local heart1
 local heart2
 local heart3 
 
+-------------------------------------------------------------------------------------------
+
 ---------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+
 
 local function AskQuestion()
 	-- generate a random number between 1 and 2
 	-- *** MAKE SURE TO DECLARE THIS VARIABLE ABOVE
-	randomOperator = math.random (1, 5)
+	randomOperator = math.random (1, 4)
 
 	-- generate 2 random numbers for subtraction and addition
 	randomNumber1 = math.random(1, 20)
@@ -141,10 +140,8 @@ local function AskQuestion()
 
 		-- create question in text object
 		questionObject.text = correctAnswer1 .. " / " .. randomNumber5 .. " = "
-
-		--  I COULDN'T FIND A MATHEMATICAL WAY TO  
-		-- DIVIDE THE NUMBERS WITHOUT A REMAIDER AND UNDER 100.
 	end
+
 end
 
 -------------------------------------------------------------------------------------------------
@@ -286,8 +283,8 @@ local function NumericFieldListener( event )
     			numericField.isVisible = false
 				display.lostGame = display.newText("Sorry, you lost!", 500, 200, nil, 75)
     			display.lostGame:setTextColor(255/255, 102/255, 102/255)
+				lostGameSoundChannel = audio.play(lostGameSound)
 
-			
 			end
 		end
 

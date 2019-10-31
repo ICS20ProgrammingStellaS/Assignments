@@ -183,6 +183,21 @@ local function AskQuestion()
 end
 
 -------------------------------------------------------------------------------------------------
+-- hide correctObject
+local function HideCorrect()
+	correctObject.isVisible = false
+	AskQuestion()
+end
+
+----------------------------------------------------------------------------------------------------------------------------
+-- hide incorrectObject
+local function HideIncorrect()
+	incorrectObject.isVisible = false
+	AskQuestion()
+
+end
+----------------------------------------------------------------------------------------------------------------------------
+
 -- UPDATE TIMER
 local function UpdateTime()
 
@@ -196,14 +211,20 @@ local function UpdateTime()
 		-- reset the number of seconds left
 		secondsLeft = totalSeconds
 
+
 		-- subtract a live after time runs out
 		lives = lives - 1
 
-		-- ask another question
-		AskQuestion()
 
 		--play the sound on any available channel
 		wrongSoundChannel = audio.play(wrongSound)
+
+		incorrectObject.isVisible = true
+		incorrectObject.text = " Incorrect! The correct answer is " .. correctAnswer .. "."
+		timer.performWithDelay(2000, HideIncorrect)
+
+		-- ask another question
+		AskQuestion()
 
 		-- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, SHOW A YOU LOSE IMAGE 
 		-- AND CANCLE THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE
@@ -223,9 +244,15 @@ local function UpdateTime()
 			incorrectPointsText.isVisible = false
     		correctPointsText.isVisible = false
     		correctObject.isVisible = false
-    		incorrectObject.isVisible = false
+    		incorrectObject.isVisible = fale
     		questionObject.isVisible = false
     		numericField.isVisible = false
+    		display.lostGame = display.newText("Sorry, you lost!", 500, 200, nil, 75)
+    		display.lostGame:setTextColor(255/255, 102/255, 102/255)
+			lostGameSoundChannel = audio.play(lostGameSound)
+
+			imageGIF.isVisible = true
+			Runtime:addEventListener("enterFrame", MoveImageGIF) 
 
     	end
 
@@ -243,22 +270,7 @@ local function StartTimer()
 	countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
 end
 
--------------------------------------------------------------------------------------------------------------------------
--- hide correctObject
-local function HideCorrect()
-	correctObject.isVisible = false
-	AskQuestion()
-end
-
-----------------------------------------------------------------------------------------------------------------------------
--- hide incorrectObject
-local function HideIncorrect()
-	incorrectObject.isVisible = false
-	AskQuestion()
-end
-
-
-----------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
 
 -- create NumericFieldListener
 local function NumericFieldListener( event )
