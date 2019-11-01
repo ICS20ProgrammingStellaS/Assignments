@@ -219,10 +219,6 @@ local function UpdateTime()
 		--play the sound on any available channel
 		wrongSoundChannel = audio.play(wrongSound)
 
-		incorrectObject.isVisible = true
-		incorrectObject.text = " Incorrect! The correct answer is " .. correctAnswer .. "."
-		timer.performWithDelay(2000, HideIncorrect)
-
 		-- ask another question
 		AskQuestion()
 
@@ -235,7 +231,6 @@ local function UpdateTime()
 		elseif (lives == 2) then
 				heart2.isVisible = false
 		elseif (lives == 1) then
-			heart3.isVisible = false
 		elseif (lives == 0) then -- if you lose all lives, make everything disappear
 			heart3.isVisible = false
 			heart2.isVisible = false
