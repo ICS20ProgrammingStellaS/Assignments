@@ -97,7 +97,7 @@ local function showCompanyLogo()
 end
 
 local function timerLogo()
-	timer.performWithDelay(1550, showCompanyLogo)
+	timer.performWithDelay(1570, showCompanyLogo)
 end
 
 -----------------------------------------------------------------------------------------
