@@ -5,6 +5,9 @@
 -- company logo that...
 -----------------------------------------------------------------------------------------
 
+-- sets the background colour
+display.setDefault("background", 255/255, 255/255, 204/255)
+
 -- Use Composer Library
 local composer = require( "composer" )
 
@@ -26,8 +29,7 @@ local topLeft
 local topRight
 local bottomLeft
 local bottomRight
-local scrollXSpeed = 8
-local scrollYSpeed = -3
+local scrollSpeed = 3
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -36,66 +38,66 @@ local scrollYSpeed = -3
 -- The function that moves the beetleship across the screen
 local function moveTopLeft()
 	topLeft.x = topLeft.x + scrollSpeed
-	topLeft.y = topLeft.y - scrollSpeed
-	-- add the scroll speed to the x-value of the snowPlow
-	topLeft.x = topLeft.x + scrollSpeed
+	topLeft.y = topLeft.y + scrollSpeed
 
 	-- make snowPlow bounce off wall once 
-	if(topLeft.x < 0) then 
-		topLeft.x = topLeft.x + 3 scrollSpeed = -scrollSpeed
+	if(topLeft.x == 300) then 
+		scrollSpeed = 0
 	end--Left
 
-	if(topLeft.y < 0) then 
-		scrollSpeed = scrollSpeed
+	if(topLeft.y == 300) then 
+		scrollSpeed = 0
 	end--Up
 end
 
 local function moveTopRight()
-    topLeft.x = topLeft.x + scrollSpeed
-    topLeft.y = topLeft.y - scrollSpeed
-    -- add the scroll speed to the x-value of the snowPlow
-    topLeft.x = topLeft.x + scrollSpeed
+    topRight.x = topRight.x - scrollSpeed
+    topRight.y = topRight.y + scrollSpeed
 
     -- make snowPlow bounce off wall once 
-    if(topLeft.x < 0) then 
-        topLeft.x = topLeft.x + 3 scrollSpeed = -scrollSpeed
-    end--Left
+    --if(topRight.x < 0) then 
+       -- topRight.x = topRight.x + 3 scrollSpeed = -scrollSpeed
+   -- end--Left
 
-    if(topLeft.y < 0) then 
-        scrollSpeed = scrollSpeed
-    end--Up
+    --if(topRight.y < 0) then 
+    --    scrollSpeed = scrollSpeed
+    --end--Up
 end
 
 local function moveBottomLeft()
-    topRight.x = topRight.x + scrollSpeed
-    topRight.y = topRight.y - scrollSpeed
-    -- add the scroll speed to the x-value of the snowPlow
-    topRight.x = topRight.x + scrollSpeed
+    bottomLeft.x = bottomLeft.x + scrollSpeed
+    bottomLeft.y = bottomLeft.y - scrollSpeed
 
     -- make snowPlow bounce off wall once 
-    if(topRight.x < 0) then 
-        topRight.x = topRight.x + 3 scrollSpeed = -scrollSpeed
-    end--Left
+   -- if(bottomLeft.x < 0) then 
+   --     bottomLeft.x = bottomLeft.x + 3 scrollSpeed = -scrollSpeed
+  --  end--Left
 
-    if(topRight.y < 0) then 
+   -- if(bottomLeft.y < 0) then 
         scrollSpeed = scrollSpeed
-    end--Up
+   -- end--Up
 end
 
 local function moveBottomRight()
-    bottomLeft.x = bottomLeft.x + scrollSpeed
-    bottomLeft.y = bottomLeft.y - scrollSpeed
-    -- add the scroll speed to the x-value of the snowPlow
-    bottomLeft.x = bottomLeft.x + scrollSpeed
+    bottomRight.x = bottomRight.x - scrollSpeed
+    bottomRight.y = bottomRight.y - scrollSpeed
 
     -- make snowPlow bounce off wall once 
-    if(topLeft.x < 0) then 
-        bottomLeft.x = bottomLeft.x + 3 scrollSpeed = -scrollSpeed
-    end--Left
+   -- if(bottomRight.x < 0) then 
+   --     bottomRight.x = bottomRight.x + 3 scrollSpeed = -scrollSpeed
+   -- end--Left
 
-    if(bottomLeft.y < 0) then 
-        scrollSpeed = scrollSpeed
-    end--Up
+   -- if(bottomRight.y < 0) then 
+    --    scrollSpeed = scrollSpeed
+    --end--Up
+end
+
+local function showCompanyLogo()
+	companyLogo.isVisible = true
+end
+
+local function timerLogo()
+	timer.performWithDelay(1550, showCompanyLogo)
 end
 
 -----------------------------------------------------------------------------------------
@@ -109,29 +111,35 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- set the background to be black
-    display.setDefault("background", 204/255, 255/255, 153/255)
+    --display.setDefault("background", 204/255, 255/255, 153/255)
 
     -- Insert the beetleship image
     topLeft = display.newImageRect("Images/TopLeft.png", 200, 200)
     topRight = display.newImageRect("Images/TopRight.png", 200, 200)
     bottomLeft = display.newImageRect("Images/BottomLeft.png", 200, 200)
     bottomRight = display.newImageRect("Images/BottomRight.png", 200, 200)
+    companyLogo = display.newImageRect("Images/CompanyLogo.png", 500, 500)
+    companyLogo.x = display.contentWidth/2
+    companyLogo.y = display.contentHeight/2
+    companyLogo.isVisible = false
 
     -- set the initial x and y position of the beetleship
-    topLeft.x = 100
-    topLeft.y = display.contentHeight/2
+    topLeft.x = 110
+    topLeft.y = 0
 
-    topRight.x = 100
-    topRight.y = display.contentHeight/2
+    topRight.x = display.contentWidth -110
+    topRight.y = 0
 
-    bottomLeft.x = 100
-    bottomLeft.y = display.contentHeight/2
+    bottomLeft.x = 110
+    bottomLeft.y = display.contentHeight
 
-    bottomRight.x = 100
-    bottomRight.y = display.contentHeight/2
-
+    bottomRight.x = display.contentWidth -110
+    bottomRight.y = display.contentHeight
     -- Insert objects into the scene group in order to ONLY be associated with this scene
-    sceneGroup:insert( topLeft, topRight, bottomLeft, bottomRight )
+    sceneGroup:insert( topLeft )
+    sceneGroup:insert( topRight )
+    sceneGroup:insert( bottomLeft )
+    sceneGroup:insert( bottomRight )
 
 end -- function scene:create( event )
 
@@ -157,11 +165,10 @@ function scene:show( event )
     elseif ( phase == "did" ) then
 
         -- Call the moveBeetleship function as soon as we enter the frame.
-        Runtime:addEventListener("enterFrame", moveTopLeft, moveTopRight, moveBottomLeft, moveBottomRight)
-
-        -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 3000, gotoMainMenu)          
-        
+        Runtime:addEventListener("enterFrame", moveTopLeft)
+		Runtime:addEventListener("enterFrame", moveTopRight)
+		Runtime:addEventListener("enterFrame", moveBottomLeft)
+		Runtime:addEventListener("enterFrame", moveBottomRight)
     end
 
 end --function scene:show( event )
@@ -181,6 +188,13 @@ function scene:hide( event )
     -- Insert code here to "pause" the scene.
     -- Example: stop timers, stop animation, stop audio, etc.
     if ( phase == "will" ) then  
+
+    -----------------------------------------------------------------------------------------
+
+    -- Called immediately after scene goes off screen.
+    elseif ( phase == "did" ) then
+        
+    end
 
 end --function scene:hide( event )
 
@@ -210,5 +224,7 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
+timerLogo()
 -----------------------------------------------------------------------------------------
-end
+
+return scene
