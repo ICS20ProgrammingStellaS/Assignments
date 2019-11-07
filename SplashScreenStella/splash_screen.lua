@@ -43,10 +43,12 @@ local function moveTopLeft()
 	-- make snowPlow bounce off wall once 
 	if(topLeft.x == 300) then 
 		scrollSpeed = 0
+		topLeft.isVisible = false
 	end--Left
 
 	if(topLeft.y == 300) then 
 		scrollSpeed = 0
+		topLeft.isVisible = false
 	end--Up
 end
 
@@ -55,13 +57,15 @@ local function moveTopRight()
     topRight.y = topRight.y + scrollSpeed
 
     -- make snowPlow bounce off wall once 
-    --if(topRight.x < 0) then 
-       -- topRight.x = topRight.x + 3 scrollSpeed = -scrollSpeed
-   -- end--Left
+	if(topRight.x == 300) then 
+		scrollSpeed = 0
+		topRight.isVisible = false
+	end--Left
 
-    --if(topRight.y < 0) then 
-    --    scrollSpeed = scrollSpeed
-    --end--Up
+	if(topRight.y == 300) then 
+		scrollSpeed = 0
+		topRight.isVisible = false
+	end--Up
 end
 
 local function moveBottomLeft()
@@ -69,36 +73,57 @@ local function moveBottomLeft()
     bottomLeft.y = bottomLeft.y - scrollSpeed
 
     -- make snowPlow bounce off wall once 
-   -- if(bottomLeft.x < 0) then 
-   --     bottomLeft.x = bottomLeft.x + 3 scrollSpeed = -scrollSpeed
-  --  end--Left
+	if(bottomLeft.x == 300) then 
+		scrollSpeed = 0
+		bottomLeft.isVisible = false
+	end--Left
 
-   -- if(bottomLeft.y < 0) then 
-        scrollSpeed = scrollSpeed
-   -- end--Up
+	if(bottomLeft.y == 300) then 
+		scrollSpeed = 0
+		bottomLeft.isVisible = false
+	end--Up
 end
 
 local function moveBottomRight()
     bottomRight.x = bottomRight.x - scrollSpeed
     bottomRight.y = bottomRight.y - scrollSpeed
 
-    -- make snowPlow bounce off wall once 
-   -- if(bottomRight.x < 0) then 
-   --     bottomRight.x = bottomRight.x + 3 scrollSpeed = -scrollSpeed
-   -- end--Left
+   	-- make snowPlow bounce off wall once 
+	if(bottomRight.x == 300) then 
+		scrollSpeed = 0
+		bottomRight.isVisible = false
+	end--Left
 
-   -- if(bottomRight.y < 0) then 
-    --    scrollSpeed = scrollSpeed
-    --end--Up
+	if(bottomRight.y == 300) then 
+		scrollSpeed = 0
+		bottomRight.isVisible = false
+	end--Up
+end
+
+local function animation( event )
+	-- make logo rotate
+	companyLogo:rotate(1)
+
+	-- make logo fade out
+	companyLogo.alpha = companyLogo.alpha - 0.001
+	companyLogo.xScale = companyLogo.xScale - 0.004
+	companyLogo.yScale = companyLogo.yScale - 0.004
 end
 
 local function showCompanyLogo()
 	companyLogo.isVisible = true
+	bottomRight.isVisible = false
+	bottomLeft.isVisible = false
+	topRight.isVisible = false
+	topRight.isVisible = false
+	--timer.performWithDelay(3000, animation)
 end
 
 local function timerLogo()
-	timer.performWithDelay(1570, showCompanyLogo)
+	timer.performWithDelay(1600, showCompanyLogo)
+	timer.performWithDelay(2000, animation)
 end
+
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -118,7 +143,7 @@ function scene:create( event )
     topRight = display.newImageRect("Images/TopRight.png", 200, 200)
     bottomLeft = display.newImageRect("Images/BottomLeft.png", 200, 200)
     bottomRight = display.newImageRect("Images/BottomRight.png", 200, 200)
-    companyLogo = display.newImageRect("Images/CompanyLogo.png", 500, 500)
+    companyLogo = display.newImageRect("Images/CompanyLogo.png", 450, 450)
     companyLogo.x = display.contentWidth/2
     companyLogo.y = display.contentHeight/2
     companyLogo.isVisible = false
@@ -169,6 +194,8 @@ function scene:show( event )
 		Runtime:addEventListener("enterFrame", moveTopRight)
 		Runtime:addEventListener("enterFrame", moveBottomLeft)
 		Runtime:addEventListener("enterFrame", moveBottomRight)
+		Runtime:addEventListener("enterFrame", timerLogo)
+		timerLogo()
     end
 
 end --function scene:show( event )
@@ -224,7 +251,7 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
-timerLogo()
+
 -----------------------------------------------------------------------------------------
 
 return scene
