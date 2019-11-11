@@ -29,7 +29,7 @@ local topLeft
 local topRight
 local bottomLeft
 local bottomRight
-local scrollSpeed = 3
+local scrollSpeed = 6
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -102,7 +102,7 @@ end
 
 local function animation( event )
 	-- make logo rotate
-	companyLogo:rotate(1)
+	companyLogo:rotate(5)
 
 	-- make logo fade out
 	companyLogo.alpha = companyLogo.alpha - 0.001
@@ -120,8 +120,8 @@ local function showCompanyLogo()
 end
 
 local function timerLogo()
-	timer.performWithDelay(1600, showCompanyLogo)
-	timer.performWithDelay(2000, animation)
+	timer.performWithDelay(675, showCompanyLogo)
+	timer.performWithDelay(1000, animation)
 end
 
 
