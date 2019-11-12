@@ -31,6 +31,13 @@ local bottomLeft
 local bottomRight
 local scrollSpeed = 6
 
+-------------------------------------------------------------------------------------------
+-- SOUNDS 
+---------------------------------------------------------------------------------------------
+-- intro sound / background
+local introSound = audio.loadSound("Sounds/IntroSound.mp3")
+local introSoundChannel
+
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 --------------------------------------------------------------------------------------------
@@ -40,64 +47,63 @@ local function moveTopLeft()
 	topLeft.x = topLeft.x + scrollSpeed
 	topLeft.y = topLeft.y + scrollSpeed
 
-	-- make snowPlow bounce off wall once 
+	-- make top left peice come to center from top left corner
 	if(topLeft.x == 300) then 
 		scrollSpeed = 0
 		topLeft.isVisible = false
-	end--Left
+	end
 
 	if(topLeft.y == 300) then 
 		scrollSpeed = 0
 		topLeft.isVisible = false
-	end--Up
+	end
 end
 
 local function moveTopRight()
     topRight.x = topRight.x - scrollSpeed
     topRight.y = topRight.y + scrollSpeed
 
-    -- make snowPlow bounce off wall once 
+    -- make top right peice come to center from top right corner
 	if(topRight.x == 300) then 
 		scrollSpeed = 0
 		topRight.isVisible = false
-	end--Left
+	end
 
 	if(topRight.y == 300) then 
 		scrollSpeed = 0
 		topRight.isVisible = false
-	end--Up
+	end
 end
 
 local function moveBottomLeft()
     bottomLeft.x = bottomLeft.x + scrollSpeed
     bottomLeft.y = bottomLeft.y - scrollSpeed
 
-    -- make snowPlow bounce off wall once 
+    -- make bottom left peice come to center from bootom left corner
 	if(bottomLeft.x == 300) then 
 		scrollSpeed = 0
 		bottomLeft.isVisible = false
-	end--Left
-
+	end
 	if(bottomLeft.y == 300) then 
 		scrollSpeed = 0
 		bottomLeft.isVisible = false
-	end--Up
+	end
 end
 
 local function moveBottomRight()
     bottomRight.x = bottomRight.x - scrollSpeed
     bottomRight.y = bottomRight.y - scrollSpeed
 
-   	-- make snowPlow bounce off wall once 
+    -- make bottom right peice come to center from bottom right corner
 	if(bottomRight.x == 300) then 
 		scrollSpeed = 0
 		bottomRight.isVisible = false
-	end--Left
+	end
 
 	if(bottomRight.y == 300) then 
 		scrollSpeed = 0
 		bottomRight.isVisible = false
-	end--Up
+	end
 end
 
 local function animation( event )
@@ -105,20 +111,21 @@ local function animation( event )
 	companyLogo:rotate(5)
 
 	-- make logo fade out
-	companyLogo.alpha = companyLogo.alpha - 0.001
-	companyLogo.xScale = companyLogo.xScale - 0.004
-	companyLogo.yScale = companyLogo.yScale - 0.004
+	companyLogo.alpha = companyLogo.alpha - 0.004
+	companyLogo.xScale = companyLogo.xScale - 0.003
+	companyLogo.yScale = companyLogo.yScale - 0.003
 end
 
+-- make function to show company logo once the four sections meet the center of the screen
 local function showCompanyLogo()
 	companyLogo.isVisible = true
 	bottomRight.isVisible = false
 	bottomLeft.isVisible = false
 	topRight.isVisible = false
 	topRight.isVisible = false
-	--timer.performWithDelay(3000, animation)
 end
 
+-- timer for when it displays company logo and animation 
 local function timerLogo()
 	timer.performWithDelay(675, showCompanyLogo)
 	timer.performWithDelay(1000, animation)
@@ -135,10 +142,7 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-    -- set the background to be black
-    --display.setDefault("background", 204/255, 255/255, 153/255)
-
-    -- Insert the beetleship image
+ -- Insert the four peices / sections images and company logo
     topLeft = display.newImageRect("Images/TopLeft.png", 200, 200)
     topRight = display.newImageRect("Images/TopRight.png", 200, 200)
     bottomLeft = display.newImageRect("Images/BottomLeft.png", 200, 200)
@@ -148,7 +152,7 @@ function scene:create( event )
     companyLogo.y = display.contentHeight/2
     companyLogo.isVisible = false
 
-    -- set the initial x and y position of the beetleship
+    -- set the initial x and y position of the peices / sections
     topLeft.x = 110
     topLeft.y = 0
 
@@ -160,6 +164,7 @@ function scene:create( event )
 
     bottomRight.x = display.contentWidth -110
     bottomRight.y = display.contentHeight
+
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( topLeft )
     sceneGroup:insert( topRight )
@@ -189,13 +194,14 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
 
-        -- Call the moveBeetleship function as soon as we enter the frame.
+        -- Call the peices / sections, timer logo and sound as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveTopLeft)
 		Runtime:addEventListener("enterFrame", moveTopRight)
 		Runtime:addEventListener("enterFrame", moveBottomLeft)
 		Runtime:addEventListener("enterFrame", moveBottomRight)
 		Runtime:addEventListener("enterFrame", timerLogo)
-		timerLogo()
+        introSoundChannel = audio.play(introSound) 
+
     end
 
 end --function scene:show( event )
@@ -220,6 +226,8 @@ function scene:hide( event )
 
     -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
+        -- call sound to stop
+        audio.stop(introSoundChannel)
         
     end
 
@@ -253,5 +261,5 @@ scene:addEventListener( "destroy", scene )
 
 
 -----------------------------------------------------------------------------------------
-
+-- return to scene 
 return scene
