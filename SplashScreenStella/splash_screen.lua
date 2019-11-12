@@ -107,28 +107,28 @@ local function moveBottomRight()
 end
 
 local function animation( event )
-	-- make logo rotate
-	companyLogo:rotate(5)
+    -- make logo rotate
+    companyLogo:rotate(5)
 
-	-- make logo fade out
-	companyLogo.alpha = companyLogo.alpha - 0.004
-	companyLogo.xScale = companyLogo.xScale - 0.003
-	companyLogo.yScale = companyLogo.yScale - 0.003
+    -- make logo fade out
+    companyLogo.alpha = companyLogo.alpha - 0.008
+    companyLogo.xScale = companyLogo.xScale - 0.003
+    companyLogo.yScale = companyLogo.yScale - 0.003
 end
 
 -- make function to show company logo once the four sections meet the center of the screen
 local function showCompanyLogo()
-	companyLogo.isVisible = true
-	bottomRight.isVisible = false
-	bottomLeft.isVisible = false
-	topRight.isVisible = false
-	topRight.isVisible = false
+    companyLogo.isVisible = true
+    bottomRight.isVisible = false
+    bottomLeft.isVisible = false
+    topRight.isVisible = false
+    topLeft.isVisible = false
 end
 
 -- timer for when it displays company logo and animation 
 local function timerLogo()
-	timer.performWithDelay(675, showCompanyLogo)
-	timer.performWithDelay(1000, animation)
+    timer.performWithDelay(875, showCompanyLogo)
+    timer.performWithDelay(1000, animation)
 end
 
 
@@ -198,7 +198,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", moveTopLeft)
 		Runtime:addEventListener("enterFrame", moveTopRight)
 		Runtime:addEventListener("enterFrame", moveBottomLeft)
-		Runtime:addEventListener("enterFrame", moveBottomRight)
+        Runtime:addEventListener("enterFrame", moveBottomRight)
 		Runtime:addEventListener("enterFrame", timerLogo)
         introSoundChannel = audio.play(introSound) 
 

@@ -1,3 +1,4 @@
+  
 -- Title: SplashScreen
 -- Name: Stella Armstrong
 -- Course: ICS2O
