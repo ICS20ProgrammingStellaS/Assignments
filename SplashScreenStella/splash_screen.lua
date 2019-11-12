@@ -111,7 +111,7 @@ local function animation( event )
     companyLogo:rotate(5)
 
     -- make logo fade out
-    companyLogo.alpha = companyLogo.alpha - 0.004
+    companyLogo.alpha = companyLogo.alpha - 0.008
     companyLogo.xScale = companyLogo.xScale - 0.003
     companyLogo.yScale = companyLogo.yScale - 0.003
 end
