@@ -127,7 +127,7 @@ end
 
 -- timer for when it displays company logo and animation 
 local function timerLogo()
-    timer.performWithDelay(675, showCompanyLogo)
+    timer.performWithDelay(875, showCompanyLogo)
     timer.performWithDelay(1000, animation)
 end
 
