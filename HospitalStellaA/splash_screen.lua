@@ -1,11 +1,12 @@
--- Title: Hospital
--- Name: Stella Armstrong
--- Course: ICS2O
--- This program creates main menu, instructions, credits and level 1 screens.
+-- test
+-- Created by: Your Name
+-- Date: Month Day, Year
+-- Description: This is the splash screen of the game. It displays the 
+-- company logo that...
 -----------------------------------------------------------------------------------------
 
 -- sets the background colour
-display.setDefault("background", 255/255, 255/255, 204/255)
+--display.setDefault("background", 255/255, 255/255, 204/255)
 
 -- Use Composer Library
 local composer = require( "composer" )
@@ -43,19 +44,19 @@ local introSoundChannel
 
 -- The function that moves the beetleship across the screen
 local function moveTopLeft()
-    topLeft.x = topLeft.x + scrollSpeed
-    topLeft.y = topLeft.y + scrollSpeed
+	topLeft.x = topLeft.x + scrollSpeed
+	topLeft.y = topLeft.y + scrollSpeed
 
-    -- make top left peice come to center from top left corner
-    if(topLeft.x == 300) then 
-        scrollSpeed = 0
-        topLeft.isVisible = false
-    end
+	-- make top left peice come to center from top left corner
+	if(topLeft.x == 300) then 
+		scrollSpeed = 0
+		topLeft.isVisible = false
+	end
 
-    if(topLeft.y == 300) then 
-        scrollSpeed = 0
-        topLeft.isVisible = false
-    end
+	if(topLeft.y == 300) then 
+		scrollSpeed = 0
+		topLeft.isVisible = false
+	end
 end
 
 local function moveTopRight()
@@ -63,15 +64,15 @@ local function moveTopRight()
     topRight.y = topRight.y + scrollSpeed
 
     -- make top right peice come to center from top right corner
-    if(topRight.x == 300) then 
-        scrollSpeed = 0
-        topRight.isVisible = false
-    end
+	if(topRight.x == 300) then 
+		scrollSpeed = 0
+		topRight.isVisible = false
+	end
 
-    if(topRight.y == 300) then 
-        scrollSpeed = 0
-        topRight.isVisible = false
-    end
+	if(topRight.y == 300) then 
+		scrollSpeed = 0
+		topRight.isVisible = false
+	end
 end
 
 local function moveBottomLeft()
@@ -79,14 +80,14 @@ local function moveBottomLeft()
     bottomLeft.y = bottomLeft.y - scrollSpeed
 
     -- make bottom left peice come to center from bootom left corner
-    if(bottomLeft.x == 300) then 
-        scrollSpeed = 0
-        bottomLeft.isVisible = false
-    end
-    if(bottomLeft.y == 300) then 
-        scrollSpeed = 0
-        bottomLeft.isVisible = false
-    end
+	if(bottomLeft.x == 300) then 
+		scrollSpeed = 0
+		bottomLeft.isVisible = false
+	end
+	if(bottomLeft.y == 300) then 
+		scrollSpeed = 0
+		bottomLeft.isVisible = false
+	end
 end
 
 local function moveBottomRight()
@@ -94,15 +95,15 @@ local function moveBottomRight()
     bottomRight.y = bottomRight.y - scrollSpeed
 
     -- make bottom right peice come to center from bottom right corner
-    if(bottomRight.x == 300) then 
-        scrollSpeed = 0
-        bottomRight.isVisible = false
-    end
+	if(bottomRight.x == 300) then 
+		scrollSpeed = 0
+		bottomRight.isVisible = false
+	end
 
-    if(bottomRight.y == 300) then 
-        scrollSpeed = 0
-        bottomRight.isVisible = false
-    end
+	if(bottomRight.y == 300) then 
+		scrollSpeed = 0
+		bottomRight.isVisible = false
+	end
 end
 
 local function animation( event )
@@ -121,7 +122,7 @@ local function showCompanyLogo()
     bottomRight.isVisible = false
     bottomLeft.isVisible = false
     topRight.isVisible = false
-    topRight.isVisible = false
+    topLeft.isVisible = false
 end
 
 -- timer for when it displays company logo and animation 
@@ -130,7 +131,10 @@ local function timerLogo()
     timer.performWithDelay(1000, animation)
 end
 
-
+-- The function that will go to the main menu 
+local function gotoMainMenu()
+    composer.gotoScene( "main_menu" )
+end
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -140,6 +144,9 @@ function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    display.setDefault("background", 255/255, 255/255, 204/255)
+
 
  -- Insert the four peices / sections images and company logo
     topLeft = display.newImageRect("Images/TopLeft.png", 200, 200)
@@ -195,11 +202,12 @@ function scene:show( event )
 
         -- Call the peices / sections, timer logo and sound as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveTopLeft)
-        Runtime:addEventListener("enterFrame", moveTopRight)
-        Runtime:addEventListener("enterFrame", moveBottomLeft)
+		Runtime:addEventListener("enterFrame", moveTopRight)
+		Runtime:addEventListener("enterFrame", moveBottomLeft)
         Runtime:addEventListener("enterFrame", moveBottomRight)
-        Runtime:addEventListener("enterFrame", timerLogo)
+		Runtime:addEventListener("enterFrame", timerLogo)
         introSoundChannel = audio.play(introSound) 
+        timer.performWithDelay ( 3000, gotoMainMenu)
 
     end
 

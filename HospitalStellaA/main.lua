@@ -1,12 +1,12 @@
-  
--- Title: SplashScreen
+-----------------------------------------------------------------------------------------
+-- Title: SampleVideoGame
 -- Name: Stella Armstrong
 -- Course: ICS2O
 -- This program...
 -----------------------------------------------------------------------------------------
 
 -- Hiding Status Bar
-display.setStatusBar(display.HiddenStatusBar)
+-- HIDE THE STATUS BAR
 
 -----------------------------------------------------------------------------------------
 
