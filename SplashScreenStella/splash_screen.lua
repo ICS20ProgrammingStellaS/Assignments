@@ -44,19 +44,19 @@ local introSoundChannel
 
 -- The function that moves the beetleship across the screen
 local function moveTopLeft()
-    topLeft.x = topLeft.x + scrollSpeed
-    topLeft.y = topLeft.y + scrollSpeed
+	topLeft.x = topLeft.x + scrollSpeed
+	topLeft.y = topLeft.y + scrollSpeed
 
-    -- make top left peice come to center from top left corner
-    if(topLeft.x == 300) then 
-        scrollSpeed = 0
-        topLeft.isVisible = false
-    end
+	-- make top left peice come to center from top left corner
+	if(topLeft.x == 300) then 
+		scrollSpeed = 0
+		topLeft.isVisible = false
+	end
 
-    if(topLeft.y == 300) then 
-        scrollSpeed = 0
-        topLeft.isVisible = false
-    end
+	if(topLeft.y == 300) then 
+		scrollSpeed = 0
+		topLeft.isVisible = false
+	end
 end
 
 local function moveTopRight()
@@ -64,15 +64,15 @@ local function moveTopRight()
     topRight.y = topRight.y + scrollSpeed
 
     -- make top right peice come to center from top right corner
-    if(topRight.x == 300) then 
-        scrollSpeed = 0
-        topRight.isVisible = false
-    end
+	if(topRight.x == 300) then 
+		scrollSpeed = 0
+		topRight.isVisible = false
+	end
 
-    if(topRight.y == 300) then 
-        scrollSpeed = 0
-        topRight.isVisible = false
-    end
+	if(topRight.y == 300) then 
+		scrollSpeed = 0
+		topRight.isVisible = false
+	end
 end
 
 local function moveBottomLeft()
@@ -80,14 +80,14 @@ local function moveBottomLeft()
     bottomLeft.y = bottomLeft.y - scrollSpeed
 
     -- make bottom left peice come to center from bootom left corner
-    if(bottomLeft.x == 300) then 
-        scrollSpeed = 0
-        bottomLeft.isVisible = false
-    end
-    if(bottomLeft.y == 300) then 
-        scrollSpeed = 0
-        bottomLeft.isVisible = false
-    end
+	if(bottomLeft.x == 300) then 
+		scrollSpeed = 0
+		bottomLeft.isVisible = false
+	end
+	if(bottomLeft.y == 300) then 
+		scrollSpeed = 0
+		bottomLeft.isVisible = false
+	end
 end
 
 local function moveBottomRight()
@@ -95,15 +95,15 @@ local function moveBottomRight()
     bottomRight.y = bottomRight.y - scrollSpeed
 
     -- make bottom right peice come to center from bottom right corner
-    if(bottomRight.x == 300) then 
-        scrollSpeed = 0
-        bottomRight.isVisible = false
-    end
+	if(bottomRight.x == 300) then 
+		scrollSpeed = 0
+		bottomRight.isVisible = false
+	end
 
-    if(bottomRight.y == 300) then 
-        scrollSpeed = 0
-        bottomRight.isVisible = false
-    end
+	if(bottomRight.y == 300) then 
+		scrollSpeed = 0
+		bottomRight.isVisible = false
+	end
 end
 
 local function animation( event )
@@ -122,7 +122,7 @@ local function showCompanyLogo()
     bottomRight.isVisible = false
     bottomLeft.isVisible = false
     topRight.isVisible = false
-    topRight.isVisible = false
+    topLeft.isVisible = false
 end
 
 -- timer for when it displays company logo and animation 
@@ -196,10 +196,10 @@ function scene:show( event )
 
         -- Call the peices / sections, timer logo and sound as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveTopLeft)
-        Runtime:addEventListener("enterFrame", moveTopRight)
-        Runtime:addEventListener("enterFrame", moveBottomLeft)
+		Runtime:addEventListener("enterFrame", moveTopRight)
+		Runtime:addEventListener("enterFrame", moveBottomLeft)
         Runtime:addEventListener("enterFrame", moveBottomRight)
-        Runtime:addEventListener("enterFrame", timerLogo)
+		Runtime:addEventListener("enterFrame", timerLogo)
         introSoundChannel = audio.play(introSound) 
 
     end
