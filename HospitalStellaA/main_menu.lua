@@ -57,7 +57,7 @@ end
 
 -- Creating Transition Function to Instructions Page
 local function InstructionsTransition( )       
-    composer.gotoScene( "instructions", {effect = "fromRight", time = 500})
+    composer.gotoScene( "instructions_screen", {effect = "fromRight", time = 500})
 end 
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
