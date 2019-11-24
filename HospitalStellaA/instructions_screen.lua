@@ -33,7 +33,7 @@ local backButton
 
 -- Creating Transitioning Function back to main menu
 local function BackTransition( )
-    composer.gotoScene( "main_menu", {effect = "fromRight", time = 500})
+    composer.gotoScene( "main_menu", {effect = "zoomOutIn", time = 500})
 end
 
 
