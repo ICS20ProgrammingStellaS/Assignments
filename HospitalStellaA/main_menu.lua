@@ -28,6 +28,13 @@ sceneName = "main_menu"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
+-------------------------------------------------------------------------------------------
+-- SOUNDS 
+---------------------------------------------------------------------------------------------
+-- bkg sound
+local bkgMusic = audio.loadSound("Sounds/GameSound.mp3")
+local bkgMusicChannel
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -69,10 +76,18 @@ end
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 
---local function Mute(touch)
-   -- if (touch.phase == "ended") then
+local function Mute(touch)
+   if (touch.phase == "ended") then
         -- pause the sound
-      --  audio.pause(bkgMusic)
+        audio.pause(bkgMusic)
+        -- set the boolean variable to be false. (Sound is now muted)
+        soundOn = false
+        -- hide mute button
+        muteButton.isVisible = false
+        -- make the unmute button visible
+        unmuteButton.isVisible = true
+    end
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -198,8 +213,8 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then       
-        
-
+        bkgMusicChannel = audio.play(bkgMusic, {loops= -1})
+        muteButton:addEventListener("touch", Mute)
     end
 
 end -- function scene:show( event )
@@ -222,11 +237,13 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        audio.stop(bkgMusicChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        muteButton:removeEventListener("touch", Mute)
     end
 
 end -- function scene:hide( event )
@@ -244,6 +261,21 @@ function scene:destroy( event )
     -- Example: remove display objects, save state, etc.
 
 end -- function scene:destroy( event )
+
+-----------------------------------------------------------------------------------------------------------------------------
+-- OBJECT CREATION 
+-----------------------------------------------------------------------------------------------------------------------------
+-- Creating mute Button
+muteButton = display.newImageRect("Images/muteButton.png", 200, 200)
+muteButton.x = display.contentWidth*1.5/10
+muteButton.y = display.contentHeight*1.3/10
+muteButton.isVisible = true
+
+-- Creating unmute Button
+unmuteButton = display.newImageRect("Images/unmuteButton.png", 200, 200)
+unmuteButton.x = display.contentWidth*1.5/10
+unmuteButton.y = display.contentHeight*1.3/10
+unmuteButton.isVisible = true
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
