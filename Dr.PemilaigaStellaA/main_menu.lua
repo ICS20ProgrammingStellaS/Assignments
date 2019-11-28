@@ -39,7 +39,7 @@ local bkgMusicChannel
 -- GLOBAL VARIABLES
 -----------------------------------------------------------------------------------------
 -- make sound global for all screens
-soundOn = true
+--soundOn = true
 
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
