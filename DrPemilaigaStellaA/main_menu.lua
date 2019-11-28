@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------
--- 
+--
 -- main_menu.lua
--- Created by: Stella Armstrong
--- Date: November 26, 2019
+-- Created by: Your Name
+-- Date: Month Day, Year
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.
 -----------------------------------------------------------------------------------------
 
@@ -76,7 +76,6 @@ end
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 
--- local function for mute
 local function Mute(touch)
    if (touch.phase == "ended") then
     print("clicked on mute")
@@ -91,7 +90,6 @@ local function Mute(touch)
     end
 end
 
--- local fuction for unmute
 local function UnMute(touch)
    if (touch.phase == "ended") then
     print("Clicked on unmute")
