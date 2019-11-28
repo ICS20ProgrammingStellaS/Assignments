@@ -115,6 +115,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
 
+       soundOn = false 
 
     end
 
