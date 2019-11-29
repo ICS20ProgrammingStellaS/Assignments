@@ -7,7 +7,7 @@
 
 -- Hiding Status Bar
 -- HIDE THE STATUS BAR
-
+soundOn = true
 -----------------------------------------------------------------------------------------
 
 -- Use composer library

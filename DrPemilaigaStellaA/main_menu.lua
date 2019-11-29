@@ -39,7 +39,7 @@ local bkgMusicChannel
 -- GLOBAL VARIABLES
 -----------------------------------------------------------------------------------------
 -- make sound global for all screens
-soundOn = true
+--soundOn = true
 
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -78,11 +78,11 @@ end
 
 local function Mute(touch)
    if (touch.phase == "ended") then
-    print("clicked on mute")
+    print("clicked on unmute")
         -- pause the sound
         audio.resume(bkgMusicChannel)
         -- set the boolean variable to be false. (Sound is now muted)
-        soundOn = false
+        soundOn = true
         -- hide mute button
         muteButton.isVisible = false
         -- make the unmute button visible
@@ -92,11 +92,12 @@ end
 
 local function UnMute(touch)
    if (touch.phase == "ended") then
-    print("Clicked on unmute")
+    print("Clicked on mute")
         -- pause the sound
         audio.pause(bkgMusicChannel)
         -- set the boolean variable to be false. (Sound is now muted)
-        soundOn = true
+        soundOn = false
+
         -- hide mute button
         muteButton.isVisible = true
         -- make the unmute button visible
