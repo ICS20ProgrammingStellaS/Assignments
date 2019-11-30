@@ -24,12 +24,27 @@ sceneName = "level1_screen"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
 -- The local variables for this scene
 local bkg_image
+
+local questionObject
+
+-- lives 
+local lives = 3
+local drop1
+local drop2
+local drop3
+
+-- variables for the timer 
+local totalSeconds = 10
+local secondsLeft = 10
+local clockText
+local countDownTimer  
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -124,10 +139,106 @@ function scene:destroy( event )
 
 end -- function scene:destroy( event )
 
+
+-------------------------------------------------------------------------------------------------
+-- UPDATE TIMER
+local function UpdateTime()
+
+    -- decrement the number of seconds
+    secondsLeft = secondsLeft - 1
+
+    -- display the number of seconds left in the clock object
+    clockText.text = secondsLeft .. ""
+
+    if (secondsLeft == 0) then 
+        -- reset the number of seconds left
+        secondsLeft = totalSeconds
+
+        -- subtract a live after time runs out
+        lives = lives - 1
+
+        -- ask another question
+       -- AskQuestion()
+
+        --play the sound on any available channel
+        --wrongSoundChannel = audio.play(wrongSound)
+
+        -- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, SHOW A YOU LOSE IMAGE 
+        -- AND CANCLE THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE
+
+        -- if time runs out, lose a life by making harets invisible
+        if (lives == 3) then
+            drop1.isVisible = false
+        elseif (lives == 2) then
+            drop2.isVisible = false
+        elseif (lives == 1) then
+            drop3.isVisible = false
+        elseif (lives == 0) then -- if you lose all lives, make everything disappear
+            drop2.isVisible = false
+            drop1.isVisible = false
+            clockText.isVisible = false
+            questionObject.isVisible = false
+
+            -- Go to the intro screen
+            composer.gotoScene( "YouLose_screen" )
+
+        end
+
+        
+        -- *** CALL THE FUNCTION TO ASK A NEW QUESTION
+
+    end
+end 
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+-- function the calls the timer 
+local function StartTimer()
+    -- create a countdown timer that loops infinftely
+    countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
+end
+
+-------------------------------------------------------------------------------------------------------------------------
+-- hide correctObject
+local function HideCorrect()
+    correctObject.isVisible = false
+    AskQuestion()
+end
+
+-----------------------------------------------------------------------------------------------------------------------------
+-- OBJECT CREATION 
+-----------------------------------------------------------------------------------------------------------------------------
+
+-- display timer on screen
+clockText = display.newText("", 100, 100, nil, 70)
+clockText.x = display.contentWidth*2.8/4
+clockText.y = display.contentHeight/8
+
+-- create the lives to display on the screen 
+drop1 = display.newImageRect("Images/redDrop.png", 100, 100)
+drop1.x = display.contentWidth /7
+drop1.y = display.contentHeight/2.5
+
+drop2 = display.newImageRect("Images/redDrop.png", 100, 100)
+drop2.x = display.contentWidth /11
+drop2.y = display.contentHeight/3
+
+drop3 = display.newImageRect("Images/redDrop.png", 100, 100)
+drop3.x = display.contentWidth /5
+drop3.y = display.contentHeight/3
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+-- displays a question and sets the colour
+questionObject = display.newText( " What tool do you use to help your patient? ", display.contentWidth/1.6, display.contentHeight/2.5, nil, 40)
+questionObject:setTextColor(0, 102/255, 102/255)
+
+
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
 -----------------------------------------------------------------------------------------
 
+StartTimer()
 -- Adding Event Listeners
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
