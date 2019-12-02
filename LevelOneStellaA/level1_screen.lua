@@ -41,8 +41,8 @@ local drop2
 local drop3
 
 -- variables for the timer 
-local totalSeconds = 10
-local secondsLeft = 10
+local totalSeconds = 100
+local secondsLeft = 100
 local clockText
 local countDownTimer  
 
