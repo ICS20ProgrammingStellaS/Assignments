@@ -50,14 +50,118 @@ local beeSting
 local randomOperator
 
 -- variables for the timer 
-local totalSeconds = 100
-local secondsLeft = 100
+local totalSeconds = 10
+local secondsLeft = 10
 local clockText
 local countDownTimer  
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+
+local function AskQuestion()
+    randomOperator = math.random (1, 2)
+
+    if (randomOperator == 1) then
+
+        -- correct answer
+        ice.isVisible = true
+
+        -- question
+        bruises.isVisible = true
+
+        -- wrong answers
+        cuts.isVisible = true
+        splinters.isVisible = true
+
+    elseif (randomOperator == 2) then
+
+        -- correct answer
+        cuts.isVisible = true
+
+        -- question
+        beeSting.isVisible = true
+
+        -- wrong answers
+        ice.isVisible = true
+        splinters.isVisible = true
+    end
+        --TouchListenerAnswer()
+        --TouchListenerWrongAnswer1()
+        --TouchListenerWrongAnswer2()
+end
+
+-- Functions that checks if the buttons have been clicked.
+--[[local function TouchListenerAnswer(touch)
+    -- get the user answer from the text object that was clicked on
+    local userAnswer = ice
+
+    if (touch.phase == "ended") and (alreadyClickedAnswer == false) then
+
+        alreadyClickedAnswer = true
+
+        -- if the user gets the answer right, display Correct and call RestartSceneRight
+        if (answer == tonumber(userAnswer)) then     
+            correct.isVisible = true
+            -- increase the number correct by 1
+            --numberCorrect = numberCorrect + 1
+
+            -- play correct sound 
+            --correctSoundChannel = audio.play(correctSound)
+
+            -- call RestartScene after 1 second
+            timer.performWithDelay( 1000, RestartScene )
+        end --]]       
+
+    --end
+--end
+
+--local function TouchListenerWrongAnswer1(touch)
+    -- get the user answer from the text object that was clicked on
+    --local userAnswer = cuts
+
+    --if (touch.phase == "ended") and (alreadyClickedAnswer == false) then
+
+        --alreadyClickedAnswer = true
+
+
+        --if (answer ~= tonumber(userAnswer)) then
+            -- decrease a life
+            --lives = lives - 1
+
+            -- play incorrect sound 
+            --wrongSoundChannel = audio.play(wrongSound)
+
+            -- call RestartScene after 1 second
+           -- timer.performWithDelay( 1000, RestartScene )            
+        --end        
+
+    --end
+--end
+
+--local function TouchListenerWrongAnswer2(touch)
+    -- get the user answer from the text object that was clicked on
+    --local userAnswer = splinters
+
+      
+        --if (touch.phase == "ended") and (alreadyClickedAnswer == false) then
+
+           -- alreadyClickedAnswer = true
+
+
+           -- if (answer ~= tonumber(userAnswer)) then
+                -- decrease a life
+            --    lives = lives - 1
+
+                -- play incorrect sound 
+              --  wrongSoundChannel = audio.play(wrongSound)
+
+                -- call RestartScene after 1 second
+               -- timer.performWithDelay( 1000, RestartScene )            
+            --end        
+    
+       -- end
+--end
 
 -------------------------------------------------------------------------------------------------
 -- UPDATE TIMER
@@ -77,7 +181,7 @@ local function UpdateTime()
         lives = lives - 1
 
         -- ask another question
-       -- AskQuestion()
+        --AskQuestion()
 
         --play the sound on any available channel
         --wrongSoundChannel = audio.play(wrongSound)
@@ -109,35 +213,6 @@ local function UpdateTime()
     end
 end 
 
-local function AskQuestion()
-    randomOperator = math.random (1, 2)
-
-    if (randomOperator == 1) then
-
-        -- correct answer
-        ice.isVisible = true
-
-        -- question
-        bruises.isVisible = true
-
-        -- wrong answers
-        cuts.isVisible = true
-        splinters.isVisible = true
-
-    elseif (randomOperator == 2) then
-
-        -- correct answer
-        cuts.isVisible = true
-
-        -- question
-        beeSting.isVisible = true
-
-        -- wrong answers
-        ice.isVisible = true
-        splinters.isVisible = true
-    end
-
-end
 -----------------------------------------------------------------------------------------------------------------------------
 
 -- function the calls the timer 
@@ -199,28 +274,28 @@ function scene:create( event )
     bruises = display.newImageRect("Images for level one/Bruises.png", 230, 230)
     bruises.x = display.contentWidth /2
     bruises.y = display.contentHeight/1.7
-    --bruises.isVisible = false
+    bruises.isVisible = false
 
     cuts = display.newImageRect("Images for level one/Cuts.png", 190, 190)
     cuts.x = display.contentWidth /2
     cuts.y = display.contentHeight/1.16
-   -- cuts.isVisible = false
+    cuts.isVisible = false
 
     splinters = display.newImageRect("Images for level one/Slinters.png", 190, 190)
     splinters.x = display.contentWidth /5
     splinters.y = display.contentHeight/1.15
-    --splinters.isVisible = false
+    splinters.isVisible = false
 
     --answers
     ice = display.newImageRect("Images for level one/IceBag.png", 190, 190)
     ice.x = display.contentWidth /1.25
     ice.y = display.contentHeight/1.2
-    --ice.isVisible = false
+    ice.isVisible = false
 
     beeSting = display.newImageRect("Images for level one/Bee Sting.png", 200, 200)
     beeSting.x = display.contentWidth /2
     beeSting.y = display.contentHeight/1.7
-    --beeSting.isVisible = false
+    beeSting.isVisible = false
 
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -260,6 +335,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         StartTimer()
+        AskQuestion()
 
     end
 
