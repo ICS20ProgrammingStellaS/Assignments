@@ -236,24 +236,24 @@ function AskQuestionLevel1()
         --TouchListenerWrongAnswer2()
 end
 
-local function RestartScene()
+--local function RestartScene()
 
-    correct.isVisible = false
+    --correct.isVisible = false
 
     --livesText.text = "Number of lives = " .. tostring(lives)
     --numberCorrectText.text = "Number correct = " .. tostring(numberCorrect)
 
     -- if they have 0 lives, go to the You Lose screen
-    if (lives == 0) then
-        composer.gotoScene("YouLose_screen")
-    else 
+    ---if (lives == 0) then
+        --composer.gotoScene("YouLose_screen")
+    --else 
 
         --DisplayAddEquation()
         --DetermineAnswers()
         --DisplayAnswers()
-        AskQuestion()
-    end
-end
+        --AskQuestion()
+    --end
+--end
 -------------------------------------------------------------------------------------------------
 -- UPDATE TIMER
 local function UpdateTime()
@@ -315,7 +315,8 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- hide correctObject
 local function HideCorrect()
-    correctObject.isVisible = false
+    correct.isVisible = false
+    incorrect.isVisible = false
     AskQuestion()
 end
 
@@ -361,11 +362,11 @@ function scene:create( event )
     drop3.x = display.contentWidth /5
     drop3.y = display.contentHeight/3
 
-    correct = display.newText("Correct", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    correct = display.newText("Correct", display.contentWidth/1.8, display.contentHeight*1.1/4, nil, 50 )
     correct:setTextColor(100/255, 47/255, 210/255)
     correct.isVisible = false
 
-    incorrect = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    incorrect = display.newText("Incorrect", display.contentWidth/1.8, display.contentHeight*1.1/4, nil, 50 )
     incorrect:setTextColor(100/255, 47/255, 210/255)
     incorrect.isVisible = false
 
