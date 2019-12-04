@@ -40,6 +40,10 @@ local drop1
 local drop2
 local drop3
 
+local points = 0
+local correct
+local incorrect
+
 -- question Images
 local ice
 local bruises
@@ -48,61 +52,51 @@ local splinters
 local beeSting
 
 local randomOperator
+local WrongAnswer1
+local WrongAnswer2
+local Answer
 
 -- variables for the timer 
-local totalSeconds = 10
-local secondsLeft = 10
+local totalSeconds = 1000
+local secondsLeft = 1000
 local clockText
 local countDownTimer  
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
-
-local function AskQuestion()
-    randomOperator = math.random (1, 2)
-
-    if (randomOperator == 1) then
-
-        -- correct answer
-        ice.isVisible = true
-
-        -- question
-        bruises.isVisible = true
-
-        -- wrong answers
-        cuts.isVisible = true
-        splinters.isVisible = true
-
-    elseif (randomOperator == 2) then
-
-        -- correct answer
-        cuts.isVisible = true
-
-        -- question
-        beeSting.isVisible = true
-
-        -- wrong answers
-        ice.isVisible = true
-        splinters.isVisible = true
-    end
-        --TouchListenerAnswer()
-        --TouchListenerWrongAnswer1()
-        --TouchListenerWrongAnswer2()
-end
+local function HideImages()
+    bruises.isVisible = false
+    cuts.isVisible = false
+    ice.isVisible = false
+    splinters.isVisible = false
+    beeSting.isVisible = false
+end 
 
 -- Functions that checks if the buttons have been clicked.
---[[local function TouchListenerAnswer(touch)
-    -- get the user answer from the text object that was clicked on
-    local userAnswer = ice
+local function TouchListenerAnswer(event)
+    -- get the object name that was clicked
+    local object = event.target
 
-    if (touch.phase == "ended") and (alreadyClickedAnswer == false) then
+    -- get the user answer from the text object that was clicked on    
 
-        alreadyClickedAnswer = true
+    if (event.phase == "ended") then
 
-        -- if the user gets the answer right, display Correct and call RestartSceneRight
-        if (answer == tonumber(userAnswer)) then     
-            correct.isVisible = true
+        --increment points
+        points = points + 1
+        print("****points = "..points)
+        correct.isVisible = true
+        incorrect.isVisible = false
+        print("***object.name = " .. object.name)
+
+        RemoveAllTouchListeners()
+        HideImages()
+
+ 
+        
+
+        if (points == 5) then
+            composer.gotoScene( "main_menu" )
             -- increase the number correct by 1
             --numberCorrect = numberCorrect + 1
 
@@ -111,58 +105,155 @@ end
 
             -- call RestartScene after 1 second
             timer.performWithDelay( 1000, RestartScene )
-        end --]]       
+        else
 
-    --end
---end
+            AskQuestionLevel1()
+        end        
 
---local function TouchListenerWrongAnswer1(touch)
+    end
+end
+
+local function TouchListenerWrongAnswer1(event)
+    local object = event.target
     -- get the user answer from the text object that was clicked on
-    --local userAnswer = cuts
+    if (event.phase == "ended") then
 
-    --if (touch.phase == "ended") and (alreadyClickedAnswer == false) then
+        lives = lives - 1
+        print("***object.name = " .. object.name)
+        --object:removeEventListener("touch", TouchListenerWrongAnswer1)
+        RemoveTouchListenersQ1()
+        HideImages()
+        incorrect.isVisible = true
+        correct.isVisible = false
+    
+        
+        if (lives == 0) then
+            composer.gotoScene( "YouLose_screen" )
+            -- increase the number correct by 1
+            --numberCorrect = numberCorrect + 1
 
-        --alreadyClickedAnswer = true
-
-
-        --if (answer ~= tonumber(userAnswer)) then
-            -- decrease a life
-            --lives = lives - 1
-
-            -- play incorrect sound 
-            --wrongSoundChannel = audio.play(wrongSound)
+            -- play correct sound 
+            --correctSoundChannel = audio.play(correctSound)
 
             -- call RestartScene after 1 second
-           -- timer.performWithDelay( 1000, RestartScene )            
-        --end        
+            --timer.performWithDelay( 1000, RestartScene )
+        else
+            AskQuestionLevel1()
+        end        
 
-    --end
---end
+    end
+end
 
---local function TouchListenerWrongAnswer2(touch)
+local function TouchListenerWrongAnswer2(event)
+    local object = event.target
     -- get the user answer from the text object that was clicked on
-    --local userAnswer = splinters
+    if (event.phase == "ended") then
 
-      
-        --if (touch.phase == "ended") and (alreadyClickedAnswer == false) then
+        lives = lives - 1
+        print("***object.name = " .. object.name)
+        --object:removeEventListener("touch", TouchListenerWrongAnswer2)
+        RemoveTouchListenersQ1()
+        HideImages()
+        incorrect.isVisible = true
+        correct.isVisible = false
+        
+        if (lives == 0) then
+            composer.gotoScene( "YouLose_screen" )
+            -- increase the number correct by 1
+            --numberCorrect = numberCorrect + 1
 
-           -- alreadyClickedAnswer = true
+            -- play correct sound 
+            --correctSoundChannel = audio.play(correctSound)
+
+            -- call RestartScene after 1 second
+            --timer.performWithDelay( 1000, RestartScene )
+        else
+            AskQuestionLevel1()
+        end        
+
+    end
+end
+
+function RemoveTouchListenersQ1()
+    ice:removeEventListener("touch", TouchListenerAnswer)
+    cuts:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    splinters:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ2()
+    cuts:removeEventListener("touch", TouchListenerAnswer)
+    ice:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    splinters:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveAllTouchListeners()
+    if (randomOperator == 1) then
+        RemoveTouchListenersQ1()
+    elseif (randomOperator == 2) then
+        RemoveTouchListenersQ2()
+    end
+end
 
 
-           -- if (answer ~= tonumber(userAnswer)) then
-                -- decrease a life
-            --    lives = lives - 1
+function AskQuestionLevel1()
+    randomOperator = math.random (1, 2)
 
-                -- play incorrect sound 
-              --  wrongSoundChannel = audio.play(wrongSound)
+    if (randomOperator == 1) then
 
-                -- call RestartScene after 1 second
-               -- timer.performWithDelay( 1000, RestartScene )            
-            --end        
-    
-       -- end
---end
+        -- question
+        bruises.isVisible = true
 
+        -- correct answer
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        cuts.isVisible = true
+        cuts:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        splinters.isVisible = true
+        splinters:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 2) then
+        
+
+        -- question
+        beeSting.isVisible = true
+
+        -- correct answer
+        cuts.isVisible = true
+        cuts:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        splinters.isVisible = true
+        splinters:addEventListener("touch", TouchListenerWrongAnswer2)
+    end
+        --TouchListenerAnswer()
+        --TouchListenerWrongAnswer1()
+        --TouchListenerWrongAnswer2()
+end
+
+local function RestartScene()
+
+    correct.isVisible = false
+
+    --livesText.text = "Number of lives = " .. tostring(lives)
+    --numberCorrectText.text = "Number correct = " .. tostring(numberCorrect)
+
+    -- if they have 0 lives, go to the You Lose screen
+    if (lives == 0) then
+        composer.gotoScene("YouLose_screen")
+    else 
+
+        --DisplayAddEquation()
+        --DetermineAnswers()
+        --DisplayAnswers()
+        AskQuestion()
+    end
+end
 -------------------------------------------------------------------------------------------------
 -- UPDATE TIMER
 local function UpdateTime()
@@ -270,6 +361,14 @@ function scene:create( event )
     drop3.x = display.contentWidth /5
     drop3.y = display.contentHeight/3
 
+    correct = display.newText("Correct", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    correct:setTextColor(100/255, 47/255, 210/255)
+    correct.isVisible = false
+
+    incorrect = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    incorrect:setTextColor(100/255, 47/255, 210/255)
+    incorrect.isVisible = false
+
     -- questions 
     bruises = display.newImageRect("Images for level one/Bruises.png", 230, 230)
     bruises.x = display.contentWidth /2
@@ -280,22 +379,26 @@ function scene:create( event )
     cuts.x = display.contentWidth /2
     cuts.y = display.contentHeight/1.16
     cuts.isVisible = false
+    cuts.name = "cuts"
 
     splinters = display.newImageRect("Images for level one/Slinters.png", 190, 190)
     splinters.x = display.contentWidth /5
     splinters.y = display.contentHeight/1.15
     splinters.isVisible = false
+    splinters.name = "splinters"
 
     --answers
     ice = display.newImageRect("Images for level one/IceBag.png", 190, 190)
     ice.x = display.contentWidth /1.25
     ice.y = display.contentHeight/1.2
     ice.isVisible = false
+    ice.name = "ice"
 
     beeSting = display.newImageRect("Images for level one/Bee Sting.png", 200, 200)
     beeSting.x = display.contentWidth /2
     beeSting.y = display.contentHeight/1.7
     beeSting.isVisible = false
+    beeSting.name = "beeSting"
 
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -309,7 +412,17 @@ function scene:create( event )
     sceneGroup:insert( bkg_image ) 
     sceneGroup:insert( drop1 )
     sceneGroup:insert( drop2 )
+    sceneGroup:insert( drop3 )
     sceneGroup:insert( questionObject ) 
+    sceneGroup:insert( correct )
+    sceneGroup:insert( incorrect )
+    sceneGroup:insert( bruises )
+    sceneGroup:insert( beeSting )
+    sceneGroup:insert( cuts )
+    sceneGroup:insert( splinters )
+    sceneGroup:insert( ice )
+    sceneGroup:insert( clockText )
+    --sceneGroup:insert( countDownTimer ) 
 
 end --function scene:create( event )
 
@@ -335,7 +448,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         StartTimer()
-        AskQuestion()
+        AskQuestionLevel1()
 
     end
 
