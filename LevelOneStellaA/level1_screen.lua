@@ -44,8 +44,13 @@ local points = 0
 local correct
 local incorrect
 
--- question Images
+-- answer Images
 local ice
+local bandaid
+local tweezers
+local polysporin
+
+-- question Images
 local bruises
 local cuts
 local splinters
@@ -56,9 +61,9 @@ local WrongAnswer1
 local WrongAnswer2
 local Answer
 
--- variables for the timer 
-local totalSeconds = 1000
-local secondsLeft = 1000
+-- variables for the tier 
+local totalSeconds = 100
+local secondsLeft = 100
 local clockText
 local countDownTimer  
 
@@ -71,6 +76,9 @@ local function HideImages()
     ice.isVisible = false
     splinters.isVisible = false
     beeSting.isVisible = false
+    bandaid.isVisible = false
+    tweezers.isVisible = false
+    polysporin.isVisible = false
 end 
 
 -- Functions that checks if the buttons have been clicked.
@@ -81,13 +89,14 @@ local function TouchListenerAnswer(event)
     -- get the user answer from the text object that was clicked on    
 
     if (event.phase == "ended") then
-
+        correct.isVisible = true
+        timer.performWithDelay(1000, HideCorrect)
         --increment points
         points = points + 1
-        print("****points = "..points)
+       -- print("****points = "..points)
         correct.isVisible = true
-        incorrect.isVisible = false
-        print("***object.name = " .. object.name)
+        --incorrect.isVisible = false
+        --print("***object.name = " .. object.name)
 
         RemoveAllTouchListeners()
         HideImages()
@@ -96,7 +105,7 @@ local function TouchListenerAnswer(event)
         
 
         if (points == 5) then
-            composer.gotoScene( "main_menu" )
+            composer.gotoScene( "YouWin_screen" )
             -- increase the number correct by 1
             --numberCorrect = numberCorrect + 1
 
@@ -104,10 +113,10 @@ local function TouchListenerAnswer(event)
             --correctSoundChannel = audio.play(correctSound)
 
             -- call RestartScene after 1 second
-            timer.performWithDelay( 1000, RestartScene )
+            --timer.performWithDelay( 1000, RestartScene )
         else
-
-            AskQuestionLevel1()
+            timer.performWithDelay( 1000, AskQuestionLevel1 )
+            --AskQuestionLevel1()
         end        
 
     end
@@ -121,11 +130,12 @@ local function TouchListenerWrongAnswer1(event)
         lives = lives - 1
         print("***object.name = " .. object.name)
         --object:removeEventListener("touch", TouchListenerWrongAnswer1)
-        RemoveTouchListenersQ1()
+        --RemoveTouchListenersQ1()
+        RemoveAllTouchListeners()
         HideImages()
         incorrect.isVisible = true
         correct.isVisible = false
-    
+        print("wronganswer1")
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
@@ -138,7 +148,8 @@ local function TouchListenerWrongAnswer1(event)
             -- call RestartScene after 1 second
             --timer.performWithDelay( 1000, RestartScene )
         else
-            AskQuestionLevel1()
+            timer.performWithDelay( 1000, AskQuestionLevel1 )
+            --AskQuestionLevel1()
         end        
 
     end
@@ -152,23 +163,29 @@ local function TouchListenerWrongAnswer2(event)
         lives = lives - 1
         print("***object.name = " .. object.name)
         --object:removeEventListener("touch", TouchListenerWrongAnswer2)
-        RemoveTouchListenersQ1()
+        --RemoveTouchListenersQ1()
+        RemoveAllTouchListeners()
         HideImages()
+        
         incorrect.isVisible = true
         correct.isVisible = false
+        
+        print("wronganswer2")
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
             -- increase the number correct by 1
             --numberCorrect = numberCorrect + 1
-
+            incorrect.isVisible = false
             -- play correct sound 
             --correctSoundChannel = audio.play(correctSound)
 
             -- call RestartScene after 1 second
             --timer.performWithDelay( 1000, RestartScene )
         else
-            AskQuestionLevel1()
+            --AskQuestionLevel1()
+            timer.performWithDelay( 1000, AskQuestionLevel1 )
+            --incorrect.isVisible = false
         end        
 
     end
@@ -176,14 +193,26 @@ end
 
 function RemoveTouchListenersQ1()
     ice:removeEventListener("touch", TouchListenerAnswer)
-    cuts:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    splinters:removeEventListener("touch", TouchListenerWrongAnswer2)
+    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveTouchListenersQ2()
-    cuts:removeEventListener("touch", TouchListenerAnswer)
+    polysporin:removeEventListener("touch", TouchListenerAnswer)
+    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ3()
+    tweezers:removeEventListener("touch", TouchListenerAnswer)
     ice:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    splinters:removeEventListener("touch", TouchListenerWrongAnswer2)
+    bandaid:removeEventListener("touch", TouchListenerWrongAnswer2)   
+end
+
+function RemoveTouchListenersQ4()
+    bandaid:removeEventListener("touch", TouchListenerAnswer)
+    polysporin:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveAllTouchListeners()
@@ -191,12 +220,20 @@ function RemoveAllTouchListeners()
         RemoveTouchListenersQ1()
     elseif (randomOperator == 2) then
         RemoveTouchListenersQ2()
+    elseif (randomOperator == 3) then
+        RemoveTouchListenersQ3()
+    elseif (randomOperator == 4) then
+        RemoveTouchListenersQ4()
     end
 end
 
 
+
 function AskQuestionLevel1()
-    randomOperator = math.random (1, 2)
+    randomOperator = math.random (1, 4)
+
+    incorrect.isVisible = false
+    correct.isVisible = false
 
     if (randomOperator == 1) then
 
@@ -208,32 +245,78 @@ function AskQuestionLevel1()
         ice:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
-        cuts.isVisible = true
-        cuts:addEventListener("touch", TouchListenerWrongAnswer1)
+       -- cuts.isVisible = true
+        --cuts:addEventListener("touch", TouchListenerWrongAnswer1)
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        splinters.isVisible = true
-        splinters:addEventListener("touch", TouchListenerWrongAnswer2)
+        --splinters.isVisible = true
+       -- splinters:addEventListener("touch", TouchListenerWrongAnswer2)
+        tweezers.isVisible = true
+        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 2) then
-        
+        --dave
+        incorrect.isVisible = false
+        correct.isVisible = false
 
+        
         -- question
         beeSting.isVisible = true
 
         -- correct answer
-        cuts.isVisible = true
-        cuts:addEventListener("touch", TouchListenerAnswer)
+        --cuts.isVisible = true
+        --cuts:addEventListener("touch", TouchListenerAnswer)
+        polysporin.isVisible = true
+        polysporin:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        tweezers.isVisible = true
+        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
+
+
+    elseif (randomOperator == 3) then
+        incorrect.isVisible = false
+        correct.isVisible = false
+
+
+        --question
+        splinters.isVisible = true
+
+        -- correct answer
+        tweezers.isVisible = true
+        tweezers:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
         ice.isVisible = true
         ice:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        splinters.isVisible = true
-        splinters:addEventListener("touch", TouchListenerWrongAnswer2)
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerWrongAnswer2)
+    
+    
+    elseif (randomOperator == 4) then
+        incorrect.isVisible = false
+        correct.isVisible = false
+
+
+        -- question
+        cuts.isVisible = true
+
+        -- correct answer
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        polysporin.isVisible = true
+        polysporin:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        tweezers.isVisible = true
+        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
     end
-        --TouchListenerAnswer()
-        --TouchListenerWrongAnswer1()
-        --TouchListenerWrongAnswer2()
 end
 
 --local function RestartScene()
@@ -316,8 +399,7 @@ end
 -- hide correctObject
 local function HideCorrect()
     correct.isVisible = false
-    incorrect.isVisible = false
-    AskQuestion()
+    AskQuestionLevel()
 end
 
 
@@ -362,12 +444,13 @@ function scene:create( event )
     drop3.x = display.contentWidth /5
     drop3.y = display.contentHeight/3
 
-    correct = display.newText("Correct", display.contentWidth/1.8, display.contentHeight*1.1/4, nil, 50 )
-    correct:setTextColor(100/255, 47/255, 210/255)
+    correct = display.newText("CORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
+    --*1.1/4
+    correct:setTextColor(153/255, 76/255, 0)
     correct.isVisible = false
 
-    incorrect = display.newText("Incorrect", display.contentWidth/1.8, display.contentHeight*1.1/4, nil, 50 )
-    incorrect:setTextColor(100/255, 47/255, 210/255)
+    incorrect = display.newText("INCORECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
+    incorrect:setTextColor(153/255, 76/255, 0)
     incorrect.isVisible = false
 
     -- questions 
@@ -378,15 +461,22 @@ function scene:create( event )
 
     cuts = display.newImageRect("Images for level one/Cuts.png", 190, 190)
     cuts.x = display.contentWidth /2
-    cuts.y = display.contentHeight/1.16
+    cuts.y = display.contentHeight/1.7
     cuts.isVisible = false
     cuts.name = "cuts"
 
     splinters = display.newImageRect("Images for level one/Slinters.png", 190, 190)
-    splinters.x = display.contentWidth /5
-    splinters.y = display.contentHeight/1.15
+    splinters.x = display.contentWidth /2
+    splinters.y = display.contentHeight/1.7
     splinters.isVisible = false
     splinters.name = "splinters"
+
+
+    beeSting = display.newImageRect("Images for level one/Bee Sting.png", 200, 200)
+    beeSting.x = display.contentWidth /2
+    beeSting.y = display.contentHeight/1.7
+    beeSting.isVisible = false
+    beeSting.name = "beeSting"
 
     --answers
     ice = display.newImageRect("Images for level one/IceBag.png", 190, 190)
@@ -395,11 +485,24 @@ function scene:create( event )
     ice.isVisible = false
     ice.name = "ice"
 
-    beeSting = display.newImageRect("Images for level one/Bee Sting.png", 200, 200)
-    beeSting.x = display.contentWidth /2
-    beeSting.y = display.contentHeight/1.7
-    beeSting.isVisible = false
-    beeSting.name = "beeSting"
+    polysporin = display.newImageRect("Images for level one/Polysporin.png", 190, 190)
+    polysporin.x = display.contentWidth /1.25
+    polysporin.y = display.contentHeight/1.2
+    polysporin.isVisible = false
+    polysporin.name = "polysporin"
+
+    bandaid = display.newImageRect("Images for level one/Bandaid.png", 190, 190)
+    bandaid.x = display.contentWidth /2
+    bandaid.y = display.contentHeight/1.16
+    bandaid.isVisible = false
+    bandaid.name = "bandaid"
+
+    tweezers = display.newImageRect("Images for level one/Tweezers.png", 190, 190)
+    tweezers.x = display.contentWidth /5
+    tweezers.y = display.contentHeight/1.15
+    tweezers.isVisible = false
+    tweezers.name = "tweezers"
+
 
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -422,6 +525,9 @@ function scene:create( event )
     sceneGroup:insert( cuts )
     sceneGroup:insert( splinters )
     sceneGroup:insert( ice )
+    sceneGroup:insert( bandaid )
+    sceneGroup:insert( tweezers )
+    sceneGroup:insert( polysporin )
     sceneGroup:insert( clockText )
     --sceneGroup:insert( countDownTimer ) 
 

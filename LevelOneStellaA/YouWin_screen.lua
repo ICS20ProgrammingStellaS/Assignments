@@ -1,4 +1,4 @@
------------------------------------------------------------------ level1_screen.lua
+---------------------------------------------------------------- level1_screen.lua
 -- Created by: Your Name
 -- Date: Month Day, Year
 -- Description: This is the level 1 screen of the game.
@@ -10,7 +10,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "YouLose_screen"
+sceneName = "YouWin_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Display background
-    bkg = display.newImage("Images/YouLose.png")
+    bkg = display.newImage("Images/YouWin.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
