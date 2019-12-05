@@ -50,6 +50,12 @@ local bandaid
 local tweezers
 local polysporin
 
+
+local correctSound = audio.loadSound("Sounds/correctSound.mp3")
+local correctSoundChannel
+local wrongSound = audio.loadSound("Sounds/wrongSound.mp3")
+local wrongSoundChannel
+
 -- question Images
 local bruises
 local cuts
@@ -62,8 +68,8 @@ local WrongAnswer2
 local Answer
 
 -- variables for the tier 
-local totalSeconds = 100
-local secondsLeft = 100
+local totalSeconds = 10
+local secondsLeft = 10
 local clockText
 local countDownTimer  
 
@@ -89,12 +95,16 @@ local function TouchListenerAnswer(event)
     -- get the user answer from the text object that was clicked on    
 
     if (event.phase == "ended") then
+        print("ended")
         correct.isVisible = true
         timer.performWithDelay(1000, HideCorrect)
         --increment points
         points = points + 1
        -- print("****points = "..points)
         correct.isVisible = true
+        correctSoundChannel = audio.play(correctSound)
+
+        secondsLeft = 10
         --incorrect.isVisible = false
         --print("***object.name = " .. object.name)
 
@@ -133,9 +143,24 @@ local function TouchListenerWrongAnswer1(event)
         --RemoveTouchListenersQ1()
         RemoveAllTouchListeners()
         HideImages()
+
         incorrect.isVisible = true
         correct.isVisible = false
+
+        wrongSoundChannel = audio.play(wrongSound)
+
         print("wronganswer1")
+
+        if (lives == 3) then
+            drop1.isVisible = false
+            secondsLeft = 10
+        elseif (lives == 2) then
+            drop2.isVisible = false
+            secondsLeft = 10
+        elseif (lives == 1) then
+            drop3.isVisible = false
+            secondsLeft = 10
+        end
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
@@ -169,8 +194,21 @@ local function TouchListenerWrongAnswer2(event)
         
         incorrect.isVisible = true
         correct.isVisible = false
+
+        wrongSoundChannel = audio.play(wrongSound)
         
         print("wronganswer2")
+
+        if (lives == 3) then
+            drop1.isVisible = false
+            secondsLeft = 10
+        elseif (lives == 2) then
+            drop2.isVisible = false
+            secondsLeft = 10
+        elseif (lives == 1) then
+            drop3.isVisible = false
+            secondsLeft = 10
+        end
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
@@ -227,6 +265,54 @@ function RemoveAllTouchListeners()
     end
 end
 
+function NewQuestionTimer()
+    if (lives == 3) then
+        bruises.isVisible = false
+        cuts.isVisible = false
+        ice.isVisible = false
+        splinters.isVisible = false
+        beeSting.isVisible = false
+        bandaid.isVisible = false
+        tweezers.isVisible = false
+        polysporin.isVisible = false
+        RemoveAllTouchListeners()
+        AskQuestionLevel1()
+    elseif (lives == 2) then
+        bruises.isVisible = false
+        cuts.isVisible = false
+        ice.isVisible = false
+        splinters.isVisible = false
+        beeSting.isVisible = false
+        bandaid.isVisible = false
+        tweezers.isVisible = false
+        polysporin.isVisible = false
+        RemoveAllTouchListeners()
+        AskQuestionLevel1()
+    elseif (lives == 1) then
+        bruises.isVisible = false
+        cuts.isVisible = false
+        ice.isVisible = false
+        splinters.isVisible = false
+        beeSting.isVisible = false
+        bandaid.isVisible = false
+        tweezers.isVisible = false
+        polysporin.isVisible = false
+        RemoveAllTouchListeners()
+        AskQuestionLevel1()
+    elseif (lives == 0) then
+        bruises.isVisible = false
+        cuts.isVisible = false
+        ice.isVisible = false
+        splinters.isVisible = false
+        beeSting.isVisible = false
+        bandaid.isVisible = false
+        tweezers.isVisible = false
+        polysporin.isVisible = false
+        RemoveAllTouchListeners()
+        clockText.isVisible = false
+        composer.gotoScene( "YouLose_screen" )
+    end
+end
 
 
 function AskQuestionLevel1()
@@ -234,9 +320,9 @@ function AskQuestionLevel1()
 
     incorrect.isVisible = false
     correct.isVisible = false
+    HideImages()
 
     if (randomOperator == 1) then
-
         -- question
         bruises.isVisible = true
 
@@ -259,7 +345,7 @@ function AskQuestionLevel1()
         --dave
         incorrect.isVisible = false
         correct.isVisible = false
-
+        HideImages()
         
         -- question
         beeSting.isVisible = true
@@ -282,7 +368,7 @@ function AskQuestionLevel1()
         incorrect.isVisible = false
         correct.isVisible = false
 
-
+        HideImages()
         --question
         splinters.isVisible = true
 
@@ -302,6 +388,7 @@ function AskQuestionLevel1()
         incorrect.isVisible = false
         correct.isVisible = false
 
+        HideImages()
 
         -- question
         cuts.isVisible = true
@@ -354,8 +441,11 @@ local function UpdateTime()
         -- subtract a live after time runs out
         lives = lives - 1
 
+        --play the sound on any available channel
+        wrongSoundChannel = audio.play(wrongSound)
+
         -- ask another question
-        --AskQuestion()
+        AskQuestionLevel1()
 
         --play the sound on any available channel
         --wrongSoundChannel = audio.play(wrongSound)
@@ -366,13 +456,18 @@ local function UpdateTime()
         -- if time runs out, lose a life by making harets invisible
         if (lives == 3) then
             drop1.isVisible = false
+            NewQuestionTimer()
+            --RemoveAllTouchListeners()
         elseif (lives == 2) then
             drop2.isVisible = false
+            NewQuestionTimer()
+            --RemoveAllTouchListeners()
         elseif (lives == 1) then
             drop3.isVisible = false
+            NewQuestionTimer()
+            --RemoveAllTouchListeners()
         elseif (lives == 0) then -- if you lose all lives, make everything disappear
-            --drop2.isVisible = false
-            --drop1.isVisible = false
+            --NewQuestionTimer()
             clockText.isVisible = false
             --questionObject.isVisible = false
 
