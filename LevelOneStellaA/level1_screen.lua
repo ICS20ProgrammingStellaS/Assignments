@@ -62,9 +62,9 @@ local stomachAche
 local headAche
 
 -- sound
-local correctSound = audio.loadSound("Sounds/correctSound.mp3")
+local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
 local correctSoundChannel
-local wrongSound = audio.loadSound("Sounds/wrongSound.mp3")
+local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
 local wrongSoundChannel
 
 local randomOperator
@@ -97,6 +97,11 @@ local function HideImages()
     tums.isVisible = false
 end 
 
+local function ShowImages()
+    drop1.isVisible = true
+    drop2.isVisible = true
+    drop3.isVisible = true
+end
 -- Functions that checks if the buttons have been clicked.
 local function TouchListenerAnswer(event)
     -- get the object name that was clicked
@@ -276,8 +281,8 @@ function RemoveTouchListenersQ6()
 end
 
 function RemoveTouchListenersQ7()
-    ice:removeEventListener("touch", TouchListenerAnswer)
-    polysporin:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    tums:removeEventListener("touch", TouchListenerAnswer)
+    ice:removeEventListener("touch", TouchListenerWrongAnswer1)       
     advil:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
@@ -290,6 +295,12 @@ function RemoveAllTouchListeners()
         RemoveTouchListenersQ3()
     elseif (randomOperator == 4) then
         RemoveTouchListenersQ4()
+    elseif (randomOperator == 5) then
+        RemoveTouchListenersQ5()
+    elseif (randomOperator == 6) then
+        RemoveTouchListenersQ6()
+    elseif (randomOperator == 7) then
+        RemoveTouchListenersQ7()
     end
 end
 
@@ -364,7 +375,7 @@ end
 
 
 function AskQuestionLevel1()
-    randomOperator = math.random (5, 5)
+    randomOperator = math.random (1, 7)
 
     incorrect.isVisible = false
     correct.isVisible = false
@@ -390,10 +401,6 @@ function AskQuestionLevel1()
         tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 2) then
-        --dave
-        incorrect.isVisible = false
-        correct.isVisible = false
-        HideImages()
         
         -- question
         beeSting.isVisible = true
@@ -415,10 +422,7 @@ function AskQuestionLevel1()
 
 
     elseif (randomOperator == 3) then
-        incorrect.isVisible = false
-        correct.isVisible = false
 
-        HideImages()
         --question
         splinters.isVisible = true
 
@@ -436,10 +440,6 @@ function AskQuestionLevel1()
         --tums:addEventListener("touch", TouchListenerWrongAnswer2)
     
     elseif (randomOperator == 4) then
-        incorrect.isVisible = false
-        correct.isVisible = false
-
-        HideImages()
 
         -- question
         cuts.isVisible = true
@@ -456,11 +456,6 @@ function AskQuestionLevel1()
         tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 5) then
-        incorrect.isVisible = false
-        correct.isVisible = false
-
-        HideImages()
-
         -- question
         rugBurn.isVisible = true
 
@@ -476,10 +471,6 @@ function AskQuestionLevel1()
         tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 6) then
-        incorrect.isVisible = false
-        correct.isVisible = false
-
-        HideImages()
 
         -- question
         headAche.isVisible = true
@@ -496,21 +487,17 @@ function AskQuestionLevel1()
         polysporin:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 7) then
-        incorrect.isVisible = false
-        correct.isVisible = false
-
-        HideImages()
 
         -- question
         stomachAche.isVisible = true
 
         -- correct answer
-        ice.isVisible = true
-        ice:addEventListener("touch", TouchListenerAnswer)
+        tums.isVisible = true
+        tums:addEventListener("touch", TouchListenerAnswer)
         
         -- wrong answers
-        tums.isVisible = true
-        tums:addEventListener("touch", TouchListenerWrongAnswer1)
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerWrongAnswer1)
 
         advil.isVisible = true
         advil:addEventListener("touch", TouchListenerWrongAnswer2)
@@ -623,69 +610,72 @@ function scene:create( event )
     drop1 = display.newImageRect("Images/redDrop.png", 100, 100)
     drop1.x = display.contentWidth /7
     drop1.y = display.contentHeight/2.5
+    drop1.isVisible = true
 
     drop2 = display.newImageRect("Images/redDrop.png", 100, 100)
     drop2.x = display.contentWidth /11
     drop2.y = display.contentHeight/3
+    drop2.isVisible = true
 
     drop3 = display.newImageRect("Images/redDrop.png", 100, 100)
     drop3.x = display.contentWidth /5
     drop3.y = display.contentHeight/3
+    drop3.isVisible = true
 
     correct = display.newText("CORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
     --*1.1/4
     correct:setTextColor(153/255, 76/255, 0)
     correct.isVisible = false
 
-    incorrect = display.newText("INCORECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
+    incorrect = display.newText("INCORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
     incorrect:setTextColor(153/255, 76/255, 0)
     incorrect.isVisible = false
 
     -- questions 
-    bruises = display.newImageRect("Images for level one/Bruises.png", 230, 230)
+    bruises = display.newImageRect("Images for level one/Bruises.png", 250, 250)
     bruises.x = display.contentWidth /2
-    bruises.y = display.contentHeight/1.7
+    bruises.y = display.contentHeight/1.9
     bruises.isVisible = false
 
-    cuts = display.newImageRect("Images for level one/Cuts.png", 190, 190)
+    cuts = display.newImageRect("Images for level one/Cuts.png", 250, 250)
     cuts.x = display.contentWidth /2
-    cuts.y = display.contentHeight/1.7
+    cuts.y = display.contentHeight/1.9
     cuts.isVisible = false
     cuts.name = "cuts"
 
-    splinters = display.newImageRect("Images for level one/Slinters.png", 190, 190)
+    splinters = display.newImageRect("Images for level one/Slinters.png", 250, 250)
     splinters.x = display.contentWidth /2
-    splinters.y = display.contentHeight/1.7
+    splinters.y = display.contentHeight/1.9
     splinters.isVisible = false
     splinters.name = "splinters"
 
-    beeSting = display.newImageRect("Images for level one/Bee Sting.png", 200, 200)
+    beeSting = display.newImageRect("Images for level one/Bee Sting.png", 250, 250)
     beeSting.x = display.contentWidth /2
-    beeSting.y = display.contentHeight/1.7
+    beeSting.y = display.contentHeight/1.9
     beeSting.isVisible = false
     beeSting.name = "beeSting"
 
-    rugBurn = display.newImageRect("Images for level one/RugBurn.png", 200, 200)
+    rugBurn = display.newImageRect("Images for level one/RugBurn.png", 250, 250)
     rugBurn.x = display.contentWidth /2
-    rugBurn.y = display.contentHeight/1.7
+    rugBurn.y = display.contentHeight/1.9
     rugBurn.isVisible = false
     rugBurn.name = "rugBurn"
 
-    stomachAche = display.newImageRect("Images for level one/StomachAche.png", 200, 200)
+    stomachAche = display.newImageRect("Images for level one/StomachAche.png", 250, 250)
     stomachAche.x = display.contentWidth /2
-    stomachAche.y = display.contentHeight/1.7
+    stomachAche.y = display.contentHeight/1.9
     stomachAche.isVisible = false
     stomachAche.name = "stomachAche"
 
-    headAche = display.newImageRect("Images for level one/HeadAche.png", 200, 200)
+    headAche = display.newImageRect("Images for level one/HeadAche.png", 250, 250)
     headAche.x = display.contentWidth /2
-    headAche.y = display.contentHeight/1.7
+    headAche.y = display.contentHeight/1.9
     headAche.isVisible = false
     headAche.name = "headAche"
 
 
     --answers
-    ice = display.newImageRect("Images for level one/IceBag.png", 190, 190)
+    ice = display.newImageRect("Images for level one/IceBag1.png", 190, 190)
     ice.x = display.contentWidth /1.25
     ice.y = display.contentHeight/1.2
     ice.isVisible = false
@@ -697,7 +687,7 @@ function scene:create( event )
     polysporin.isVisible = false
     polysporin.name = "polysporin"
 
-    bandaid = display.newImageRect("Images for level one/Bandaid.png", 190, 190)
+    bandaid = display.newImageRect("Images for level one/Bandaid3.png", 190, 190)
     bandaid.x = display.contentWidth /2
     bandaid.y = display.contentHeight/1.16
     bandaid.isVisible = false
@@ -705,7 +695,7 @@ function scene:create( event )
 
     tweezers = display.newImageRect("Images for level one/Tweezers.png", 190, 190)
     tweezers.x = display.contentWidth /5
-    tweezers.y = display.contentHeight/1.15
+    tweezers.y = display.contentHeight/1.2
     tweezers.isVisible = false
     tweezers.name = "tweezers"
 
@@ -715,7 +705,7 @@ function scene:create( event )
     advil.isVisible = false
     advil.name = "advil"
 
-    tums = display.newImageRect("Images for level one/Tums.png", 190, 190)
+    tums = display.newImageRect("Images for level one/Tums2.png", 190, 190)
     tums.x = display.contentWidth /2
     tums.y = display.contentHeight/1.16
     tums.isVisible = false
@@ -726,7 +716,7 @@ function scene:create( event )
 -----------------------------------------------------------------------------------------------------------------------------
 
     -- displays a question and sets the colour
-    questionObject = display.newText( " What tool do you use to help your patient? ", display.contentWidth/1.6, display.contentHeight/2.5, nil, 40)
+    questionObject = display.newText( "What tool do you use to help your patient?", display.contentWidth/1.635, display.contentHeight/3, nil, 40)
     questionObject:setTextColor(0, 102/255, 102/255)
 
 
@@ -777,7 +767,10 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        lives = 3
+        points = 0
         StartTimer()
+        ShowImages()
         AskQuestionLevel1()
 
     end

@@ -32,7 +32,7 @@ local scene = composer.newScene( sceneName )
 -- SOUNDS 
 ---------------------------------------------------------------------------------------------
 -- bkg sound
-local bkgMusic = audio.loadSound("Sounds/GameSound.mp3")
+local bkgMusic = audio.loadStream("Sounds/GameSound.mp3")
 local bkgMusicChannel
 
 -----------------------------------------------------------------------------------------
@@ -67,6 +67,9 @@ local function Level1ScreenTransition( )
     composer.gotoScene( "level1_screen", {effect = "slideUp", time = 1000})
 end    
 
+local function LevelSelectTransition( )
+    composer.gotoScene( "LevelSelect", {effect = "slideUp", time = 1000})
+end    
 ----------------------------------------------------------------------------------------
 
 -- Creating Transition Function to Instructions Page
@@ -163,7 +166,7 @@ function scene:create( event )
             overFile = "Images/PlayButtonPressed.png",
 
             -- When the button is released, call the Level1 screen transition function
-            onRelease = Level1ScreenTransition          
+            onRelease = LevelSelectTransition          
         } )
 
     -----------------------------------------------------------------------------------------
@@ -281,12 +284,13 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        audio.stop(bkgMusicChannel)
+        --audio.stop(bkgMusicChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        audio.stop(bkgMusicChannel)
         muteButton:removeEventListener("touch", Mute)
         unmuteButton:removeEventListener("touch", UnMute)
     end

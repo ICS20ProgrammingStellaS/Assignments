@@ -1,4 +1,4 @@
------------------------------------------------------------------ level1_screen.lua
+---------------------------------------------------------------- level1_screen.lua
 -- Created by: Your Name
 -- Date: Month Day, Year
 -- Description: This is the level 1 screen of the game.
@@ -10,7 +10,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "YouLose_screen"
+sceneName = "LevelSelect.lua"
 
 -----------------------------------------------------------------------------------------
 
@@ -24,15 +24,27 @@ local scene = composer.newScene( sceneName )
 
 -- local variables for the scene
 local bkg
-local backButton
+local level1Button
+local level2Button
+local level3Button
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
--- Creating Transitioning Function back to main menu
-local function MainMenuTransition( )
-    composer.gotoScene( "main_menu", {effect = "zoomOutIn", time = 500})
+-- Creating Transitioning Function back to level1
+local function Level1Transition( )
+    composer.gotoScene( "level1_screen", {effect = "zoomOutIn", time = 500})
+end
+
+-- Creating Transitioning Function back to level2
+local function Level2Transition( )
+    composer.gotoScene( "level2_screen", {effect = "zoomOutIn", time = 500})
+end
+
+-- Creating Transitioning Function back to level3
+local function Level3Transition( )
+    composer.gotoScene( "level3_screen", {effect = "zoomOutIn", time = 500})
 end
 
 -----------------------------------------------------------------------------------------
@@ -50,7 +62,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg = display.newImage("Images/YouLose.png")
+    bkg = display.newImage("Images/intro_bkg.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
@@ -64,7 +76,47 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Creating Back Button
-    mainMenuButton = widget.newButton( 
+    level1Button = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth/2,
+        y = display.contentHeight*3/6,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images for level one/MainMenuButton.png",
+        overFile = "Images for level one/MainMenuButtonPressed.png",
+
+        -- Setting Functional Properties
+        onRelease = Level1Transition
+
+    } )
+-------------------------------------------------------------------------------
+        -- Creating Back Button
+    level2Button = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth/2,
+        y = display.contentHeight*4/6,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images for level one/MainMenuButton.png",
+        overFile = "Images for level one/MainMenuButtonPressed.png",
+
+        -- Setting Functional Properties
+        onRelease = Level2Transition
+
+    } )
+-------------------------------------------------------------------------------------
+        -- Creating Back Button
+    level3Button = widget.newButton( 
     {
         -- Setting Position
         x = display.contentWidth/2,
@@ -79,16 +131,17 @@ function scene:create( event )
         overFile = "Images for level one/MainMenuButtonPressed.png",
 
         -- Setting Functional Properties
-        onRelease = MainMenuTransition
+        onRelease = Level3Transition
 
     } )
 
     -----------------------------------------------------------------------------------------
 
     -- Associating Buttons with this scene
-    sceneGroup:insert( mainMenuButton )
+    sceneGroup:insert( level1Button )
+    sceneGroup:insert( level2Button )
+    sceneGroup:insert( level3Button )
 end
-
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS

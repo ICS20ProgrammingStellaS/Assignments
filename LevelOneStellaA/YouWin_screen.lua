@@ -24,20 +24,32 @@ local scene = composer.newScene( sceneName )
 
 -- local variables for the scene
 local bkg
+local mainMenuButton
 
-----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------
+-- Creating Transitioning Function back to main menu
+local function MainMenuTransition( )
+    composer.gotoScene( "main_menu", {effect = "zoomOutIn", time = 500})
+end
+
+-----------------------------------------------------------------------------------------
+-- GLOBAL SCENE FUNCTIONS
+-----------------------------------------------------------------------------------------
+
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-    -- Display background
+    -----------------------------------------------------------------------------------------
+    -- BACKGROUND AND DISPLAY OBJECTS
+    -----------------------------------------------------------------------------------------
+
+    -- Insert the background image and set it to the center of the screen
     bkg = display.newImage("Images/YouWin.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
@@ -46,8 +58,36 @@ function scene:create( event )
    
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg )
-  
-end    
+
+    -----------------------------------------------------------------------------------------
+    -- BUTTON WIDGETS
+    -----------------------------------------------------------------------------------------
+
+    -- Creating Back Button
+    mainMenuButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth/2,
+        y = display.contentHeight*5/6,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images for level one/MainMenuButton.png",
+        overFile = "Images for level one/MainMenuButtonPressed.png",
+
+        -- Setting Functional Properties
+        onRelease = MainMenuTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( mainMenuButton )
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
