@@ -250,7 +250,10 @@ function scene:show( event )
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", UnMute)
 
+        --print("DAVID")
+
         if (soundOn == true) then
+            --print("SoundOn")
             muteButton.isVisible = false
             unmuteButton.isVisible = true   
             bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
@@ -258,8 +261,9 @@ function scene:show( event )
         else
             muteButton.isVisible = true
             unmuteButton.isVisible = false
-            bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
-            audio.pause(bkgMusicChannel)
+            --bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
+            bkgMusicChannel = audio.pause(bkgMusic, {channel=1, loops= -1})
+            
         end
         
     end
@@ -308,6 +312,7 @@ function scene:destroy( event )
     -- Called prior to the removal of scene's view ("sceneGroup").
     -- Insert code here to clean up the scene.
     -- Example: remove display objects, save state, etc.
+
 
 end -- function scene:destroy( event )
 -----------------------------------------------------------------------------------------

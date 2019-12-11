@@ -29,54 +29,55 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
--- The local variables for this scene
-local bkg_image
+    -- The local variables for this scene
+    local bkg_image
 
-local questionObject
+    local questionObject
 
--- lives 
-local lives = 3
-local drop1
-local drop2
-local drop3
+    -- lives 
+    lives = 3
+    
+    local drop1
+    local drop2
+    local drop3
 
-local points = 0
-local correct
-local incorrect
+    local points = 0
+    local correct
+    local incorrect
 
--- answer Images
-local ice
-local bandaid
-local tweezers
-local polysporin
-local tums
-local advil
+    -- answer Images
+    local ice
+    local bandaid
+    local tweezers
+    local polysporin
+    local tums
+    local advil
 
--- question Images
-local bruises
-local cuts
-local splinters
-local beeSting
-local rugBurn
-local stomachAche
-local headAche
+    -- question Images
+    local bruises
+    local cuts
+    local splinters
+    local beeSting
+    local rugBurn
+    local stomachAche
+    local headAche
 
--- sound
-local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
-local correctSoundChannel
-local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
-local wrongSoundChannel
+    -- sound
+    local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
+    local correctSoundChannel
+    local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
+    local wrongSoundChannel
 
-local randomOperator
-local WrongAnswer1
-local WrongAnswer2
-local Answer
+    local randomOperator
+    --local WrongAnswer1
+    --local WrongAnswer2
+    --local Answer
 
--- variables for the tier 
-local totalSeconds = 15
-local secondsLeft = 15
-local clockText
-local countDownTimer  
+    -- variables for the tier 
+    totalSeconds = 15
+    secondsLeft = 15
+    local clockText
+    local countDownTimer  
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -115,9 +116,11 @@ local function TouchListenerAnswer(event)
         correct.isVisible = true
         timer.performWithDelay(1000, HideCorrect)
         --increment points
+        --print (points)
         points = points + 1
+        
        -- print("****points = "..points)
-        correct.isVisible = true
+        
         correctSoundChannel = audio.play(correctSound)
 
         secondsLeft = 15
@@ -276,9 +279,9 @@ function RemoveTouchListenersQ5()
 end
 
 function RemoveTouchListenersQ6()
-    tums:removeEventListener("touch", TouchListenerAnswer)
-    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    polysporin:removeEventListener("touch", TouchListenerWrongAnswer2)
+    advil:removeEventListener("touch", TouchListenerAnswer)
+    polysporin:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    bandaid:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveTouchListenersQ7()
@@ -377,6 +380,11 @@ end
 
 function AskQuestionLevel1()
     randomOperator = math.random (1, 7)
+    --randomOperator = 6
+
+    --print(randomOperator) 
+    --print(lives)
+    --print(points)
 
     incorrect.isVisible = false
     correct.isVisible = false
@@ -481,11 +489,13 @@ function AskQuestionLevel1()
         advil:addEventListener("touch", TouchListenerAnswer)
         
         -- wrong answers
-        bandaid.isVisible = true
-        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
-
         polysporin.isVisible = true
-        polysporin:addEventListener("touch", TouchListenerWrongAnswer2)
+        polysporin:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerWrongAnswer2)
+
+
 
     elseif (randomOperator == 7) then
 
@@ -753,6 +763,7 @@ end --function scene:create( event )
 function scene:show( event )
 
     -- Creating a group that associates objects with the scene
+
     local sceneGroup = self.view
     local phase = event.phase
 
@@ -768,8 +779,14 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        totalSeconds = 15
+        secondsLeft = 15
         lives = 3
+        --print(lives)
+        print("DID")
         points = 0        
+        --print(points)
+
         StartTimer()
         ShowImages()
         AskQuestionLevel1()
@@ -818,8 +835,6 @@ function scene:destroy( event )
     -- Example: remove display objects, save state, etc.
 
 end -- function scene:destroy( event )
-
-
 
 
 -----------------------------------------------------------------------------------------

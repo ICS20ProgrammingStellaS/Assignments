@@ -42,6 +42,8 @@ end
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
+        
+    
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
