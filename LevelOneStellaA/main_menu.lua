@@ -45,7 +45,7 @@ local bkgMusicChannel
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 local bkg_image
-local PlayButton
+local playButton
 local creditsButton
 local instructionsButton
 local muteButton

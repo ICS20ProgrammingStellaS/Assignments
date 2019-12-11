@@ -102,6 +102,7 @@ local function ShowImages()
     drop2.isVisible = true
     drop3.isVisible = true
 end
+
 -- Functions that checks if the buttons have been clicked.
 local function TouchListenerAnswer(event)
     -- get the object name that was clicked
@@ -110,7 +111,7 @@ local function TouchListenerAnswer(event)
     -- get the user answer from the text object that was clicked on    
 
     if (event.phase == "ended") then
-        print("ended")
+        print("correct")
         correct.isVisible = true
         timer.performWithDelay(1000, HideCorrect)
         --increment points
@@ -368,7 +369,7 @@ function NewQuestionTimer()
         advil.isVisible = false
         tums.isVisible = false
         RemoveAllTouchListeners()
-        clockText.isVisible = false
+        --clockText.isVisible = false
         composer.gotoScene( "YouLose_screen" )
     end
 end
@@ -768,7 +769,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         lives = 3
-        points = 0
+        points = 0        
         StartTimer()
         ShowImages()
         AskQuestionLevel1()

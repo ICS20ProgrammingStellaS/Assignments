@@ -24,7 +24,7 @@ local scene = composer.newScene( sceneName )
 
 -- local variables for the scene
 local bkg
-local backButton
+local mainMenuButton
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
