@@ -687,7 +687,7 @@ function scene:create( event )
     polysporin.isVisible = false
     polysporin.name = "polysporin"
 
-    bandaid = display.newImageRect("Images for level one/Bandaid3.png", 190, 190)
+    bandaid = display.newImageRect("Images for level one/Bandaid3.png", 220, 190)
     bandaid.x = display.contentWidth /2
     bandaid.y = display.contentHeight/1.16
     bandaid.isVisible = false
