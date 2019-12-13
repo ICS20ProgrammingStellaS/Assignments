@@ -262,8 +262,8 @@ function scene:show( event )
             muteButton.isVisible = true
             unmuteButton.isVisible = false
             --bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
-            bkgMusicChannel = audio.pause(bkgMusic, {channel=1, loops= -1})
-            
+            bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
+            audio.pause(bkgMusicChannel)
         end
         
     end
