@@ -33,7 +33,7 @@ local scene = composer.newScene( sceneName )
 ---------------------------------------------------------------------------------------------
 -- bkg sound
 local bkgMusic = audio.loadStream("Sounds/GameSound.mp3")
-local bkgMusicChannel
+local bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL VARIABLES
@@ -81,7 +81,7 @@ end
 
 local function Mute(touch)
    if (touch.phase == "ended") then
-    print("clicked on unmute")
+        print("clicked on unmute")
         -- pause the sound
         audio.resume(bkgMusicChannel)
         -- set the boolean variable to be false. (Sound is now muted)
@@ -256,13 +256,11 @@ function scene:show( event )
             --print("SoundOn")
             muteButton.isVisible = false
             unmuteButton.isVisible = true   
-            bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
+            audio.resume(bkgMusicChannel)
 
         else
             muteButton.isVisible = true
             unmuteButton.isVisible = false
-            --bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
-            bkgMusicChannel = audio.play(bkgMusic, {channel=1, loops= -1})
             audio.pause(bkgMusicChannel)
         end
         
@@ -294,7 +292,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        audio.stop(bkgMusicChannel)
+        audio.pause(bkgMusicChannel)
         muteButton:removeEventListener("touch", Mute)
         unmuteButton:removeEventListener("touch", UnMute)
     end

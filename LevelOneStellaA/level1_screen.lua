@@ -24,7 +24,15 @@ sceneName = "level1_screen"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
+-----------------------------------------------------------------------------------------
+-- LOCAL SOUNDS
+-----------------------------------------------------------------------------------------
 
+    -- sound
+    local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
+    local correctSoundChannel
+    local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
+    local wrongSoundChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -35,13 +43,14 @@ local scene = composer.newScene( sceneName )
     local questionObject
 
     -- lives 
-    lives = 3
+    local lives = 3
     
     local drop1
     local drop2
     local drop3
 
     local points = 0
+
     local correct
     local incorrect
 
@@ -62,20 +71,12 @@ local scene = composer.newScene( sceneName )
     local stomachAche
     local headAche
 
-    -- sound
-    local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
-    local correctSoundChannel
-    local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
-    local wrongSoundChannel
-
     local randomOperator
-    --local WrongAnswer1
-    --local WrongAnswer2
-    --local Answer
+
 
     -- variables for the tier 
-    totalSeconds = 15
-    secondsLeft = 15
+    local TOTAL_SECONDS = 15
+    local secondsLeft = 15
     local clockText
     local countDownTimer  
 
@@ -98,11 +99,19 @@ local function HideImages()
     tums.isVisible = false
 end 
 
-local function ShowImages()
+local function ShowDrops()
     drop1.isVisible = true
     drop2.isVisible = true
     drop3.isVisible = true
 end
+
+-------------------------------------------------------------------------------------------------------------------------
+-- hide correctObject
+local function HideCorrect()
+    correct.isVisible = false
+    AskQuestionLevel()
+end
+
 
 -- Functions that checks if the buttons have been clicked.
 local function TouchListenerAnswer(event)
@@ -112,14 +121,12 @@ local function TouchListenerAnswer(event)
     -- get the user answer from the text object that was clicked on    
 
     if (event.phase == "ended") then
-        print("correct")
+        print("***correct")
         correct.isVisible = true
         timer.performWithDelay(1000, HideCorrect)
         --increment points
         --print (points)
-        points = points + 1
-        
-       -- print("****points = "..points)
+        points = points + 1    
         
         correctSoundChannel = audio.play(correctSound)
 
@@ -151,6 +158,26 @@ local function TouchListenerAnswer(event)
     end
 end
 
+local function UpdateDrops()
+    if (lives == 3) then
+        drop1.isVisible = true
+        drop2.isVisible = true
+        drop3.isVisible = true
+    elseif (lives == 2) then
+        drop1.isVisible = false
+        drop2.isVisible = true
+        drop3.isVisible = true
+    elseif (lives == 1) then
+        drop3.isVisible = true
+        drop1.isVisible = false
+        drop2.isVisible = false
+    elseif (lives == 0) then
+        drop3.isVisible = false
+        drop1.isVisible = false
+        drop2.isVisible = false
+    end
+end 
+
 local function TouchListenerWrongAnswer1(event)
     local object = event.target
     -- get the user answer from the text object that was clicked on
@@ -170,30 +197,12 @@ local function TouchListenerWrongAnswer1(event)
 
         print("wronganswer1")
 
-        if (lives == 3) then
-            drop1.isVisible = false
-            secondsLeft = 15
-        elseif (lives == 2) then
-            drop2.isVisible = false
-            secondsLeft = 15
-        elseif (lives == 1) then
-            drop3.isVisible = false
-            secondsLeft = 15
-        end
+        UpdateDrops()
         
         if (lives == 0) then
-            composer.gotoScene( "YouLose_screen" )
-            -- increase the number correct by 1
-            --numberCorrect = numberCorrect + 1
-
-            -- play correct sound 
-            --correctSoundChannel = audio.play(correctSound)
-
-            -- call RestartScene after 1 second
-            --timer.performWithDelay( 1000, RestartScene )
+            composer.gotoScene( "YouLose_screen" )         
         else
             timer.performWithDelay( 1000, AskQuestionLevel1 )
-            --AskQuestionLevel1()
         end        
 
     end
@@ -240,7 +249,6 @@ local function TouchListenerWrongAnswer2(event)
             -- call RestartScene after 1 second
             --timer.performWithDelay( 1000, RestartScene )
         else
-            --AskQuestionLevel1()
             timer.performWithDelay( 1000, AskQuestionLevel1 )
             --incorrect.isVisible = false
         end        
@@ -310,69 +318,20 @@ end
 
 function NewQuestionTimer()
     if (lives == 3) then
-        bruises.isVisible = false
-        cuts.isVisible = false
-        ice.isVisible = false
-        splinters.isVisible = false
-        beeSting.isVisible = false
-        bandaid.isVisible = false
-        tweezers.isVisible = false
-        polysporin.isVisible = false
-        rugBurn.isVisible = false
-        headAche.isVisible = false
-        stomachAche.isVisible = false
-        advil.isVisible = false
-        tums.isVisible = false
+        HideImages()
         RemoveAllTouchListeners()
         AskQuestionLevel1()
     elseif (lives == 2) then
-        bruises.isVisible = false
-        cuts.isVisible = false
-        ice.isVisible = false
-        splinters.isVisible = false
-        beeSting.isVisible = false
-        bandaid.isVisible = false
-        tweezers.isVisible = false
-        polysporin.isVisible = false
-        rugBurn.isVisible = false
-        headAche.isVisible = false
-        stomachAche.isVisible = false
-        advil.isVisible = false
-        tums.isVisible = false
+        HideImages()
         RemoveAllTouchListeners()
         AskQuestionLevel1()
     elseif (lives == 1) then
-        bruises.isVisible = false
-        cuts.isVisible = false
-        ice.isVisible = false
-        splinters.isVisible = false
-        beeSting.isVisible = false
-        bandaid.isVisible = false
-        tweezers.isVisible = false
-        polysporin.isVisible = false
-        rugBurn.isVisible = false
-        headAche.isVisible = false
-        stomachAche.isVisible = false
-        advil.isVisible = false
-        tums.isVisible = false
+        HideImages()
         RemoveAllTouchListeners()
         AskQuestionLevel1()
     elseif (lives == 0) then
-        bruises.isVisible = false
-        cuts.isVisible = false
-        ice.isVisible = false
-        splinters.isVisible = false
-        beeSting.isVisible = false
-        bandaid.isVisible = false
-        tweezers.isVisible = false
-        polysporin.isVisible = false
-        rugBurn.isVisible = false
-        headAche.isVisible = false
-        stomachAche.isVisible = false
-        advil.isVisible = false
-        tums.isVisible = false
+        HideImages()
         RemoveAllTouchListeners()
-        --clockText.isVisible = false
         composer.gotoScene( "YouLose_screen" )
     end
 end
@@ -527,7 +486,7 @@ local function UpdateTime()
 
     if (secondsLeft == 0) then 
         -- reset the number of seconds left
-        secondsLeft = totalSeconds
+        secondsLeft = TOTAL_SECONDS
 
         -- subtract a live after time runs out
         lives = lives - 1
@@ -535,41 +494,25 @@ local function UpdateTime()
         --play the sound on any available channel
         wrongSoundChannel = audio.play(wrongSound)
 
-        -- ask another question
-        AskQuestionLevel1()
-
-        --play the sound on any available channel
-        --wrongSoundChannel = audio.play(wrongSound)
-
-        -- *** IF THERE ARE NO LIVES LEFT, PLAY A LOSE SOUND, SHOW A YOU LOSE IMAGE 
-        -- AND CANCLE THE TIMER REMOVE THE THIRD HEART BY MAKING IT INVISIBLE
-
         -- if time runs out, lose a life by making harets invisible
         if (lives == 3) then
             drop1.isVisible = false
-            NewQuestionTimer()
-            --RemoveAllTouchListeners()
+            RemoveAllTouchListeners()
+            AskQuestionLevel1()
         elseif (lives == 2) then
             drop2.isVisible = false
-            NewQuestionTimer()
-            --RemoveAllTouchListeners()
+            RemoveAllTouchListeners()
+            AskQuestionLevel1()
         elseif (lives == 1) then
             drop3.isVisible = false
-            NewQuestionTimer()
-            --RemoveAllTouchListeners()
+            RemoveAllTouchListeners()
+            AskQuestionLevel1()
         elseif (lives == 0) then -- if you lose all lives, make everything disappear
-            --NewQuestionTimer()
-            clockText.isVisible = false
-            --questionObject.isVisible = false
+            RemoveAllTouchListeners()        
 
             -- Go to the intro screen
             composer.gotoScene( "YouLose_screen" )
-
         end
-
-        
-        -- *** CALL THE FUNCTION TO ASK A NEW QUESTION
-
     end
 end 
 
@@ -580,15 +523,6 @@ local function StartTimer()
     -- create a countdown timer that loops infinftely
     countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
 end
-
--------------------------------------------------------------------------------------------------------------------------
--- hide correctObject
-local function HideCorrect()
-    correct.isVisible = false
-    AskQuestionLevel()
-end
-
-
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -723,9 +657,6 @@ function scene:create( event )
     tums.name = "tums"
 
 
-
------------------------------------------------------------------------------------------------------------------------------
-
     -- displays a question and sets the colour
     questionObject = display.newText( "What tool do you use to help your patient?", display.contentWidth/1.635, display.contentHeight/3, nil, 40)
     questionObject:setTextColor(0, 102/255, 102/255)
@@ -753,7 +684,6 @@ function scene:create( event )
     sceneGroup:insert( advil )
     sceneGroup:insert( tums )
     sceneGroup:insert( clockText )
-    --sceneGroup:insert( countDownTimer ) 
 
 end --function scene:create( event )
 
@@ -779,16 +709,12 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        totalSeconds = 15
         secondsLeft = 15
         lives = 3
-        --print(lives)
-        print("DID")
         points = 0        
-        --print(points)
 
         StartTimer()
-        ShowImages()
+        ShowDrops()
         AskQuestionLevel1()
 
     end
@@ -816,6 +742,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         timer.cancel(countDownTimer)
+        RemoveAllTouchListeners()
     end
 
 end --function scene:hide( event )

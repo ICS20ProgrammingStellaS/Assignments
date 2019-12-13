@@ -17,7 +17,6 @@ sceneName = "YouLose_screen"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
-
 -----------------------------------------------------------------------------------------
 -- FORWARD REFERENCES
 -----------------------------------------------------------------------------------------
@@ -42,9 +41,6 @@ end
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
-    --lives=3
-    
-
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
@@ -53,7 +49,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg = display.newImage("Images/YouLose.png")
+    bkg = display.newImage("Images for level one/YouLose.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth

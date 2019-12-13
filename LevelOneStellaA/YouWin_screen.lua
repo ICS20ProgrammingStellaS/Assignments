@@ -41,8 +41,6 @@ end
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
-
-        
     
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
@@ -52,7 +50,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg = display.newImage("Images/YouWin.png")
+    bkg = display.newImage("Images for level one/YouWin.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth

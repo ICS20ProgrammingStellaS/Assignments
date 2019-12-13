@@ -206,7 +206,7 @@ function scene:show( event )
 		Runtime:addEventListener("enterFrame", moveBottomLeft)
         Runtime:addEventListener("enterFrame", moveBottomRight)
 		Runtime:addEventListener("enterFrame", timerLogo)
-        introSoundChannel = audio.play(introSound) 
+        introSoundChannel = audio.play(introSound, {channel = 4}) 
         timer.performWithDelay ( 3000, gotoMainMenu)
 
     end
@@ -235,6 +235,11 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- call sound to stop
         audio.stop(introSoundChannel)
+        Runtime:removeEventListener("enterFrame", moveTopLeft)
+        Runtime:removeEventListener("enterFrame", moveTopRight)
+        Runtime:removeEventListener("enterFrame", moveBottomLeft)
+        Runtime:removeEventListener("enterFrame", moveBottomRight)
+        Runtime:removeEventListener("enterFrame", timerLogo)
         
     end
 
