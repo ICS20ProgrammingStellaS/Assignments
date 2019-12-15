@@ -527,7 +527,7 @@ function scene:create( event )
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
-
+    
 
     -- display timer on screen
     clockText = display.newText("", 100, 100, nil, 70)
@@ -551,7 +551,6 @@ function scene:create( event )
     drop3.isVisible = true
 
     correct = display.newText("CORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
-    --*1.1/4
     correct:setTextColor(153/255, 76/255, 0)
     correct.isVisible = false
 
@@ -667,7 +666,6 @@ function scene:create( event )
     sceneGroup:insert( advil )
     sceneGroup:insert( tums )
     sceneGroup:insert( clockText )
-    --sceneGroup:insert( countDownTimer ) 
 
 end --function scene:create( event )
 
@@ -693,7 +691,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        --clockText.isVisible = true
+
         secondsLeft = 15
         lives = 3
         points = 0        
