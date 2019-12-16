@@ -568,7 +568,7 @@ function scene:create( event )
     cuts.isVisible = false
     cuts.name = "cuts"
 
-    splinters = display.newImageRect("Images for level one/Slinters.png", 250, 250)
+    splinters = display.newImageRect("Images for level one/Splinters.png", 250, 250)
     splinters.x = display.contentWidth /1.9
     splinters.y = display.contentHeight/2.1
     splinters.isVisible = false
