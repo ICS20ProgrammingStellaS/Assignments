@@ -33,7 +33,8 @@ local scene = composer.newScene( sceneName )
     local bkg_image
 
     local questionObject
-
+    local nameObject
+    local nameObject2
     -- lives 
     local lives = 3
     
@@ -52,6 +53,8 @@ local scene = composer.newScene( sceneName )
     local polysporin
     local tums
     local advil
+    local stitches
+    local tissue
 
     -- question Images
     local bruises
@@ -61,14 +64,12 @@ local scene = composer.newScene( sceneName )
     local rugBurn
     local stomachAche
     local headAche
+    local noiseBleed
+    local blackEye
+    local largeCut
 
     local randomOperator
 
-    -- variables for the tier 
-    local TOTAL_SECONDS = 15
-    local secondsLeft = 15
-    local clockText
-    local countDownTimer  
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUNDS
 -----------------------------------------------------------------------------------------
@@ -95,8 +96,13 @@ local function HideImages()
     rugBurn.isVisible = false
     headAche.isVisible = false
     stomachAche.isVisible = false
+    noiseBleed.isVisible = false
+    blackEye.isVisible = false
+    largeCut.isVisible = false
     advil.isVisible = false
     tums.isVisible = false
+    stitches.isVisible = false
+    tissue.isVisible = false
 end 
 
 local function ShowDrops()
@@ -123,8 +129,6 @@ local function TouchListenerAnswer(event)
         points = points + 1
 
         correctSoundChannel = audio.play(correctSound)
-
-        secondsLeft = 15
 
         RemoveAllTouchListeners()
         HideImages()
@@ -164,13 +168,10 @@ local function TouchListenerWrongAnswer1(event)
 
         if (lives == 3) then
             drop1.isVisible = false
-            secondsLeft = 15
         elseif (lives == 2) then
             drop2.isVisible = false
-            secondsLeft = 15
         elseif (lives == 1) then
             drop3.isVisible = false
-            secondsLeft = 15
         end
         
         if (lives == 0) then
@@ -208,13 +209,10 @@ local function TouchListenerWrongAnswer2(event)
 
         if (lives == 3) then
             drop1.isVisible = false
-            secondsLeft = 15
         elseif (lives == 2) then
             drop2.isVisible = false
-            secondsLeft = 15
         elseif (lives == 1) then
             drop3.isVisible = false
-            secondsLeft = 15
         end
         
         if (lives == 0) then
@@ -237,11 +235,11 @@ end
 function RemoveTouchListenersQ1()
     ice:removeEventListener("touch", TouchListenerAnswer)
     bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
+    stitches:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveTouchListenersQ2()
-    polysporin:removeEventListener("touch", TouchListenerAnswer)
+    ice:removeEventListener("touch", TouchListenerAnswer)
     bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
     tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
@@ -261,7 +259,7 @@ end
 function RemoveTouchListenersQ5()
     polysporin:removeEventListener("touch", TouchListenerAnswer)
     tums:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
+    stitches:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveTouchListenersQ6()
@@ -273,7 +271,25 @@ end
 function RemoveTouchListenersQ7()
     tums:removeEventListener("touch", TouchListenerAnswer)
     ice:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ8()
+    ice:removeEventListener("touch", TouchListenerAnswer)
+    tissue:removeEventListener("touch", TouchListenerWrongAnswer1)       
     advil:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ9()
+    tissue:removeEventListener("touch", TouchListenerAnswer)
+    tweezers:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    polysporin:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ10()
+    stitches:removeEventListener("touch", TouchListenerAnswer)
+    ice:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    tums:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveAllTouchListeners()
@@ -291,6 +307,12 @@ function RemoveAllTouchListeners()
         RemoveTouchListenersQ6()
     elseif (randomOperator == 7) then
         RemoveTouchListenersQ7()
+    elseif (randomOperator == 8) then
+        RemoveTouchListenersQ8()
+    elseif (randomOperator == 9) then
+        RemoveTouchListenersQ9()
+    elseif (randomOperator == 10) then
+        RemoveTouchListenersQ10()
     end
 end
 
@@ -316,7 +338,7 @@ end
 
 
 function AskQuestionLevel1()
-    randomOperator = math.random (1, 7)
+    randomOperator = math.random (1, 10)
 
     incorrect.isVisible = false
     correct.isVisible = false
@@ -331,15 +353,11 @@ function AskQuestionLevel1()
         ice:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
-       -- cuts.isVisible = true
-        --cuts:addEventListener("touch", TouchListenerWrongAnswer1)
         bandaid.isVisible = true
         bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        --splinters.isVisible = true
-       -- splinters:addEventListener("touch", TouchListenerWrongAnswer2)
-        tweezers.isVisible = true
-        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 2) then
         
@@ -347,10 +365,8 @@ function AskQuestionLevel1()
         beeSting.isVisible = true
 
         -- correct answer
-        --cuts.isVisible = true
-        --cuts:addEventListener("touch", TouchListenerAnswer)
-        polysporin.isVisible = true
-        polysporin:addEventListener("touch", TouchListenerAnswer)
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
         bandaid.isVisible = true
@@ -358,9 +374,6 @@ function AskQuestionLevel1()
 
         tweezers.isVisible = true
         tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
-        --advil.isVisible = true
-        --advil:addEventListener("touch", TouchListenerWrongAnswer2)
-
 
     elseif (randomOperator == 3) then
 
@@ -377,8 +390,6 @@ function AskQuestionLevel1()
 
         bandaid.isVisible = true
         bandaid:addEventListener("touch", TouchListenerWrongAnswer2)
-        --tums.isVisible = true
-        --tums:addEventListener("touch", TouchListenerWrongAnswer2)
     
     elseif (randomOperator == 4) then
 
@@ -408,8 +419,8 @@ function AskQuestionLevel1()
         tums.isVisible = true
         tums:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        tweezers.isVisible = true
-        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 6) then
 
@@ -427,8 +438,6 @@ function AskQuestionLevel1()
         bandaid.isVisible = true
         bandaid:addEventListener("touch", TouchListenerWrongAnswer2)
 
-
-
     elseif (randomOperator == 7) then
 
         -- question
@@ -442,62 +451,57 @@ function AskQuestionLevel1()
         ice.isVisible = true
         ice:addEventListener("touch", TouchListenerWrongAnswer1)
 
+        tweezers.isVisible = true
+        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 8) then
+
+        -- question
+        blackEye.isVisible = true
+
+        -- correct answer
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        tissue.isVisible = true
+        tissue:addEventListener("touch", TouchListenerWrongAnswer1)
+
         advil.isVisible = true
         advil:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 9) then
+
+        -- question
+        noiseBleed.isVisible = true
+
+        -- correct answer
+        tissue.isVisible = true
+        tissue:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        tweezers.isVisible = true
+        tweezers:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        polysporin.isVisible = true
+        polysporin:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 10) then
+
+        -- question
+        largeCut.isVisible = true
+
+        -- correct answer
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        tums.isVisible = true
+        tums:addEventListener("touch", TouchListenerWrongAnswer2)
     end
-end
-
--------------------------------------------------------------------------------------------
--- UPDATE TIMER
-local function UpdateTime()
-
-    -- decrement the number of seconds
-    secondsLeft = secondsLeft - 1
-
-    -- display the number of seconds left in the clock object
-    clockText.text = secondsLeft .. ""
-
-    if (secondsLeft == 0) then 
-        -- reset the number of seconds left
-        secondsLeft = TOTAL_SECONDS
-
-        -- subtract a live after time runs out
-        lives = lives - 1
-
-        --play the sound on any available channel
-        wrongSoundChannel = audio.play(wrongSound)
-
-        -- ask another question
-        AskQuestionLevel1()
-
-        -- if time runs out, lose a life by making harets invisible
-        if (lives == 3) then
-            drop1.isVisible = false
-            NewQuestionTimer()
-        elseif (lives == 2) then
-            drop2.isVisible = false
-            NewQuestionTimer()
-        elseif (lives == 1) then
-            drop3.isVisible = false
-            NewQuestionTimer()
-        elseif (lives == 0) then
-
-            clockText.isVisible = false
-            --questionObject.isVisible = false
-
-            -- Go to the intro screen
-            composer.gotoScene( "YouLose_screen" )
-        end
-
-    end
-end 
-
------------------------------------------------------------------------------------------------------------------------------
-
--- function the calls the timer 
-local function StartTimer()
-    -- create a countdown timer that loops infinftely
-    countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
 end
 
 -------------------------------------------------------------------------------------------------------------------------
@@ -522,17 +526,11 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images/Level1Screen.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/LevelOneScreen.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
-    
-
-    -- display timer on screen
-    clockText = display.newText("", 100, 100, nil, 70)
-    clockText.x = display.contentWidth*2.8/4
-    clockText.y = display.contentHeight/8
 
     -- create the lives to display on the screen 
     drop1 = display.newImageRect("Images/redDrop.png", 100, 100)
@@ -560,46 +558,63 @@ function scene:create( event )
 
     -- questions 
     bruises = display.newImageRect("Images for level one/Bruises.png", 250, 250)
-    bruises.x = display.contentWidth /2
-    bruises.y = display.contentHeight/1.9
+    bruises.x = display.contentWidth /1.9
+    bruises.y = display.contentHeight/2.1
     bruises.isVisible = false
 
     cuts = display.newImageRect("Images for level one/Cuts.png", 250, 250)
-    cuts.x = display.contentWidth /2
-    cuts.y = display.contentHeight/1.9
+    cuts.x = display.contentWidth /1.9
+    cuts.y = display.contentHeight/2.1
     cuts.isVisible = false
     cuts.name = "cuts"
 
     splinters = display.newImageRect("Images for level one/Slinters.png", 250, 250)
-    splinters.x = display.contentWidth /2
-    splinters.y = display.contentHeight/1.9
+    splinters.x = display.contentWidth /1.9
+    splinters.y = display.contentHeight/2.1
     splinters.isVisible = false
     splinters.name = "splinters"
 
     beeSting = display.newImageRect("Images for level one/Bee Sting.png", 250, 250)
-    beeSting.x = display.contentWidth /2
-    beeSting.y = display.contentHeight/1.9
+    beeSting.x = display.contentWidth /1.9
+    beeSting.y = display.contentHeight/2.1
     beeSting.isVisible = false
     beeSting.name = "beeSting"
 
     rugBurn = display.newImageRect("Images for level one/RugBurn.png", 250, 250)
-    rugBurn.x = display.contentWidth /2
-    rugBurn.y = display.contentHeight/1.9
+    rugBurn.x = display.contentWidth /1.9
+    rugBurn.y = display.contentHeight/2.1
     rugBurn.isVisible = false
     rugBurn.name = "rugBurn"
 
     stomachAche = display.newImageRect("Images for level one/StomachAche.png", 250, 250)
-    stomachAche.x = display.contentWidth /2
-    stomachAche.y = display.contentHeight/1.9
+    stomachAche.x = display.contentWidth /1.9
+    stomachAche.y = display.contentHeight/2.1
     stomachAche.isVisible = false
     stomachAche.name = "stomachAche"
 
     headAche = display.newImageRect("Images for level one/HeadAche.png", 250, 250)
-    headAche.x = display.contentWidth /2
-    headAche.y = display.contentHeight/1.9
+    headAche.x = display.contentWidth /1.9
+    headAche.y = display.contentHeight/2.1
     headAche.isVisible = false
     headAche.name = "headAche"
 
+    largeCut = display.newImageRect("Images for level one/LargeCut.png", 250, 250)
+    largeCut.x = display.contentWidth /1.9
+    largeCut.y = display.contentHeight/2.1
+    largeCut.isVisible = false
+    largeCut.name = "largeCut"
+
+    blackEye = display.newImageRect("Images for level one/BlackEye.png", 250, 250)
+    blackEye.x = display.contentWidth /1.9
+    blackEye.y = display.contentHeight/2.1
+    blackEye.isVisible = false
+    blackEye.name = "blackEye"
+
+    noiseBleed = display.newImageRect("Images for level one/NoiseBleed.png", 250, 250)
+    noiseBleed.x = display.contentWidth /1.9
+    noiseBleed.y = display.contentHeight/2.1
+    noiseBleed.isVisible = false
+    noiseBleed.name = "noiseBleed"
 
     --answers
     ice = display.newImageRect("Images for level one/IceBag1.png", 190, 190)
@@ -615,32 +630,51 @@ function scene:create( event )
     polysporin.name = "polysporin"
 
     bandaid = display.newImageRect("Images for level one/Bandaid3.png", 220, 190)
-    bandaid.x = display.contentWidth /2
-    bandaid.y = display.contentHeight/1.16
+    bandaid.x = display.contentWidth /1.9
+    bandaid.y = display.contentHeight/1.2
     bandaid.isVisible = false
     bandaid.name = "bandaid"
 
     tweezers = display.newImageRect("Images for level one/Tweezers.png", 190, 190)
-    tweezers.x = display.contentWidth /5
+    tweezers.x = display.contentWidth /4.
     tweezers.y = display.contentHeight/1.2
     tweezers.isVisible = false
     tweezers.name = "tweezers"
 
     advil = display.newImageRect("Images for level one/Advil.png", 190, 190)
-    advil.x = display.contentWidth /5
-    advil.y = display.contentHeight/1.15
+    advil.x = display.contentWidth /4.5
+    advil.y = display.contentHeight/1.2
     advil.isVisible = false
     advil.name = "advil"
 
     tums = display.newImageRect("Images for level one/Tums2.png", 190, 190)
-    tums.x = display.contentWidth /2
-    tums.y = display.contentHeight/1.16
+    tums.x = display.contentWidth /1.9
+    tums.y = display.contentHeight/1.2
     tums.isVisible = false
     tums.name = "tums"
 
+    tissue = display.newImageRect("Images for level one/Tissue.png", 190, 190)
+    tissue.x = display.contentWidth /1.9
+    tissue.y = display.contentHeight/1.2
+    tissue.isVisible = false
+    tissue.name = "tissue"
+
+    stitches = display.newImageRect("Images for level one/Stitches.png", 190, 190)
+    stitches.x = display.contentWidth /4.5
+    stitches.y = display.contentHeight/1.2
+    stitches.isVisible = false
+    stitches.name = "stitches"
+
     -- displays a question and sets the colour
-    questionObject = display.newText( "What tool do you use to help your patient?", display.contentWidth/1.635, display.contentHeight/3, nil, 40)
+    questionObject = display.newText( "What tool do you use to help your patient?", display.contentWidth/1.635, display.contentHeight/4.2, nil, 40)
     questionObject:setTextColor(0, 102/255, 102/255)
+
+    nameObject2 = display.newText( "DR.PEMILIAGA :)", display.contentWidth/1.665, display.contentHeight/8, nil, 60)
+    nameObject2:setTextColor(153/255, 153/255, 255)
+
+    nameObject = display.newText( "DR.PEMILIAGA :)", display.contentWidth/1.68, display.contentHeight/8, nil, 60)
+    nameObject:setTextColor(102/255, 102/255, 255)
+
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -650,6 +684,8 @@ function scene:create( event )
     sceneGroup:insert( drop2 )
     sceneGroup:insert( drop3 )
     sceneGroup:insert( questionObject ) 
+    sceneGroup:insert( nameObject )
+    sceneGroup:insert( nameObject2 )
     sceneGroup:insert( correct )
     sceneGroup:insert( incorrect )
     sceneGroup:insert( bruises )
@@ -663,9 +699,13 @@ function scene:create( event )
     sceneGroup:insert( rugBurn )
     sceneGroup:insert( headAche )
     sceneGroup:insert( stomachAche )
+    sceneGroup:insert( noiseBleed )
+    sceneGroup:insert( blackEye )
+    sceneGroup:insert( largeCut )
     sceneGroup:insert( advil )
+    sceneGroup:insert( tissue )
+    sceneGroup:insert( stitches )
     sceneGroup:insert( tums )
-    sceneGroup:insert( clockText )
 
 end --function scene:create( event )
 
@@ -691,12 +731,9 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-
-        secondsLeft = 15
         lives = 3
         points = 0        
 
-        StartTimer()
         ShowDrops()
         AskQuestionLevel1()
 
@@ -724,7 +761,6 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        timer.cancel(countDownTimer)
     end
 
 end --function scene:hide( event )
