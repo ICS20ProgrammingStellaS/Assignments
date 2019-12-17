@@ -55,6 +55,13 @@ local scene = composer.newScene( sceneName )
     local advil
     local stitches
     local tissue
+    local heat
+    local eyeDrops
+    local earDrops
+    local epiPen
+    local lipChap
+    local afterBite
+
 
     -- question Images
     local bruises
@@ -67,6 +74,12 @@ local scene = composer.newScene( sceneName )
     local noiseBleed
     local blackEye
     local largeCut
+    local pinkEye
+    local earInfection
+    local dryLips
+    local allergicReaction
+    local mosquitoBite
+
 
     local randomOperator
 
@@ -103,6 +116,17 @@ local function HideImages()
     tums.isVisible = false
     stitches.isVisible = false
     tissue.isVisible = false
+    heat.isVisible = false
+    earInfection.isVisible = false
+    earDrops.isVisible = false
+    pinkEye.isVisible = false
+    eyeDrops.isVisible = false
+    dryLips.isVisible = false
+    allergicReaction.isVisible = false
+    lipChap.isVisible = false
+    epiPen.isVisible = false
+    mosquitoBite.isVisible = false
+    afterBite.isVisible = false
 end 
 
 local function ShowDrops()
@@ -252,7 +276,7 @@ end
 
 function RemoveTouchListenersQ4()
     bandaid:removeEventListener("touch", TouchListenerAnswer)
-    polysporin:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    heat:removeEventListener("touch", TouchListenerWrongAnswer1)       
     tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
@@ -292,6 +316,36 @@ function RemoveTouchListenersQ10()
     tums:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
+function RemoveTouchListenersQ11()
+    eyeDrops:removeEventListener("touch", TouchListenerAnswer)
+    earDrops:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    polysporin:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ12()
+    earDrops:removeEventListener("touch", TouchListenerAnswer)
+    heat:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    stitches:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ13()
+    lipChap:removeEventListener("touch", TouchListenerAnswer)
+    tissue:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    ice:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ14()
+    afterBite:removeEventListener("touch", TouchListenerAnswer)
+    stitches:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    heat:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
+function RemoveTouchListenersQ15()
+    epiPen:removeEventListener("touch", TouchListenerAnswer)
+    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    lipChap:removeEventListener("touch", TouchListenerWrongAnswer2)
+end
+
 function RemoveAllTouchListeners()
     if (randomOperator == 1) then
         RemoveTouchListenersQ1()
@@ -313,6 +367,16 @@ function RemoveAllTouchListeners()
         RemoveTouchListenersQ9()
     elseif (randomOperator == 10) then
         RemoveTouchListenersQ10()
+    elseif (randomOperator == 11) then
+        RemoveTouchListenersQ11()
+    elseif (randomOperator == 12) then
+        RemoveTouchListenersQ12()
+    elseif (randomOperator == 13) then
+        RemoveTouchListenersQ13()
+    elseif (randomOperator == 14) then
+        RemoveTouchListenersQ14()
+    elseif (randomOperator == 15) then
+        RemoveTouchListenersQ15()
     end
 end
 
@@ -338,7 +402,7 @@ end
 
 
 function AskQuestionLevel1()
-    randomOperator = math.random (1, 10)
+    randomOperator = math.random (1, 15)
 
     incorrect.isVisible = false
     correct.isVisible = false
@@ -401,8 +465,8 @@ function AskQuestionLevel1()
         bandaid:addEventListener("touch", TouchListenerAnswer)
         
         -- wrong answers
-        polysporin.isVisible = true
-        polysporin:addEventListener("touch", TouchListenerWrongAnswer1)
+        heat.isVisible = true
+        heat:addEventListener("touch", TouchListenerWrongAnswer1)
 
         tweezers.isVisible = true
         tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
@@ -501,6 +565,87 @@ function AskQuestionLevel1()
 
         tums.isVisible = true
         tums:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 11) then
+
+        -- question
+        pinkEye.isVisible = true
+
+        -- correct answer
+        eyeDrops.isVisible = true
+        eyeDrops:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        earDrops.isVisible = true
+        earDrops:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        polysporin.isVisible = true
+        polysporin:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 12) then
+
+        -- question
+        earInfection.isVisible = true
+
+        -- correct answer
+        earDrops.isVisible = true
+        earDrops:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        heat.isVisible = true
+        heat:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 13) then
+
+        -- question
+        dryLips.isVisible = true
+
+        -- correct answer
+        lipChap.isVisible = true
+        lipChap:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        tissue.isVisible = true
+        tissue:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 14) then
+
+        -- question
+        mosquitoBite.isVisible = true
+
+        -- correct answer
+        afterBite.isVisible = true
+        afterBite:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        heat.isVisible = true
+        heat:addEventListener("touch", TouchListenerWrongAnswer2)
+
+    elseif (randomOperator == 15) then
+
+        -- question
+        allergicReaction.isVisible = true
+
+        -- correct answer
+        epiPen.isVisible = true
+        epiPen:addEventListener("touch", TouchListenerAnswer)
+        
+        -- wrong answers
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        lipChap.isVisible = true
+        lipChap:addEventListener("touch", TouchListenerWrongAnswer2)
+
     end
 end
 
@@ -616,6 +761,37 @@ function scene:create( event )
     noiseBleed.isVisible = false
     noiseBleed.name = "noiseBleed"
 
+    pinkEye = display.newImageRect("Images for level one/PinkEye.png", 230, 250)
+    pinkEye.x = display.contentWidth /1.9
+    pinkEye.y = display.contentHeight/2.1
+    pinkEye.isVisible = false
+    pinkEye.name = "pinkEye"
+
+    earInfection = display.newImageRect("Images for level one/EarInfection.png", 250, 250)
+    earInfection.x = display.contentWidth /1.9
+    earInfection.y = display.contentHeight/2.1
+    earInfection.isVisible = false
+    earInfection.name = "earInfection"
+
+    dryLips = display.newImageRect("Images for level one/DryLips.png", 250, 250)
+    dryLips.x = display.contentWidth /1.9
+    dryLips.y = display.contentHeight/2.1
+    dryLips.isVisible = false
+    dryLips.name = "earInfedryLipsction"
+
+    mosquitoBite = display.newImageRect("Images for level one/MosquitoBite.png", 280, 270)
+    mosquitoBite.x = display.contentWidth /1.9
+    mosquitoBite.y = display.contentHeight/2.1
+    mosquitoBite.isVisible = false
+    mosquitoBite.name = "mosquitoBite"
+
+    allergicReaction = display.newImageRect("Images for level one/AllergicReaction.png", 250, 250)
+    allergicReaction.x = display.contentWidth /1.9
+    allergicReaction.y = display.contentHeight/2.1
+    allergicReaction.isVisible = false
+    allergicReaction.name = "allergicReaction"
+
+
     --answers
     ice = display.newImageRect("Images for level one/IceBag1.png", 190, 190)
     ice.x = display.contentWidth /1.25
@@ -631,7 +807,7 @@ function scene:create( event )
 
     bandaid = display.newImageRect("Images for level one/Bandaid3.png", 220, 190)
     bandaid.x = display.contentWidth /1.9
-    bandaid.y = display.contentHeight/1.2
+    bandaid.y = display.contentHeight/1.17
     bandaid.isVisible = false
     bandaid.name = "bandaid"
 
@@ -659,11 +835,47 @@ function scene:create( event )
     tissue.isVisible = false
     tissue.name = "tissue"
 
-    stitches = display.newImageRect("Images for level one/Stitches.png", 190, 190)
+    stitches = display.newImageRect("Images for level one/Stitches11.png", 160, 200)
     stitches.x = display.contentWidth /4.5
     stitches.y = display.contentHeight/1.2
     stitches.isVisible = false
     stitches.name = "stitches"
+
+    heat = display.newImageRect("Images for level one/Heat2.png", 190, 190)
+    heat.x = display.contentWidth /1.25
+    heat.y = display.contentHeight/1.2
+    heat.isVisible = false
+    heat.name = "heat"
+
+    eyeDrops = display.newImageRect("Images for level one/EyeDrop.png", 160, 220)
+    eyeDrops.x = display.contentWidth /4.5
+    eyeDrops.y = display.contentHeight/1.2
+    eyeDrops.isVisible = false
+    eyeDrops.name = "eyeDrops"
+
+    earDrops = display.newImageRect("Images for level one/EarDrop1.png", 160, 220)
+    earDrops.x = display.contentWidth /1.9
+    earDrops.y = display.contentHeight/1.2
+    earDrops.isVisible = false
+    earDrops.name = "earDrops"
+
+    lipChap = display.newImageRect("Images for level one/LipChap.png", 160, 220)
+    lipChap.x = display.contentWidth /4.5
+    lipChap.y = display.contentHeight/1.2
+    lipChap.isVisible = false
+    lipChap.name = "lipChap"
+
+    afterBite = display.newImageRect("Images for level one/AfterBite.png", 160, 220)
+    afterBite.x = display.contentWidth /1.9
+    afterBite.y = display.contentHeight/1.2
+    afterBite.isVisible = false
+    afterBite.name = "afterBite"
+
+    epiPen = display.newImageRect("Images for level one/EpiPen.png", 160, 220)
+    epiPen.x = display.contentWidth /1.25
+    epiPen.y = display.contentHeight/1.2
+    epiPen.isVisible = false
+    epiPen.name = "epiPen"
 
     -- displays a question and sets the colour
     questionObject = display.newText( "What tool do you use to help your patient?", display.contentWidth/1.635, display.contentHeight/4.2, nil, 40)
@@ -705,7 +917,18 @@ function scene:create( event )
     sceneGroup:insert( advil )
     sceneGroup:insert( tissue )
     sceneGroup:insert( stitches )
+    sceneGroup:insert( heat )
     sceneGroup:insert( tums )
+    sceneGroup:insert( earInfection )
+    sceneGroup:insert( earDrops )
+    sceneGroup:insert( pinkEye )
+    sceneGroup:insert( eyeDrops )
+    sceneGroup:insert( dryLips )
+    sceneGroup:insert( mosquitoBite )
+    sceneGroup:insert( allergicReaction )
+    sceneGroup:insert( epiPen )
+    sceneGroup:insert( lipChap )
+    sceneGroup:insert( afterBite )
 
 end --function scene:create( event )
 
