@@ -17,12 +17,14 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "level3_screen"
+sceneName = "leve3_screen"
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
+
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -30,8 +32,9 @@ local scene = composer.newScene( sceneName )
     -- The local variables for this scene
     local bkg_image
 
-    local question1
-    local question2
+    --local questionObject
+    --local nameObject
+    --local nameObject2
 
     -- lives 
     local lives = 3
@@ -44,21 +47,39 @@ local scene = composer.newScene( sceneName )
     local correct
     local incorrect
 
-    -----------------------------------------------------------------------------------------
+    -- answer Images
+    local ice
+    local bandaid
+    local tweezers
+    local stitches
+
+    -- question Images
+    local question1
+    local question2
+
+    local randomOperator
+
+-----------------------------------------------------------------------------------------
+-- LOCAL SOUNDS
+-----------------------------------------------------------------------------------------
 
     -- sound
-   --[[ local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
+    local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
     local correctSoundChannel
     local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
     local wrongSoundChannel
 
 -----------------------------------------------------------------------------------------
--- GLOBAL SCENE FUNCTIONS
+-- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 local function HideImages()
     question1.isVisible = false
+    ice.isVisible = false
     question2.isVisible = false
+    bandaid.isVisible = false
+    tweezers.isVisible = false
+    stitches.isVisible = false
 end 
 
 local function ShowDrops()
@@ -67,6 +88,7 @@ local function ShowDrops()
     aidKit3.isVisible = true
 end
 
+-- Functions that checks if the buttons have been clicked.
 local function TouchListenerAnswer(event)
     -- get the object name that was clicked
     local object = event.target
@@ -85,7 +107,7 @@ local function TouchListenerAnswer(event)
 
         correctSoundChannel = audio.play(correctSound)
 
-        RemoveAllTouchListeners()
+        RemoveAllTouchListenersL3()
         HideImages()
 
     
@@ -96,13 +118,13 @@ local function TouchListenerAnswer(event)
             correctSoundChannel = audio.play(correctSound)
 
         else
-            timer.performWithDelay( 1000, AskQuestionLevel1 )
+            timer.performWithDelay( 1000, AskQuestionLevel3 )
         end        
 
     end
 end
 
-local function TouchListenerWrongAnswer(event)
+local function TouchListenerWrongAnswer1(event)
     local object = event.target
     -- get the user answer from the text object that was clicked on
     if (event.phase == "ended") then
@@ -111,7 +133,7 @@ local function TouchListenerWrongAnswer(event)
         print("***object.name = " .. object.name)
 
         --object:removeEventListener("touch", TouchListenerWrongAnswer1)
-        RemoveAllTouchListeners()
+        RemoveAllTouchListenersL3()
         HideImages()
 
         incorrect.isVisible = true
@@ -136,55 +158,56 @@ local function TouchListenerWrongAnswer(event)
             wrongSoundChannel = audio.play(wrongSound)
 
         else
-            timer.performWithDelay( 1000, AskQuestionLevel1 )
+            timer.performWithDelay( 1000, AskQuestionLevel3 )
             --AskQuestionLevel1()
         end        
 
     end
 end
 
-function RemoveTouchListenersQ1()
-    :removeEventListener("touch", TouchListenerAnswer)
-    :removeEventListener("touch", TouchListenerWrongAnswer1)       
-    :removeEventListener("touch", TouchListenerWrongAnswer1)
+function RemoveTouchListenersQ1L3()
+    ice:removeEventListener("touch", TouchListenerAnswer)
+    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    stitches:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
-function RemoveTouchListenersQ2()
-    :removeEventListener("touch", TouchListenerAnswer)
-    :removeEventListener("touch", TouchListenerWrongAnswer1)       
-    :removeEventListener("touch", TouchListenerWrongAnswer2)
+function RemoveTouchListenersQ2L3()
+    ice:removeEventListener("touch", TouchListenerAnswer)
+    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    tweezers:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
-function RemoveAllTouchListeners()
+function RemoveAllTouchListenersL3()
     if (randomOperator == 1) then
-        RemoveTouchListenersQ1()
+        RemoveTouchListenersQ1L3()
     elseif (randomOperator == 2) then
-        RemoveTouchListenersQ2()
-   	end
+        RemoveTouchListenersQ2L3()
+    end
 end
 
-function NewQuestionTimer()
+function NewQuestionTimerL3()
     if (lives == 3) then
         HideImages()
-        RemoveAllTouchListeners()
-        AskQuestionLevel1()
+        RemoveAllTouchListenersL3()
+        AskQuestionLevel3()
     elseif (lives == 2) then
         HideImages()
-        RemoveAllTouchListeners()
-        AskQuestionLevel1()
+        RemoveAllTouchListenersL3()
+        AskQuestionLevel3()
     elseif (lives == 1) then
         HideImages()
-        RemoveAllTouchListeners()
-        AskQuestionLevel1()
+        RemoveAllTouchListenersL3()
+        AskQuestionLevel3()
     elseif (lives == 0) then
         HideImages()
-        RemoveAllTouchListeners()
+        RemoveAllTouchListenersL3()
         composer.gotoScene( "YouLose_screen" )
     end
 end
 
-function AskQuestionLevel1()
-    randomOperator = math.random (1, 15)
+
+function AskQuestionLevel3()
+    randomOperator = math.random (1, 2)
 
     incorrect.isVisible = false
     correct.isVisible = false
@@ -192,43 +215,48 @@ function AskQuestionLevel1()
 
     if (randomOperator == 1) then
         -- question
-        .isVisible = true
+        question1.isVisible = true
 
         -- correct answer
-        .isVisible = true
-        :addEventListener("touch", TouchListenerAnswer)
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
-        .isVisible = true
-        :addEventListener("touch", TouchListenerWrongAnswer1)
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        .isVisible = true
-        :addEventListener("touch", TouchListenerWrongAnswer1)
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerWrongAnswer1)
 
     elseif (randomOperator == 2) then
         
         -- question
-        .isVisible = true
+        question2.isVisible = true
 
         -- correct answer
-        .isVisible = true
-        :addEventListener("touch", TouchListenerAnswer)
+        ice.isVisible = true
+        ice:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
-        .isVisible = true
-        :addEventListener("touch", TouchListenerWrongAnswer1)
+        bandaid.isVisible = true
+        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        .isVisible = true
-        :addEventListener("touch", TouchListenerWrongAnswer1)
+        tweezers.isVisible = true
+        tweezers:addEventListener("touch", TouchListenerWrongAnswer1)
+
     end
 end
 
+-------------------------------------------------------------------------------------------------------------------------
 -- hide correctObject
 local function HideCorrect()
     correct.isVisible = false
-    AskQuestionLevel()
-end--]]
+    AskQuestionLevel3()
+end
 
+-----------------------------------------------------------------------------------------
+-- GLOBAL SCENE FUNCTIONS
+-----------------------------------------------------------------------------------------
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -249,41 +277,64 @@ function scene:create( event )
 
     -- create the lives to display on the screen 
     aidKit1 = display.newImageRect("Images for level one/AidKit.png", 130, 100)
-    aidKit1.x = display.contentWidth /4
+    aidKit1.x = display.contentWidth /1.3
     aidKit1.y = display.contentHeight/1.75
     aidKit1.isVisible = true
 
     aidKit2 = display.newImageRect("Images for level one/AidKit.png", 130, 100)
-    aidKit2.x = display.contentWidth /2
+    aidKit2.x = display.contentWidth /4
     aidKit2.y = display.contentHeight/1.75
     aidKit2.isVisible = true
 
     aidKit3 = display.newImageRect("Images for level one/AidKit.png", 130, 100)
-    aidKit3.x = display.contentWidth /1.3
+    aidKit3.x = display.contentWidth /2
     aidKit3.y = display.contentHeight/1.75
     aidKit3.isVisible = true
 
-    --[[correct = display.newText("CORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
+    correct = display.newText("Correct!", display.contentWidth/2, display.contentHeight*3/4, nil, 75 )
     correct:setTextColor(153/255, 76/255, 0)
     correct.isVisible = false
 
-    incorrect = display.newText("INCORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
+    incorrect = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*3/4, nil, 75 )
     incorrect:setTextColor(153/255, 76/255, 0)
     incorrect.isVisible = false
 
     -- questions 
-     = display.newImageRect("Images for level one/.png", 250, 250)
-    .x = display.contentWidth /1.9
-    .y = display.contentHeight/2.1
-    .isVisible = false
+    question1 = display.newText("Bruises!", display.contentWidth/2, display.contentHeight/8.7, nil, 60 )
+    question1:setTextColor(153/255, 76/255, 0)
+    question1.isVisible = false
 
-     = display.newImageRect("Images for level one/.png", 250, 250)
-    .x = display.contentWidth /1.9
-    .y = display.contentHeight/2.1
-    .isVisible = false
-    .name = ""--]]
+    question2 = display.newText("Besting!", display.contentWidth/2, display.contentHeight/8.7, nil, 60 )
+    question2:setTextColor(153/255, 76/255, 0)
+    question2.isVisible = false
 
-    
+    --answers
+    ice = display.newImageRect("Images for level one/IceBag1.png", 180, 120)
+    ice.x = display.contentWidth /1.35
+    ice.y = display.contentHeight/1.2
+    ice.isVisible = false
+    ice.name = "ice"
+
+    bandaid = display.newImageRect("Images for level one/Bandaid3.png", 180, 120)
+    bandaid.x = display.contentWidth /2
+    bandaid.y = display.contentHeight/1.17
+    bandaid.isVisible = false
+    bandaid.name = "bandaid"
+
+    tweezers = display.newImageRect("Images for level one/Tweezers.png", 160, 140)
+    tweezers.x = display.contentWidth /4
+    tweezers.y = display.contentHeight/1.2
+    tweezers.isVisible = false
+    tweezers.name = "tweezers"
+
+    stitches = display.newImageRect("Images for level one/Stitches11.png", 120, 160)
+    stitches.x = display.contentWidth /3.9
+    stitches.y = display.contentHeight/1.2
+    stitches.isVisible = false
+    stitches.name = "stitches"
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------
 
     -- Insert background image into the scene group in order to ONLY be associated with this scene
@@ -291,7 +342,15 @@ function scene:create( event )
     sceneGroup:insert( aidKit1 )
     sceneGroup:insert( aidKit2 )
     sceneGroup:insert( aidKit3 )
-    
+    sceneGroup:insert( correct )
+    sceneGroup:insert( incorrect )
+    sceneGroup:insert( question1 )
+    sceneGroup:insert( question2 )
+    sceneGroup:insert( ice )
+    sceneGroup:insert( bandaid )
+    sceneGroup:insert( tweezers )
+    sceneGroup:insert( stitches )
+
 end --function scene:create( event )
 
 -----------------------------------------------------------------------------------------
@@ -318,6 +377,9 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         lives = 3
         points = 0        
+
+        ShowDrops()
+        AskQuestionLevel3()
 
     end
 

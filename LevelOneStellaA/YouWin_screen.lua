@@ -147,6 +147,8 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         print("animation")
+        animation.x = 200
+        animation.y = 175
         Runtime:addEventListener("enterFrame", MoveImageGIF) 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
@@ -178,6 +180,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        Runtime:removeEventListener("enterFrame", MoveImageGIF)
     end
 
 end
