@@ -1,4 +1,4 @@
------------------------------------------------------------------ level1_screen.lua
+---------------------------------------------------------------- level1_screen.lua
 -- Created by: Your Name
 -- Date: Month Day, Year
 -- Description: This is the level 1 screen of the game.
@@ -10,12 +10,13 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "YouLose_screen"
+sceneName = "YouLin_screen"
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
+
 
 -----------------------------------------------------------------------------------------
 -- FORWARD REFERENCES
@@ -25,9 +26,34 @@ local scene = composer.newScene( sceneName )
 local bkg
 local mainMenuButton
 
+-- variables for images
+local scrollSpeed1 = 2
+local animation
+
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+-- Function: MoveGIFImage
+-- Input: this function accepts an event listner 
+-- Output: none
+-- Description: This function adds the scroll speed to the x-value of the animation. 
+
+local function Animation(create)
+    animation = display.newImageRect("Images for level one/YAY.png", 350, 250)
+    animation.x = 200
+    animation.y = 175
+end
+
+local function MoveImageGIF(event)
+
+    animation.x = animation.x + scrollSpeed1
+
+    -- add the scroll speed to the x-value of the animation
+    animation.x = animation.x + scrollSpeed1
+    -- change the transparency of the snowPlow every time it moves so that it fades out
+    animation.alpha = animation.alpha + 0.01
+
+end
 
 -- Creating Transitioning Function back to main menu
 local function MainMenuTransition( )
@@ -40,7 +66,7 @@ end
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
-
+    
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
@@ -86,8 +112,15 @@ function scene:create( event )
 
     -- Associating Buttons with this scene
     sceneGroup:insert( mainMenuButton )
-end
 
+
+    animation = display.newImageRect("Images for level one/TryAgain.png", 350, 250)
+    animation.x = 200
+    animation.y = 175
+    -- Associating display objects with this scene 
+    sceneGroup:insert( animation )
+
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -113,7 +146,10 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-
+        print("animation")
+        animation.x = 200
+        animation.y = 175
+        Runtime:addEventListener("enterFrame", MoveImageGIF) 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
@@ -144,6 +180,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        Runtime:removeEventListener("enterFrame", MoveImageGIF)
     end
 
 end

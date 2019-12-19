@@ -88,7 +88,7 @@ function scene:create( event )
 
         -- Setting Visual Properties
         defaultFile = "Images for level one/Level1.png",
-        overFile = "Images for level one/Level1.png",
+        overFile = "Images for level one/Level1Pressed.png",
 
         -- Setting Functional Properties
         onRelease = Level1Transition
@@ -108,7 +108,7 @@ function scene:create( event )
 
         -- Setting Visual Properties
         defaultFile = "Images for level one/Level2.png",
-        overFile = "Images for level one/Level2.png",
+        overFile = "Images for level one/Level2Pressed.png",
 
         -- Setting Functional Properties
         onRelease = Level2Transition
@@ -128,7 +128,7 @@ function scene:create( event )
 
         -- Setting Visual Properties
         defaultFile = "Images for level one/Level3.png",
-        overFile = "Images for level one/Level3.png",
+        overFile = "Images for level one/Level3Pressed.png",
 
         -- Setting Functional Properties
         onRelease = Level3Transition
