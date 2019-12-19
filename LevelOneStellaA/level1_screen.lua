@@ -161,6 +161,8 @@ local function TouchListenerAnswer(event)
         if (points == 5) then
             composer.gotoScene( "YouWin_screen" )
 
+            correct.isVisible = true
+
             -- play correct sound 
             correctSoundChannel = audio.play(correctSound)
 
@@ -200,6 +202,8 @@ local function TouchListenerWrongAnswer1(event)
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
+
+            incorrect.isVisible = true
 
             -- play incorrect sound 
             wrongSoundChannel = audio.play(wrongSound)
@@ -242,7 +246,7 @@ local function TouchListenerWrongAnswer2(event)
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
 
-            incorrect.isVisible = false
+            incorrect.isVisible = true
 
             -- play incorrect sound 
             wrongSoundChannel = audio.play(wrongSound)
