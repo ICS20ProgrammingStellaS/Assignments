@@ -164,7 +164,7 @@ local function TouchListenerAnswer(event)
             correct.isVisible = true
 
             -- play correct sound 
-            correctSoundChannel = audio.play(correctSound)
+            --correctSoundChannel = audio.play(correctSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel1 )
@@ -206,7 +206,7 @@ local function TouchListenerWrongAnswer1(event)
             incorrect.isVisible = true
 
             -- play incorrect sound 
-            wrongSoundChannel = audio.play(wrongSound)
+            --wrongSoundChannel = audio.play(wrongSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel1 )

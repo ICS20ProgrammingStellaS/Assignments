@@ -115,7 +115,7 @@ local function TouchListenerAnswer(event)
             composer.gotoScene( "YouWin_screen" )
 
             -- play correct sound 
-            correctSoundChannel = audio.play(correctSound)
+            --correctSoundChannel = audio.play(correctSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel3 )
@@ -155,7 +155,7 @@ local function TouchListenerWrongAnswer1(event)
             composer.gotoScene( "YouLose_screen" )
 
             -- play incorrect sound 
-            wrongSoundChannel = audio.play(wrongSound)
+            --wrongSoundChannel = audio.play(wrongSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel3 )
