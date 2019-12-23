@@ -48,10 +48,10 @@ local scene = composer.newScene( sceneName )
     local incorrect
 
     -- answer Images
-    local ice
-    local bandaid
-    local tweezers
-    local stitches
+    local hug
+    local yell
+    local ignore
+    local tissue
 
     -- question Images
     local question1
@@ -75,11 +75,11 @@ local scene = composer.newScene( sceneName )
 
 local function HideImages()
     question1.isVisible = false
-    ice.isVisible = false
+    hug.isVisible = false
     question2.isVisible = false
-    bandaid.isVisible = false
-    tweezers.isVisible = false
-    stitches.isVisible = false
+    yell.isVisible = false
+    ignore.isVisible = false
+    tissue.isVisible = false
 end 
 
 local function ShowDrops()
@@ -166,15 +166,15 @@ local function TouchListenerWrongAnswer1(event)
 end
 
 function RemoveTouchListenersQ1L3()
-    ice:removeEventListener("touch", TouchListenerAnswer)
-    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    stitches:removeEventListener("touch", TouchListenerWrongAnswer1)
+    tissue:removeEventListener("touch", TouchListenerAnswer)
+    yell:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    hug:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
 function RemoveTouchListenersQ2L3()
-    ice:removeEventListener("touch", TouchListenerAnswer)
-    bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    tweezers:removeEventListener("touch", TouchListenerWrongAnswer1)
+    hug:removeEventListener("touch", TouchListenerAnswer)
+    yell:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    ignore:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
 function RemoveAllTouchListenersL3()
@@ -218,15 +218,15 @@ function AskQuestionLevel3()
         question1.isVisible = true
 
         -- correct answer
-        ice.isVisible = true
-        ice:addEventListener("touch", TouchListenerAnswer)
+        tissue.isVisible = true
+        tissue:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
-        bandaid.isVisible = true
-        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
+        yell.isVisible = true
+        yell:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        stitches.isVisible = true
-        stitches:addEventListener("touch", TouchListenerWrongAnswer1)
+        hug.isVisible = true
+        hug:addEventListener("touch", TouchListenerWrongAnswer1)
 
     elseif (randomOperator == 2) then
         
@@ -234,15 +234,15 @@ function AskQuestionLevel3()
         question2.isVisible = true
 
         -- correct answer
-        ice.isVisible = true
-        ice:addEventListener("touch", TouchListenerAnswer)
+        hug.isVisible = true
+        hug:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
-        bandaid.isVisible = true
-        bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
+        yell.isVisible = true
+        yell:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        tweezers.isVisible = true
-        tweezers:addEventListener("touch", TouchListenerWrongAnswer1)
+        ignore.isVisible = true
+        ignore:addEventListener("touch", TouchListenerWrongAnswer1)
 
     end
 end
@@ -269,7 +269,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images for level one/level3screen.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images for level one/backgroundL3.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -300,38 +300,38 @@ function scene:create( event )
     incorrect.isVisible = false
 
     -- questions 
-    question1 = display.newText("Bruises!", display.contentWidth/2, display.contentHeight/8.7, nil, 60 )
+    question1 = display.newText("someone crying?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
     question1:setTextColor(153/255, 76/255, 0)
     question1.isVisible = false
 
-    question2 = display.newText("Besting!", display.contentWidth/2, display.contentHeight/8.7, nil, 60 )
+    question2 = display.newText("someone was sad?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
     question2:setTextColor(153/255, 76/255, 0)
     question2.isVisible = false
 
     --answers
-    ice = display.newImageRect("Images for level one/IceBag1.png", 180, 120)
-    ice.x = display.contentWidth /1.35
-    ice.y = display.contentHeight/1.2
-    ice.isVisible = false
-    ice.name = "ice"
+    hug = display.newImageRect("Images for level one/Hug.png", 180, 170)
+    hug.x = display.contentWidth /1.35
+    hug.y = display.contentHeight/1.2
+    hug.isVisible = false
+    hug.name = "hug"
 
-    bandaid = display.newImageRect("Images for level one/Bandaid3.png", 180, 120)
-    bandaid.x = display.contentWidth /2
-    bandaid.y = display.contentHeight/1.17
-    bandaid.isVisible = false
-    bandaid.name = "bandaid"
+    yell = display.newImageRect("Images for level one/Yell.png", 180, 190)
+    yell.x = display.contentWidth /2
+    yell.y = display.contentHeight/1.2
+    yell.isVisible = false
+    yell.name = "yell"
 
-    tweezers = display.newImageRect("Images for level one/Tweezers.png", 160, 140)
-    tweezers.x = display.contentWidth /4
-    tweezers.y = display.contentHeight/1.2
-    tweezers.isVisible = false
-    tweezers.name = "tweezers"
+    ignore = display.newImageRect("Images for level one/Ignore.png", 200, 180)
+    ignore.x = display.contentWidth /3.7
+    ignore.y = display.contentHeight/1.2
+    ignore.isVisible = false
+    ignore.name = "ignore"
 
-    stitches = display.newImageRect("Images for level one/Stitches11.png", 120, 160)
-    stitches.x = display.contentWidth /3.9
-    stitches.y = display.contentHeight/1.2
-    stitches.isVisible = false
-    stitches.name = "stitches"
+    tissue = display.newImageRect("Images for level one/GiveTissue.png", 200, 180)
+    tissue.x = display.contentWidth /3.7
+    tissue.y = display.contentHeight/1.18
+    tissue.isVisible = false
+    tissue.name = "tissue"
 
 
 
@@ -346,10 +346,10 @@ function scene:create( event )
     sceneGroup:insert( incorrect )
     sceneGroup:insert( question1 )
     sceneGroup:insert( question2 )
-    sceneGroup:insert( ice )
-    sceneGroup:insert( bandaid )
-    sceneGroup:insert( tweezers )
-    sceneGroup:insert( stitches )
+    sceneGroup:insert( hug )
+    sceneGroup:insert( yell )
+    sceneGroup:insert( ignore )
+    sceneGroup:insert( tissue )
 
 end --function scene:create( event )
 
