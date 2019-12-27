@@ -351,7 +351,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images for level one/BackGround.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images for level one/LevelThreeScreen.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
