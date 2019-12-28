@@ -351,24 +351,24 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images for level one/LevelThreeScreen.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images for level three/LevelThreeScreen.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
 
     -- create the lives to display on the screen 
-    aidKit1 = display.newImageRect("Images for level one/AidKit.png", 130, 100)
+    aidKit1 = display.newImageRect("Images for level three/AidKit.png", 130, 100)
     aidKit1.x = display.contentWidth /1.3
     aidKit1.y = display.contentHeight/1.75
     aidKit1.isVisible = true
 
-    aidKit2 = display.newImageRect("Images for level one/AidKit.png", 130, 100)
+    aidKit2 = display.newImageRect("Images for level three/AidKit.png", 130, 100)
     aidKit2.x = display.contentWidth /4
     aidKit2.y = display.contentHeight/1.75
     aidKit2.isVisible = true
 
-    aidKit3 = display.newImageRect("Images for level one/AidKit.png", 130, 100)
+    aidKit3 = display.newImageRect("Images for level three/AidKit.png", 130, 100)
     aidKit3.x = display.contentWidth /2
     aidKit3.y = display.contentHeight/1.75
     aidKit3.isVisible = true
@@ -403,49 +403,49 @@ function scene:create( event )
     question5.isVisible = false
 
     --answers
-    hug = display.newImageRect("Images for level one/Hug.png", 180, 170)
+    hug = display.newImageRect("Images for level three/Hug.png", 180, 170)
     hug.x = display.contentWidth /1.3
     hug.y = display.contentHeight/1.2
     hug.isVisible = false
     hug.name = "hug"
 
-    yell = display.newImageRect("Images for level one/Yell.png", 180, 190)
+    yell = display.newImageRect("Images for level three/Yell.png", 180, 190)
     yell.x = display.contentWidth /1.95
     yell.y = display.contentHeight/1.2
     yell.isVisible = false
     yell.name = "yell"
 
-    ignore = display.newImageRect("Images for level one/Ignore.png", 200, 180)
+    ignore = display.newImageRect("Images for level three/Ignore.png", 200, 180)
     ignore.x = display.contentWidth /4
     ignore.y = display.contentHeight/1.2
     ignore.isVisible = false
     ignore.name = "ignore"
 
-    tissue = display.newImageRect("Images for level one/GiveTissue.png", 200, 180)
+    tissue = display.newImageRect("Images for level three/GiveTissue.png", 200, 180)
     tissue.x = display.contentWidth /4
     tissue.y = display.contentHeight/1.18
     tissue.isVisible = false
     tissue.name = "tissue"
 
-    happy = display.newImageRect("Images for level one/Behappytoo.png", 200, 180)
+    happy = display.newImageRect("Images for level three/Behappytoo.png", 200, 180)
     happy.x = display.contentWidth /1.95
     happy.y = display.contentHeight/1.2
     happy.isVisible = false
     happy.name = "happy"
 
-    rude = display.newImageRect("Images for level one/Berude.png", 200, 180)
+    rude = display.newImageRect("Images for level three/Berude.png", 200, 180)
     rude.x = display.contentWidth /1.3
     rude.y = display.contentHeight/1.21
     rude.isVisible = false
     rude.name = "rude"
 
-    help = display.newImageRect("Images for level one/Helpthem.png", 200, 180)
+    help = display.newImageRect("Images for level three/Helpthem.png", 200, 180)
     help.x = display.contentWidth /1.3
     help.y = display.contentHeight/1.2
     help.isVisible = false
     help.name = "help"
 
-    laugh = display.newImageRect("Images for level one/Laughatthem.png", 230, 190)
+    laugh = display.newImageRect("Images for level three/Laughatthem.png", 230, 190)
     laugh.x = display.contentWidth /4
     laugh.y = display.contentHeight/1.2
     laugh.isVisible = false

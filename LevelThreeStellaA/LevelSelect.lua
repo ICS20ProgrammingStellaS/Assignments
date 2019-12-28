@@ -62,7 +62,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg = display.newImage("Images for level one/BKG.png")
+    bkg = display.newImage("Images for level three/BKG.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
@@ -87,8 +87,8 @@ function scene:create( event )
         -- height = 106,
 
         -- Setting Visual Properties
-        defaultFile = "Images for level one/Level1.png",
-        overFile = "Images for level one/Level1Pressed.png",
+        defaultFile = "Images for level three/Level1.png",
+        overFile = "Images for level three/Level1Pressed.png",
 
         -- Setting Functional Properties
         onRelease = Level1Transition
@@ -107,8 +107,8 @@ function scene:create( event )
         -- height = 106,
 
         -- Setting Visual Properties
-        defaultFile = "Images for level one/Level2.png",
-        overFile = "Images for level one/Level2Pressed.png",
+        defaultFile = "Images for level three/Level2.png",
+        overFile = "Images for level three/Level2Pressed.png",
 
         -- Setting Functional Properties
         onRelease = Level2Transition
@@ -127,8 +127,8 @@ function scene:create( event )
         -- height = 106,
 
         -- Setting Visual Properties
-        defaultFile = "Images for level one/Level3.png",
-        overFile = "Images for level one/Level3Pressed.png",
+        defaultFile = "Images for level three/Level3.png",
+        overFile = "Images for level three/Level3Pressed.png",
 
         -- Setting Functional Properties
         onRelease = Level3Transition

@@ -39,7 +39,7 @@ local animation
 -- Description: This function adds the scroll speed to the x-value of the animation. 
 
 local function Animation(create)
-    animation = display.newImageRect("Images for level one/YAY.png", 350, 250)
+    animation = display.newImageRect("Images for level three/YAY.png", 350, 250)
     animation.x = 200
     animation.y = 175
 end
@@ -75,7 +75,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg = display.newImage("Images for level one/YouLose.png")
+    bkg = display.newImage("Images for level three/YouLose.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
@@ -100,8 +100,8 @@ function scene:create( event )
         -- height = 106,
 
         -- Setting Visual Properties
-        defaultFile = "Images for level one/MainMenuButton.png",
-        overFile = "Images for level one/MainMenuButtonPressed.png",
+        defaultFile = "Images for level three/MainMenuButton.png",
+        overFile = "Images for level three/MainMenuButtonPressed.png",
 
         -- Setting Functional Properties
         onRelease = MainMenuTransition
@@ -114,7 +114,7 @@ function scene:create( event )
     sceneGroup:insert( mainMenuButton )
 
 
-    animation = display.newImageRect("Images for level one/TryAgain.png", 350, 250)
+    animation = display.newImageRect("Images for level three/TryAgain.png", 350, 250)
     animation.x = 200
     animation.y = 175
     -- Associating display objects with this scene 
