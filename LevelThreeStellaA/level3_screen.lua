@@ -52,6 +52,13 @@ local scene = composer.newScene( sceneName )
     local rude
     local help
     local laugh
+    local comfort
+    local talk
+    local listen 
+    local sleep
+    local kind
+    local care
+    local annoying
 
     -- question Images
     local question1
@@ -59,6 +66,16 @@ local scene = composer.newScene( sceneName )
     local question3
     local question4
     local question5
+    local question6
+    local question7
+    local question8
+    local question9
+    local question10
+    local question11
+    local question12
+    local question13
+    local question14
+    local question15
 
     local randomOperator
 
@@ -83,6 +100,16 @@ local function HideImages()
     question3.isVisible = false
     question4.isVisible = false
     question5.isVisible = false
+    question6.isVisible = false
+    question7.isVisible = false
+    question8.isVisible = false
+    question9.isVisible = false
+    question10.isVisible = false
+    question11.isVisible = false
+    question12.isVisible = false
+    question13.isVisible = false
+    question14.isVisible = false
+    question15.isVisible = false
     yell.isVisible = false
     ignore.isVisible = false
     tissue.isVisible = false
@@ -90,6 +117,13 @@ local function HideImages()
     help.isVisible = false
     happy.isVisible = false
     rude.isVisible = false
+    comfort.isVisible = false
+    talk.isVisible = false
+    listen.isVisible = false 
+    sleep.isVisible = false
+    kind.isVisible = false
+    care.isVisible = false
+    annoying.isVisible = false
 end 
 
 local function ShowDrops()
@@ -183,7 +217,7 @@ end
 
 function RemoveTouchListenersQ2L3()
     hug:removeEventListener("touch", TouchListenerAnswer)
-    yell:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    annoying:removeEventListener("touch", TouchListenerWrongAnswer1)       
     ignore:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
@@ -205,6 +239,66 @@ function RemoveTouchListenersQ5L3()
     laugh:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
+function RemoveTouchListenersQ6L3()
+    comfort:removeEventListener("touch", TouchListenerAnswer)
+    annoying:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    laugh:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ7L3()
+    talk:removeEventListener("touch", TouchListenerAnswer)
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    sleep:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ8L3()
+    listen:removeEventListener("touch", TouchListenerAnswer)
+    yell:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ9L3()
+    help:removeEventListener("touch", TouchListenerAnswer)
+    annoying:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    ignore:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ10L3()
+    happy:removeEventListener("touch", TouchListenerAnswer)
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    laugh:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ11L3()
+    talk:removeEventListener("touch", TouchListenerAnswer)
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    ignore:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ12L3()
+    listen:removeEventListener("touch", TouchListenerAnswer)
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    yell:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ13L3()
+    kind:removeEventListener("touch", TouchListenerAnswer)
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    laugh:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ14L3()
+    sleep:removeEventListener("touch", TouchListenerAnswer)
+    annoying:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
+function RemoveTouchListenersQ15L3()
+    care:removeEventListener("touch", TouchListenerAnswer)
+    ignore:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    annoying:removeEventListener("touch", TouchListenerWrongAnswer1)
+end
+
 function RemoveAllTouchListenersL3()
     if (randomOperator == 1) then
         RemoveTouchListenersQ1L3()
@@ -216,6 +310,26 @@ function RemoveAllTouchListenersL3()
         RemoveTouchListenersQ4L3()
     elseif (randomOperator == 5) then
         RemoveTouchListenersQ5L3()
+    elseif (randomOperator == 6) then
+        RemoveTouchListenersQ6L3()
+    elseif (randomOperator == 7) then
+        RemoveTouchListenersQ7L3()
+    elseif (randomOperator == 8) then
+        RemoveTouchListenersQ8L3()
+    elseif (randomOperator == 9) then
+        RemoveTouchListenersQ9L3()
+    elseif (randomOperator == 10) then
+        RemoveTouchListenersQ10L3()
+    elseif (randomOperator == 11) then
+        RemoveTouchListenersQ11L3()
+    elseif (randomOperator == 12) then
+        RemoveTouchListenersQ12L3()
+    elseif (randomOperator == 13) then
+        RemoveTouchListenersQ13L3()
+    elseif (randomOperator == 14) then
+        RemoveTouchListenersQ14L3()
+    elseif (randomOperator == 15) then
+        RemoveTouchListenersQ15L3()
     end
 end
 
@@ -241,7 +355,7 @@ end
 
 
 function AskQuestionLevel3()
-    randomOperator = math.random (1, 5)
+    randomOperator = math.random (1, 15)
 
     incorrect.isVisible = false
     correct.isVisible = false
@@ -326,6 +440,166 @@ function AskQuestionLevel3()
         laugh.isVisible = true
         laugh:addEventListener("touch", TouchListenerWrongAnswer1)
 
+    elseif (randomOperator == 6) then
+        
+        -- question
+        question6.isVisible = true
+
+        -- correct answer
+        comfort.isVisible = true
+        comfort:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        annoying.isVisible = true
+        annoying:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        laugh.isVisible = true
+        laugh:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 7) then
+        
+        -- question
+        question7.isVisible = true
+
+        -- correct answer
+        talk.isVisible = true
+        talk:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        sleep.isVisible = true
+        sleep:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 8) then
+        
+        -- question
+        question8.isVisible = true
+
+        -- correct answer
+        listen.isVisible = true
+        listen:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        yell.isVisible = true
+        yell:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 9) then
+        
+        -- question
+        question9.isVisible = true
+
+        -- correct answer
+        help.isVisible = true
+        help:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        annoying.isVisible = true
+        annoying:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        ignore.isVisible = true
+        ignore:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 10) then
+        
+        -- question
+        question10.isVisible = true
+
+        -- correct answer
+        happy.isVisible = true
+        happy:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        laugh.isVisible = true
+        laugh:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 11) then
+        
+        -- question
+        question11.isVisible = true
+
+        -- correct answer
+        talk.isVisible = true
+        talk:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        ignore.isVisible = true
+        ignore:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 12) then
+        
+        -- question
+        question12.isVisible = true
+
+        -- correct answer
+        listen.isVisible = true
+        listen:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        yell.isVisible = true
+        yell:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 13) then
+        
+        -- question
+        question13.isVisible = true
+
+        -- correct answer
+        kind.isVisible = true
+        kind:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        laugh.isVisible = true
+        laugh:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 14) then
+        
+        -- question
+        question14.isVisible = true
+
+        -- correct answer
+        sleep.isVisible = true
+        sleep:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        annoying.isVisible = true
+        annoying:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
+
+    elseif (randomOperator == 15) then
+        
+        -- question
+        question15.isVisible = true
+
+        -- correct answer
+        care.isVisible = true
+        care:addEventListener("touch", TouchListenerAnswer)
+
+        -- wrong answers
+        ignore.isVisible = true
+        ignore:addEventListener("touch", TouchListenerWrongAnswer1)
+
+        annoying.isVisible = true
+        annoying:addEventListener("touch", TouchListenerWrongAnswer1)
+
     end
 end
 
@@ -386,7 +660,7 @@ function scene:create( event )
     question1:setTextColor(153/255, 76/255, 0)
     question1.isVisible = false
 
-    question2 = display.newText("someone is sad?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question2 = display.newText("someone is feeling sad?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
     question2:setTextColor(153/255, 76/255, 0)
     question2.isVisible = false
 
@@ -401,6 +675,47 @@ function scene:create( event )
     question5 = display.newText("someone is embarrased?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
     question5:setTextColor(153/255, 76/255, 0)
     question5.isVisible = false
+
+    question6 = display.newText("someone is scared?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question6:setTextColor(153/255, 76/255, 0)
+    question6.isVisible = false
+
+    question7 = display.newText("someone is worried?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question7:setTextColor(153/255, 76/255, 0)
+    question7.isVisible = false
+
+    question8 = display.newText("someone is angry?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question8:setTextColor(153/255, 76/255, 0)
+    question8.isVisible = false
+
+    question9 = display.newText("someone is shy?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question9:setTextColor(153/255, 76/255, 0)
+    question9.isVisible = false
+
+    question10 = display.newText("someone is very excited?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question10:setTextColor(153/255, 76/255, 0)
+    question10.isVisible = false
+
+    question11 = display.newText("someone is left out?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question11:setTextColor(153/255, 76/255, 0)
+    question11.isVisible = false
+
+    question12 = display.newText("someone is annoyed with you?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question12:setTextColor(153/255, 76/255, 0)
+    question12.isVisible = false
+
+    question13 = display.newText("someone is acting grouchy?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question13:setTextColor(153/255, 76/255, 0)
+    question13.isVisible = false
+
+    question14 = display.newText("someone is tired?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question14:setTextColor(153/255, 76/255, 0)
+    question14.isVisible = false
+
+    question15 = display.newText("someone is feeling sick?", display.contentWidth/2, display.contentHeight/4.75, nil, 55 )
+    question15:setTextColor(153/255, 76/255, 0)
+    question15.isVisible = false
+
 
     --answers
     hug = display.newImageRect("Images for level three/Hug.png", 180, 170)
@@ -427,7 +742,7 @@ function scene:create( event )
     tissue.isVisible = false
     tissue.name = "tissue"
 
-    happy = display.newImageRect("Images for level three/Behappytoo.png", 200, 180)
+    happy = display.newImageRect("Images for level three/Happy.png", 200, 180)
     happy.x = display.contentWidth /1.95
     happy.y = display.contentHeight/1.2
     happy.isVisible = false
@@ -451,6 +766,47 @@ function scene:create( event )
     laugh.isVisible = false
     laugh.name = "laugh"
 
+    talk = display.newImageRect("Images for level three/Talktothem.png", 250, 200)
+    talk.x = display.contentWidth /1.95
+    talk.y = display.contentHeight/1.2
+    talk.isVisible = false
+    talk.name = "talk"
+
+    listen = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    listen.x = display.contentWidth /4
+    listen.y = display.contentHeight/1.18
+    listen.isVisible = false
+    listen.name = "listen"
+
+    kind = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    kind.x = display.contentWidth /1.95
+    kind.y = display.contentHeight/1.2
+    kind.isVisible = false
+    kind.name = "kind"
+
+    comfort = display.newImageRect("Images for level three/Comfortthem.png", 230, 190)
+    comfort.x = display.contentWidth /1.3
+    comfort.y = display.contentHeight/1.2
+    comfort.isVisible = false
+    comfort.name = "comfort"
+
+    sleep = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    sleep.x = display.contentWidth /4
+    sleep.y = display.contentHeight/1.18
+    sleep.isVisible = false
+    sleep.name = "sleep"
+
+    annoying = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    annoying.x = display.contentWidth /1.95
+    annoying.y = display.contentHeight/1.2
+    annoying.isVisible = false
+    annoying.name = "annoying"
+
+    care = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    care.x = display.contentWidth /1.3
+    care.y = display.contentHeight/1.2
+    care.isVisible = false
+    care.name = "care"
 
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -467,6 +823,16 @@ function scene:create( event )
     sceneGroup:insert( question3 )
     sceneGroup:insert( question4 )
     sceneGroup:insert( question5 )
+    sceneGroup:insert( question6 )
+    sceneGroup:insert( question7 )
+    sceneGroup:insert( question8 )
+    sceneGroup:insert( question9 )
+    sceneGroup:insert( question10 )
+    sceneGroup:insert( question11 )
+    sceneGroup:insert( question12 )
+    sceneGroup:insert( question13 )
+    sceneGroup:insert( question14 )
+    sceneGroup:insert( question15 )
     sceneGroup:insert( hug )
     sceneGroup:insert( yell )
     sceneGroup:insert( ignore )
@@ -475,6 +841,13 @@ function scene:create( event )
     sceneGroup:insert( rude )
     sceneGroup:insert( happy )
     sceneGroup:insert( laugh )
+    sceneGroup:insert( listen )
+    sceneGroup:insert( sleep )
+    sceneGroup:insert( annoying )
+    sceneGroup:insert( kind )
+    sceneGroup:insert( talk )
+    sceneGroup:insert( comfort )
+    sceneGroup:insert( care )
 
 end --function scene:create( event )
 
