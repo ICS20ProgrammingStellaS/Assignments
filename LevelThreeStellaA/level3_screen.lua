@@ -212,7 +212,7 @@ end
 function RemoveTouchListenersQ1L3()
     tissue:removeEventListener("touch", TouchListenerAnswer)
     yell:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    hug:removeEventListener("touch", TouchListenerWrongAnswer1)
+    rude:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
 function RemoveTouchListenersQ2L3()
@@ -373,8 +373,8 @@ function AskQuestionLevel3()
         yell.isVisible = true
         yell:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        hug.isVisible = true
-        hug:addEventListener("touch", TouchListenerWrongAnswer1)
+        rude.isVisible = true
+        rude:addEventListener("touch", TouchListenerWrongAnswer1)
 
     elseif (randomOperator == 2) then
         
