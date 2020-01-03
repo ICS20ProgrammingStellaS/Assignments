@@ -356,7 +356,7 @@ end
 
 function AskQuestionLevel3()
     randomOperator = math.random (1, 15)
-    randomOperator = 12
+
     incorrect.isVisible = false
     correct.isVisible = false
     HideImages()
@@ -778,7 +778,7 @@ function scene:create( event )
     listen.isVisible = false
     listen.name = "listen"
 
-    kind = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    kind = display.newImageRect("Images for level three/Bekind.png", 230, 190)
     kind.x = display.contentWidth /1.95
     kind.y = display.contentHeight/1.2
     kind.isVisible = false
@@ -790,19 +790,19 @@ function scene:create( event )
     comfort.isVisible = false
     comfort.name = "comfort"
 
-    sleep = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    sleep = display.newImageRect("Images for level three/Letthemsleep.png", 230, 190)
     sleep.x = display.contentWidth /4
     sleep.y = display.contentHeight/1.18
     sleep.isVisible = false
     sleep.name = "sleep"
 
-    annoying = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    annoying = display.newImageRect("Images for level three/Beannoying.png", 230, 190)
     annoying.x = display.contentWidth /1.95
     annoying.y = display.contentHeight/1.2
     annoying.isVisible = false
     annoying.name = "annoying"
 
-    care = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    care = display.newImageRect("Images for level three/Helpthem.png", 230, 190)
     care.x = display.contentWidth /1.3
     care.y = display.contentHeight/1.2
     care.isVisible = false
