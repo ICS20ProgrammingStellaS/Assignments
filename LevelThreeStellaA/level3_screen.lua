@@ -356,7 +356,7 @@ end
 
 function AskQuestionLevel3()
     randomOperator = math.random (1, 15)
-
+    randomOperator = 12
     incorrect.isVisible = false
     correct.isVisible = false
     HideImages()
@@ -772,9 +772,9 @@ function scene:create( event )
     talk.isVisible = false
     talk.name = "talk"
 
-    listen = display.newImageRect("Images for level three/IDK.png", 230, 190)
+    listen = display.newImageRect("Images for level three/Listentothem.png", 230, 190)
     listen.x = display.contentWidth /4
-    listen.y = display.contentHeight/1.18
+    listen.y = display.contentHeight/1.2
     listen.isVisible = false
     listen.name = "listen"
 
