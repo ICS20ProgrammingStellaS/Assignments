@@ -95,6 +95,8 @@ local scene = composer.newScene( sceneName )
 
     local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
     local youLoseSoundChannel
+    local youWinSound = audio.loadSound("Sounds/youWonSound.mp3")
+    local youWinSoundChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -162,7 +164,7 @@ local function TouchListenerAnswer(event)
     
         if (points == 5) then
             composer.gotoScene( "YouWin_screen" )
-
+            youWinSoundChannel = audio.play(youWinSound)
             correct.isVisible = true
 
             -- play correct sound 
@@ -270,7 +272,7 @@ end
 function RemoveTouchListenersQ2()
     ice:removeEventListener("touch", TouchListenerAnswer)
     bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
+    stitches:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveTouchListenersQ3()
@@ -441,8 +443,8 @@ function AskQuestionLevel1()
         bandaid.isVisible = true
         bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        tweezers.isVisible = true
-        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 3) then
 

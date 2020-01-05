@@ -10,7 +10,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "YouLin_screen"
+sceneName = "YouWin_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -19,21 +19,12 @@ local scene = composer.newScene( sceneName )
 
 
 -----------------------------------------------------------------------------------------
--- SOUNDS
+-- FORWARD REFERENCES
 -----------------------------------------------------------------------------------------
 
-local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
-local youLoseSoundChannel= audio.play( youLoseSound, {channel=11} )
-
------------------------------------------------------------------------------------------
--- LOCAL VARIABLES
------------------------------------------------------------------------------------------
 -- local variables for the scene
 local bkg
 local mainMenuButton
-
---local tryAgain = audio.loadSound( "Sounds/loseGameSound.mp3")
---local tryAgainChannel
 
 -- variables for images
 local scrollSpeed1 = 2
@@ -48,7 +39,7 @@ local animation
 -- Description: This function adds the scroll speed to the x-value of the animation. 
 
 local function Animation(create)
-    animation = display.newImageRect("Images for level three/YAY.png", 350, 250)
+    animation = display.newImageRect("Images for level one/YAY.png", 350, 250)
     animation.x = 200
     animation.y = 175
 end
@@ -84,7 +75,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg = display.newImage("Images for level three/YouLose.png")
+    bkg = display.newImage("Images for level one/YouWin.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
@@ -109,8 +100,8 @@ function scene:create( event )
         -- height = 106,
 
         -- Setting Visual Properties
-        defaultFile = "Images for level three/MainMenuButton.png",
-        overFile = "Images for level three/MainMenuButtonPressed.png",
+        defaultFile = "Images for level one/MainMenuButton.png",
+        overFile = "Images for level one/MainMenuButtonPressed.png",
 
         -- Setting Functional Properties
         onRelease = MainMenuTransition
@@ -123,7 +114,7 @@ function scene:create( event )
     sceneGroup:insert( mainMenuButton )
 
 
-    animation = display.newImageRect("Images for level three/TryAgain.png", 350, 250)
+    animation = display.newImageRect("Images for level one/YAY.png", 350, 250)
     animation.x = 200
     animation.y = 175
     -- Associating display objects with this scene 
@@ -156,8 +147,6 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         print("animation")
-        audio.play(youLoseSoundChannel)
-        --tryAgainChannel = audio.play(tryAgain)
         animation.x = 200
         animation.y = 175
         Runtime:addEventListener("enterFrame", MoveImageGIF) 
@@ -186,7 +175,6 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        youLoseSound = audio.stop()
 
     -----------------------------------------------------------------------------------------
 

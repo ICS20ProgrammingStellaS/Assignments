@@ -93,6 +93,11 @@ local scene = composer.newScene( sceneName )
     local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
     local wrongSoundChannel
 
+    local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
+    local youLoseSoundChannel
+    local youWinSound = audio.loadSound("Sounds/youWonSound.mp3")
+    local youWinSoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -160,9 +165,7 @@ local function TouchListenerAnswer(event)
     
         if (points == 5) then
             composer.gotoScene( "YouWin_screen" )
-
-            -- play correct sound 
-            correctSoundChannel = audio.play(correctSound)
+            youWinSoundChannel = audio.play(youWinSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel1 )
@@ -200,9 +203,7 @@ local function TouchListenerWrongAnswer1(event)
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
-
-            -- play incorrect sound 
-            wrongSoundChannel = audio.play(wrongSound)
+            youLoseSoundChannel = audio.play(youLoseSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel1 )
@@ -241,11 +242,9 @@ local function TouchListenerWrongAnswer2(event)
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
+            youLoseSoundChannel = audio.play(youLoseSound)
 
             incorrect.isVisible = false
-
-            -- play incorrect sound 
-            wrongSoundChannel = audio.play(wrongSound)
 
         else
             --AskQuestionLevel1()
@@ -265,7 +264,7 @@ end
 function RemoveTouchListenersQ2()
     ice:removeEventListener("touch", TouchListenerAnswer)
     bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
-    tweezers:removeEventListener("touch", TouchListenerWrongAnswer2)
+    stitches:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
 function RemoveTouchListenersQ3()
@@ -436,8 +435,8 @@ function AskQuestionLevel1()
         bandaid.isVisible = true
         bandaid:addEventListener("touch", TouchListenerWrongAnswer1)
 
-        tweezers.isVisible = true
-        tweezers:addEventListener("touch", TouchListenerWrongAnswer2)
+        stitches.isVisible = true
+        stitches:addEventListener("touch", TouchListenerWrongAnswer2)
 
     elseif (randomOperator == 3) then
 

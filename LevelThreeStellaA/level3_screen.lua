@@ -91,7 +91,6 @@ local scene = composer.newScene( sceneName )
 
     local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
     local youLoseSoundChannel
-
     local youWinSound = audio.loadSound("Sounds/youWonSound.mp3")
     local youWinSoundChannel
 
