@@ -19,12 +19,16 @@ local scene = composer.newScene( sceneName )
 
 
 -----------------------------------------------------------------------------------------
--- FORWARD REFERENCES
+-- SOUNDS
 -----------------------------------------------------------------------------------------
 
+-----------------------------------------------------------------------------------------
+-- LOCAL VARIABLES
+-----------------------------------------------------------------------------------------
 -- local variables for the scene
 local bkg
 local mainMenuButton
+
 
 -- variables for images
 local scrollSpeed1 = 2
@@ -175,7 +179,6 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then

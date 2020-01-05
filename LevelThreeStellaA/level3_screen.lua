@@ -89,6 +89,12 @@ local scene = composer.newScene( sceneName )
     local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
     local wrongSoundChannel
 
+    local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
+    local youLoseSoundChannel
+
+    local youWinSound = audio.loadSound("Sounds/youWonSound.mp3")
+    local youWinSoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -157,9 +163,8 @@ local function TouchListenerAnswer(event)
     
         if (points == 5) then
             composer.gotoScene( "YouWin_screen" )
+            youWinSoundChannel = audio.play(youWinSound)
 
-            -- play correct sound 
-            --correctSoundChannel = audio.play(correctSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel3 )
@@ -197,6 +202,7 @@ local function TouchListenerWrongAnswer1(event)
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
+            youLoseSoundChannel = audio.play(youLoseSound)
 
             -- play incorrect sound 
             --wrongSoundChannel = audio.play(wrongSound)

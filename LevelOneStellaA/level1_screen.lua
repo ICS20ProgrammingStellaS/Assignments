@@ -93,6 +93,8 @@ local scene = composer.newScene( sceneName )
     local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
     local wrongSoundChannel
 
+    local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
+    local youLoseSoundChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -202,6 +204,7 @@ local function TouchListenerWrongAnswer1(event)
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
+            youLoseSoundChannel = audio.play(youLoseSound)
 
             incorrect.isVisible = true
 
@@ -245,11 +248,9 @@ local function TouchListenerWrongAnswer2(event)
         
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
+            youLoseSoundChannel = audio.play(youLoseSound)
 
             incorrect.isVisible = true
-
-            -- play incorrect sound 
-            wrongSoundChannel = audio.play(wrongSound)
 
         else
             --AskQuestionLevel1()
