@@ -191,11 +191,11 @@ local function TouchListenerWrongAnswer1(event)
 
         print("wronganswer1")
 
-        if (lives == 3) then
+        if (lives == 2) then
             aidKit1.isVisible = false
-        elseif (lives == 2) then
-            aidKit2.isVisible = false
         elseif (lives == 1) then
+            aidKit2.isVisible = false
+        elseif (lives == 0) then
             aidKit3.isVisible = false
         end
         
