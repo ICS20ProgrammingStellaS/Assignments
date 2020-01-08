@@ -100,7 +100,7 @@ function scene:create( event )
         -- height = 106,
 
         -- Setting Visual Properties
-        defaultFile = "Images for level three/LevelSelectButton.png",
+        defaultFile = "Images for level three/levelSelectButton.png",
         overFile = "Images for level three/levelSelectButtonPressed.png",
 
         -- Setting Functional Properties

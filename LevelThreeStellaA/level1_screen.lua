@@ -160,9 +160,6 @@ local function TouchListenerAnswer(event)
         print("correct")
         correct.isVisible = true
 
-        --hide the correct text object after a second
-        timer.performWithDelay(1000, HideCorrect)
-
         --print (points)
         points = points + 1
 
@@ -671,13 +668,7 @@ function AskQuestionLevel1()
 end
 
 -------------------------------------------------------------------------------------------------------------------------
--- hide correctObject
-local function HideCorrect()
-    correct.isVisible = false
-    AskQuestionLevel()
-end
-
------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 
